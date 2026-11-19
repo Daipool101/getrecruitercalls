@@ -51,6 +51,8 @@ Owner's instruction: *clean, simple, professional, call-to-action focused; don't
 
 - **2026-11-19 (deploy prep)** — Found getrecruitercalls.com is NOT registered yet (RDAP 404). Code pushed to GitHub `Daipool101/getrecruitercalls` (push from this PC works as collaborator AkashCuddles). Owner deploys via Cloudflare dashboard "Import a repository" on their own Cloudflare account. Config changed for first deploy: `workers_dev: true`, `routes` and `send_email` commented out (re-enable after domain + Email Routing), D1 `database_id` removed (wrangler auto-provisions), Worker self-creates the `leads` table. Until email is on, leads are only in D1 (email_status = skipped).
 
+- **2026-11-19 (LIVE)** — Deployed via Cloudflare Workers Builds (GitHub import) on Cloudflare account of tsupport76: https://getrecruitercalls.tsupport76.workers.dev . Live tests 29/29 pass; one test lead "Live Test (Claude)" (id 1) saved in production D1 — safe to delete. Every push to `main` auto-deploys. Next: buy getrecruitercalls.com in this Cloudflare account → uncomment `routes`; enable Email Routing + verify Gmail → uncomment `send_email`.
+
 ## Ideas for later (not built — owner said don't add extra things)
 - Hindi versions of key pages (`/hi/…`) to rank for Hindi searches.
 - More guides: "Naukri profile summary examples", "How to update Naukri profile daily", "Key skills for <role>", city pages.
