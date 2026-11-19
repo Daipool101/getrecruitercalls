@@ -1,0 +1,54 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "getrecruitercalls",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-11-01",
+
+  // Static site is generated into ./public by build.mjs (runs automatically before dev/deploy).
+  "build": {
+    "command": "node build.mjs"
+  },
+
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    // Only /api/* hits the Worker code; every other request is served straight from static assets (fast + cheap).
+    "run_worker_first": ["/api/*"]
+  },
+
+  // Custom domain. Requires getrecruitercalls.com to be an active zone in your Cloudflare account.
+  "routes": [
+    { "pattern": "getrecruitercalls.com", "custom_domain": true },
+    { "pattern": "www.getrecruitercalls.com", "custom_domain": true }
+  ],
+
+  // D1 database that stores every lead (form submission).
+  // After `npx wrangler d1 create getrecruitercalls-db`, paste the database_id it prints below.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "getrecruitercalls-db",
+      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+
+  // Email notification via Cloudflare Email Routing (free).
+  // The destination address must be a VERIFIED destination in Email Routing for getrecruitercalls.com.
+  "send_email": [
+    {
+      "name": "SEND_EMAIL",
+      "destination_address": "nishit.salian02@gmail.com"
+    }
+  ],
+
+  "vars": {
+    "NOTIFY_TO": "nishit.salian02@gmail.com",
+    "NOTIFY_FROM": "leads@getrecruitercalls.com",
+    "SITE_URL": "https://getrecruitercalls.com"
+  },
+
+  "observability": { "enabled": true }
+}

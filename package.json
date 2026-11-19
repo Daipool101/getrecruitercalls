@@ -1,0 +1,19 @@
+{
+  "name": "getrecruitercalls",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GetRecruiterCalls.com — Naukri profile & resume optimization website (Cloudflare Workers + D1).",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply getrecruitercalls-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply getrecruitercalls-db --remote",
+    "leads:remote": "wrangler d1 execute getrecruitercalls-db --remote --command \"SELECT id, created_at, name, phone, email, experience, target_role, email_status FROM leads ORDER BY id DESC LIMIT 50\"",
+    "test": "node tests/smoke.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.165.0"
+  }
+}
