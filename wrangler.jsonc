@@ -18,31 +18,34 @@
     "run_worker_first": ["/api/*"]
   },
 
-  // Custom domain. Requires getrecruitercalls.com to be an active zone in your Cloudflare account.
-  "routes": [
-    { "pattern": "getrecruitercalls.com", "custom_domain": true },
-    { "pattern": "www.getrecruitercalls.com", "custom_domain": true }
-  ],
+  // Free address: https://getrecruitercalls.<your-account>.workers.dev
+  "workers_dev": true,
+
+  // STEP 2 (after buying getrecruitercalls.com in this Cloudflare account): uncomment to attach the domain.
+  // "routes": [
+  //   { "pattern": "getrecruitercalls.com", "custom_domain": true },
+  //   { "pattern": "www.getrecruitercalls.com", "custom_domain": true }
+  // ],
 
   // D1 database that stores every lead (form submission).
-  // After `npx wrangler d1 create getrecruitercalls-db`, paste the database_id it prints below.
+  // No database_id needed: `wrangler deploy` creates the database automatically on first deploy,
+  // and the Worker creates the `leads` table itself on the first form submission.
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "getrecruitercalls-db",
-      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
       "migrations_dir": "migrations"
     }
   ],
 
-  // Email notification via Cloudflare Email Routing (free).
-  // The destination address must be a VERIFIED destination in Email Routing for getrecruitercalls.com.
-  "send_email": [
-    {
-      "name": "SEND_EMAIL",
-      "destination_address": "nishit.salian02@gmail.com"
-    }
-  ],
+  // STEP 3 (after Email Routing is enabled for getrecruitercalls.com and the Gmail below is VERIFIED):
+  // uncomment to email every lead. Until then leads are only saved in the D1 database.
+  // "send_email": [
+  //   {
+  //     "name": "SEND_EMAIL",
+  //     "destination_address": "nishit.salian02@gmail.com"
+  //   }
+  // ],
 
   "vars": {
     "NOTIFY_TO": "nishit.salian02@gmail.com",

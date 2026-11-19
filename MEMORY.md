@@ -49,6 +49,8 @@ Owner's instruction: *clean, simple, professional, call-to-action focused; don't
 
 - **2026-11-19 (v2)** — Owner asked for a more beautiful site with less text. Home now: hero with palette-card visual, 3 steps, 2 service cards, form section, 4 FAQs. Service pages trimmed to: what you get (colour tiles) + form + 3 FAQs. "How it works" removed from nav. Guides and legal pages kept (needed for SEO/legal).
 
+- **2026-11-19 (deploy prep)** — Found getrecruitercalls.com is NOT registered yet (RDAP 404). Code pushed to GitHub `Daipool101/getrecruitercalls` (push from this PC works as collaborator AkashCuddles). Owner deploys via Cloudflare dashboard "Import a repository" on their own Cloudflare account. Config changed for first deploy: `workers_dev: true`, `routes` and `send_email` commented out (re-enable after domain + Email Routing), D1 `database_id` removed (wrangler auto-provisions), Worker self-creates the `leads` table. Until email is on, leads are only in D1 (email_status = skipped).
+
 ## Ideas for later (not built — owner said don't add extra things)
 - Hindi versions of key pages (`/hi/…`) to rank for Hindi searches.
 - More guides: "Naukri profile summary examples", "How to update Naukri profile daily", "Key skills for <role>", city pages.

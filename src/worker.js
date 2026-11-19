@@ -81,6 +81,8 @@ async function handleLead(request, env, ctx) {
     return reply(422, { ok: false, error: errors[0], errors });
   }
 
+  await ensureSchema(env);
+
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   const ipHash = await sha256(`${ip}|getrecruitercalls`);
   const userAgent = clean(request.headers.get("User-Agent"), 300);
@@ -119,6 +121,31 @@ async function handleLead(request, env, ctx) {
   ctx.waitUntil(notifyOwner(env, lead, leadId));
 
   return reply(200, { ok: true, id: leadId || null });
+}
+
+/* ------------------------------------------------------------------ */
+/* Database schema (self-creating, mirrors migrations/0001)            */
+/* ------------------------------------------------------------------ */
+
+let schemaReady = false;
+async function ensureSchema(env) {
+  if (schemaReady) return;
+  try {
+    await env.DB.batch([
+      env.DB.prepare(`CREATE TABLE IF NOT EXISTS leads (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+        name TEXT NOT NULL, phone TEXT NOT NULL, email TEXT NOT NULL,
+        naukri_url TEXT, resume_url TEXT, experience TEXT, target_role TEXT, message TEXT,
+        source_page TEXT, utm_source TEXT, utm_medium TEXT, utm_campaign TEXT,
+        ip_hash TEXT, user_agent TEXT, email_status TEXT NOT NULL DEFAULT 'pending')`),
+      env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_leads_created_at ON leads (created_at)"),
+      env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_leads_ip_hash ON leads (ip_hash, created_at)"),
+    ]);
+    schemaReady = true;
+  } catch (err) {
+    console.error("schema setup failed", err);
+  }
 }
 
 /* ------------------------------------------------------------------ */

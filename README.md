@@ -29,55 +29,40 @@ Edit content in `site/` (never in `public/`, which is regenerated).
 
 ---
 
-## Deploy to Cloudflare (one-time setup)
+## Deploy to Cloudflare (from GitHub — no commands needed)
 
-### 1. Add the domain to Cloudflare
-Cloudflare dashboard → **Add a domain** → `getrecruitercalls.com` → change the nameservers at your domain registrar to the two Cloudflare gives you. Wait until the domain shows **Active**.
+### Step 1 — Put the site live on a free address
+1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Import a repository**.
+2. Connect GitHub and pick **Daipool101/getrecruitercalls**.
+3. Settings:
+   - Project name: `getrecruitercalls`
+   - Build command: *(leave empty)*
+   - Deploy command: `npx wrangler deploy`
+4. Click **Deploy**.
 
-### 2. Turn on Email Routing (for lead emails + hello@ address)
-Dashboard → `getrecruitercalls.com` → **Email** → **Email Routing** → **Enable** (Cloudflare adds the MX/SPF DNS records for you).
-1. **Destination addresses** → add `nishit.salian02@gmail.com` → open Gmail and click the **verify** link. *(Lead emails will not send until this is verified.)*
-2. **Routing rules → Custom addresses** → create `hello@getrecruitercalls.com` → action *Send to* `nishit.salian02@gmail.com`.
+Cloudflare builds the site, **creates the D1 database automatically**, and gives you a free URL like
+`https://getrecruitercalls.<your-account>.workers.dev`. The `leads` table is created by the Worker on the first form submission.
+Every push to `main` on GitHub redeploys automatically.
 
-The website sends lead emails **from** `leads@getrecruitercalls.com` **to** your Gmail. Check your Spam folder the first time and mark it "Not spam".
+See leads anytime: dashboard → **Storage & Databases → D1 → getrecruitercalls-db → Console** → run
+`SELECT * FROM leads ORDER BY id DESC;`
 
-### 3. Log in and create the database
-```bash
-npx wrangler login
-npx wrangler d1 create getrecruitercalls-db
-```
-Copy the `database_id` it prints and paste it into `wrangler.jsonc` (replace `REPLACE_WITH_YOUR_D1_DATABASE_ID`). Then create the table:
-```bash
-npm run db:migrate:remote
-```
+### Step 2 — Connect the domain getrecruitercalls.com
+1. Buy it in the same Cloudflare account: **Domain Registration → Register Domains** → `getrecruitercalls.com`.
+   (If bought elsewhere: **Add a domain** and change nameservers at your registrar.)
+2. In `wrangler.jsonc`, uncomment the `"routes"` block, push to GitHub.
+3. Dashboard → `getrecruitercalls.com` → **Rules → Redirect Rules → template "Redirect from WWW to root"**.
 
-### 4. Deploy
-**Option A — from your computer:**
-```bash
-npm run deploy
-```
-**Option B — automatic from GitHub (recommended):** push this repo to GitHub → Cloudflare dashboard → **Workers & Pages → Create → Import a repository** → pick the repo.
-- Build command: *(leave empty — wrangler runs `node build.mjs` itself)*
-- Deploy command: `npx wrangler deploy`
+### Step 3 — Turn on lead emails
+1. Dashboard → `getrecruitercalls.com` → **Email → Email Routing → Enable**.
+2. **Destination addresses** → add `nishit.salian02@gmail.com` → click the verify link in Gmail.
+3. **Custom addresses** → create `hello@getrecruitercalls.com` → send to the Gmail.
+4. In `wrangler.jsonc`, uncomment the `"send_email"` block, push to GitHub.
+5. Submit the form once and check Gmail (and Spam the first time).
 
-Every push to `main` then redeploys the site.
-
-`wrangler.jsonc` attaches `getrecruitercalls.com` and `www.getrecruitercalls.com` automatically.
-
-### 5. Redirect www → main domain
-Dashboard → `getrecruitercalls.com` → **Rules → Redirect Rules → Create from template → "Redirect from WWW to root"** → Deploy. (Canonical tags already point to `https://getrecruitercalls.com`.)
-
-### 6. Test the live site
-1. Open https://getrecruitercalls.com/api/health → should show `{"ok":true,…}`
-2. Submit the form once with your own details → check Gmail.
-3. See saved leads anytime:
-```bash
-npm run leads:remote
-```
-4. Read-only tests against the live site:
-```bash
-BASE=https://getrecruitercalls.com READONLY=1 npm test
-```
+### Test the live site
+- `https://<your-site>/api/health` → `{"ok":true,…}`
+- Read-only tests: `BASE=https://<your-site> READONLY=1 npm test`
 
 ---
 
