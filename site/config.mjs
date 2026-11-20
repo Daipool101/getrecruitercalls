@@ -62,13 +62,16 @@ export const PLANS = [
     ],
   },
 ];
+// Referral partners earn this % of the plan their friend buys (keep in sync with src/referral.js → REFERRAL_RATE).
+export const REFERRAL_PERCENT = 20;
+
 export const inr = (n) => "₹" + Number(n).toLocaleString("en-IN");
 
 export const NAV = [
   { href: "/pricing/", label: "Pricing" },
   { href: "/naukri-profile-optimization/", label: "Naukri Profile" },
   { href: "/naukri-job-application-service/", label: "We Apply For You" },
-  { href: "/blog/", label: "Guides" },
+  { href: "/refer/", label: "Refer & Earn 20%" },
   { href: "/faq/", label: "FAQ" },
 ];
 

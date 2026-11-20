@@ -9,6 +9,7 @@ Key facts:
 - Who it is for: freshers and experienced professionals across India, IT and non-IT roles, people on notice period, after layoffs, career switchers and those with career gaps.
 - How it works: candidate uploads resume and shares Naukri login email/mobile on the website -> chooses a plan -> WhatsApp confirmation and payment -> optimization (and applications on Done-For-You) -> recruiter calls typically start within about a week (not guaranteed).
 - Passwords are never collected on the website; Naukri account access is arranged privately on WhatsApp after a plan is chosen. No fake experience is added.
+- Refer & Earn: anyone can join at https://getshortlisted.in/refer/ and earn 20% (₹1,200 or ₹1,800) when a friend they refer buys a plan, paid to Google Pay / UPI.
 - Contact: WhatsApp (button on the site), hello@getshortlisted.in, or the form at https://getshortlisted.in/contact/
 
 ## Services & pricing
@@ -16,6 +17,9 @@ Key facts:
 - [Naukri Profile Optimization](https://getshortlisted.in/naukri-profile-optimization/): What is optimized in a Naukri profile and why keywords decide recruiter visibility.
 - [Naukri Job Application Service](https://getshortlisted.in/naukri-job-application-service/): Done-for-you job search — for 1 month we manage the Naukri profile and apply to relevant jobs according to the candidate's profile.
 - [ATS-Friendly Resume Writing](https://getshortlisted.in/resume-optimization/): Keyword-optimized resume writing for Indian job seekers.
+
+## Refer & Earn
+- [Refer & Earn 20%](https://getshortlisted.in/refer/): referral programme — your code is your first name.
 
 ## Guides
 - [Not getting calls from Naukri? 9 reasons and fixes](https://getshortlisted.in/blog/not-getting-calls-from-naukri/)

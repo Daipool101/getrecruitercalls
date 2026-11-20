@@ -1,6 +1,6 @@
 import { leadForm, faqList, faqSchema, serviceSchema, pricingCards, waButton } from "../layout.mjs";
 import { ICON } from "../icons.mjs";
-import { SITE, PLANS, inr } from "../config.mjs";
+import { SITE, PLANS, inr, REFERRAL_PERCENT } from "../config.mjs";
 
 const [MAKEOVER, DFY] = PLANS;
 
@@ -162,6 +162,17 @@ const body = `
       <p>Fix your profile once — or hand over your whole Naukri job search.</p>
     </div>
     ${pricingCards({ from: "home-plans" })}
+  </div>
+</section>
+
+<section class="ref-band">
+  <div class="wrap ref-band-inner">
+    <div>
+      <span class="ref-tag ref-tag-lg">Refer &amp; Earn ${REFERRAL_PERCENT}%</span>
+      <h2>Know someone not getting calls? Earn ${PLANS.map((p) => inr(Math.round((p.price * REFERRAL_PERCENT) / 100))).join(" – ")} per referral.</h2>
+      <p>Get your code in 30 seconds. When your friend buys a plan, you get ${REFERRAL_PERCENT}% on Google Pay.</p>
+    </div>
+    <a class="btn btn-gold btn-lg btn-shine" href="/refer/">Get my referral code</a>
   </div>
 </section>
 

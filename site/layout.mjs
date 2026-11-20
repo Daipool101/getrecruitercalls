@@ -1,4 +1,4 @@
-import { SITE, NAV, EXPERIENCE_OPTIONS, PLANS, inr } from "./config.mjs";
+import { SITE, NAV, EXPERIENCE_OPTIONS, PLANS, inr, REFERRAL_PERCENT } from "./config.mjs";
 import { logoMark, WORDMARK } from "./brand.mjs";
 
 export const esc = (s = "") =>
@@ -196,6 +196,11 @@ export function leadForm({ heading = "Get shortlisted on Naukri", sub = "Takes 6
     <label for="${id("role")}">Target job role <span class="opt">(optional)</span></label>
     <input id="${id("role")}" name="target_role" type="text" maxlength="120" placeholder="e.g. Data Analyst, Sales Manager">
   </div>
+  <div class="field ref-field">
+    <label for="${id("ref")}">Referred by someone? <span class="opt">(optional)</span></label>
+    <input id="${id("ref")}" name="referral" type="text" maxlength="80" autocomplete="off" spellcheck="false" placeholder="Referral code or friend’s name" data-ref-input>
+    <p class="hint" data-ref-status>Leave empty if no one referred you.</p>
+  </div>
   ${compact ? "" : `<div class="field">
     <label for="${id("msg")}">Anything else? <span class="opt">(optional)</span></label>
     <textarea id="${id("msg")}" name="message" rows="3" maxlength="1500" placeholder="Notice period, preferred city, current CTC, problem you are facing..."></textarea>
@@ -210,6 +215,7 @@ export function leadForm({ heading = "Get shortlisted on Naukri", sub = "Takes 6
   <p class="form-status" role="status" aria-live="polite"></p>
   <p class="form-legal">By submitting, you agree to our <a href="/privacy-policy/">Privacy Policy</a> and <a href="/terms/">Terms</a>. No spam, ever.</p>
   <p class="form-alt">Prefer chatting? ${waButton({ from: "form", label: "WhatsApp us", cls: "wa-link" })}</p>
+  <p class="form-alt"><a class="ref-tag" href="/refer/">Refer friends &amp; earn ${REFERRAL_PERCENT}%</a></p>
 </form>`;
 }
 
@@ -358,6 +364,8 @@ ${body}
       <ul>
         <li><a href="/about/">About</a></li>
         <li><a href="/contact/">Contact</a></li>
+        <li><a href="/refer/">Refer &amp; Earn ${REFERRAL_PERCENT}%</a></li>
+        <li><a href="/blog/">All guides</a></li>
         <li><a href="/privacy-policy/">Privacy Policy</a></li>
         <li><a href="/terms/">Terms of Service</a></li>
       </ul>

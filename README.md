@@ -5,6 +5,7 @@ Naukri profile & resume optimization website. Cloudflare Workers (hosting) + D1 
 - How it is built → [ARCHITECTURE.md](ARCHITECTURE.md)
 - Project facts, decisions, open items → [MEMORY.md](MEMORY.md)
 - SEO & GEO lead strategy → [docs/SEO-GEO-STRATEGY.md](docs/SEO-GEO-STRATEGY.md)
+- Refer & Earn (20%) — flow + how to track and pay partners → [docs/REFERRALS.md](docs/REFERRALS.md)
 
 ---
 

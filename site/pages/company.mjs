@@ -1,6 +1,6 @@
 import { leadForm, faqList, faqSchema, ctaBand, breadcrumbSchema, breadcrumbs, esc, waButton } from "../layout.mjs";
 import { HOME_FAQS } from "./home.mjs";
-import { SITE, PLANS, inr } from "../config.mjs";
+import { SITE, PLANS, inr, REFERRAL_PERCENT } from "../config.mjs";
 
 const hero = (crumbs, eyebrow, h1, lead) => `
 <section class="page-hero">
@@ -162,9 +162,10 @@ ${hero(privacyCrumbs, "", "Privacy Policy", `Last updated: 21 November 2026`)}
   <li>Name, mobile number, email address</li>
   <li>Your resume file (PDF or Word) and the information contained in it</li>
   <li>The email address or mobile number you use to log in to Naukri</li>
-  <li>The plan you are interested in</li>
+  <li>The plan you are interested in, and the referral code or name of anyone who referred you</li>
   <li>Experience level, target job role and any message you choose to share</li>
 </ul>
+<p><strong>Referral partners</strong> additionally give us their name, mobile number, Google Pay / UPI number and email, used only to run the referral programme and send their earnings.</p>
 <p><strong>Information collected automatically:</strong></p>
 <ul>
   <li>The page you submitted the form from and campaign tags (UTM parameters) in the URL</li>
@@ -269,6 +270,14 @@ ${hero(termsCrumbs, "", "Terms of Service", "Last updated: 21 November 2026")}
 
 <h2>6. Fees and payments</h2>
 <p>Fees are as listed on our <a href="/pricing/">pricing page</a> and confirmed before work starts. Unless otherwise agreed in writing, work begins after payment is received. Any refund or revision terms will be shared with you at the time of order and form part of these Terms.</p>
+
+<h2 id="referral">6A. Refer &amp; Earn programme</h2>
+<ul>
+  <li>Partners who sign up at <a href="/refer/">/refer/</a> get a referral code (their first name, with a number if needed).</li>
+  <li>A partner earns ${REFERRAL_PERCENT}% of the plan fee actually paid by a new client who used their code, link or name. Payment is made to the partner’s Google Pay / UPI number after we receive the client’s payment.</li>
+  <li>Referrals of yourself (same mobile number), fake or duplicate sign-ups, and clients who don’t pay are not eligible. One partner per client — the code or name entered on the client’s form decides.</li>
+  <li>We may verify referrals with the client and may change or end the programme at any time; commissions already earned will still be paid.</li>
+</ul>
 
 <h2>7. Intellectual property</h2>
 <p>The website content, design, logo and guides are owned by ${esc(SITE.name)}. Once fully paid, the profile text and resume we create for you are yours to use for your personal job search.</p>

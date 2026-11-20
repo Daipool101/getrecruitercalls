@@ -5,6 +5,8 @@
  * This Worker only handles /api/* (see run_worker_first in wrangler.jsonc):
  *   POST /api/lead      -> validate (+ optional Turnstile), save lead + resume to D1, email the owner (resume attached)
  *   GET  /api/whatsapp  -> 302 to wa.me/<WHATSAPP_NUMBER> (number lives only in a Cloudflare secret, never in HTML)
+ *   POST /api/referrer  -> referral partner signup → returns their code (first name, e.g. AKASH / AKASH2)
+ *   GET  /api/ref       -> ?code=AKASH → { ok, code, first_name } (pre-fills "Referred by" on the form)
  *   GET  /api/health    -> simple health check
  *
  * Secrets / variables (Cloudflare dashboard → Worker → Settings → Variables and Secrets):
@@ -14,11 +16,15 @@
  *   NOTIFY_FROM, SITE_URL (plain vars in wrangler.jsonc)
  */
 import { EmailMessage } from "cloudflare:email";
+import {
+  SOURCE, SOURCE_LABEL, REFERRAL_RATE, codeBase, codeCandidates, normalizeCode, cleanReferralInput, localMobile, classifyReferral, inr,
+} from "./referral.js";
 
 const MAX = { name: 80, phone: 20, email: 120, login: 120, experience: 40, plan: 40, target_role: 120, message: 1500, utm: 100, page: 200 };
 const EXPERIENCE_OPTIONS = ["Fresher (0-1 yr)", "1-3 yrs", "3-6 yrs", "6-10 yrs", "10-15 yrs", "15+ yrs"];
 const PLANS = { makeover: "Profile Makeover (₹6,000)", "done-for-you": "Done-For-You Job Search (₹9,000)" };
 const RATE_LIMIT_PER_HOUR = 20;
+const PARTNER_SIGNUPS_PER_HOUR = 10;
 const MAX_FILE = 1_900_000; // D1 rows are limited to 2 MB
 const MAX_BODY = 2_500_000; // whole request (file + fields)
 const FILE_TYPES = {
@@ -33,6 +39,10 @@ export default {
     let res;
     if (url.pathname === "/api/lead") {
       res = request.method === "POST" ? await handleLead(request, env, ctx) : json({ ok: false, error: "Method not allowed" }, 405, { Allow: "POST" });
+    } else if (url.pathname === "/api/referrer") {
+      res = request.method === "POST" ? await handleReferrer(request, env, ctx) : json({ ok: false, error: "Method not allowed" }, 405, { Allow: "POST" });
+    } else if (url.pathname === "/api/ref") {
+      res = await handleRefLookup(url, env);
     } else if (url.pathname === "/api/whatsapp") {
       res = handleWhatsApp(url, env);
     } else if (url.pathname === "/api/health") {
@@ -124,6 +134,7 @@ async function handleLead(request, env, ctx) {
     utm_source: clean(data.utm_source, MAX.utm),
     utm_medium: clean(data.utm_medium, MAX.utm),
     utm_campaign: clean(data.utm_campaign, MAX.utm),
+    referral_input: cleanReferralInput(data.referral),
   };
 
   let resume = null;
@@ -154,17 +165,23 @@ async function handleLead(request, env, ctx) {
     console.error("rate-limit check failed", err);
   }
 
+  // Referral: organic / referral / referral-unverified / self-referral (+ 20% commission when verified).
+  Object.assign(lead, await resolveReferral(env, lead));
+
   let leadId;
   try {
     const res = await env.DB.prepare(
       `INSERT INTO leads (name, phone, email, naukri_login, plan, resume_name, experience, target_role, message,
-                          source_page, utm_source, utm_medium, utm_campaign, ip_hash, user_agent)
-       VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15)`
+                          source_page, utm_source, utm_medium, utm_campaign, ip_hash, user_agent,
+                          lead_source, referral_input, referral_code, referrer_id, referral_note, commission_inr, commission_status)
+       VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18, ?19, ?20, ?21, ?22)`
     ).bind(
       lead.name, lead.phone, lead.email, lead.naukri_login || null, lead.plan || null, lead.resume_name || null,
       lead.experience || null, lead.target_role || null, lead.message || null,
       lead.source_page || null, lead.utm_source || null, lead.utm_medium || null, lead.utm_campaign || null,
-      ipHash, userAgent
+      ipHash, userAgent,
+      lead.lead_source, lead.referral_input || null, lead.referral_code || null, lead.referrer_id || null,
+      lead.referral_note || null, lead.commission_inr || 0, lead.commission_inr ? "pending" : null
     ).run();
     leadId = res.meta && res.meta.last_row_id;
     if (leadId && resume) {
@@ -177,7 +194,161 @@ async function handleLead(request, env, ctx) {
   }
 
   ctx.waitUntil(notifyOwner(env, lead, leadId, resume));
-  return reply(200, { ok: true, id: leadId || null });
+  return reply(200, { ok: true, id: leadId || null, source: lead.lead_source });
+}
+
+/* ------------------------------------------------------------------ */
+/* Referral programme                                                  */
+/* ------------------------------------------------------------------ */
+
+async function resolveReferral(env, lead) {
+  const input = lead.referral_input;
+  let byCode = null, byName = [], sameBaseCount = 0;
+  if (input) {
+    try {
+      const code = normalizeCode(input);
+      if (code) {
+        byCode = await env.DB.prepare("SELECT id, code, name, phone, upi_phone FROM referrers WHERE code = ?1").bind(code).first();
+        const base = code.replace(/\d+$/, "");
+        const row = await env.DB.prepare("SELECT COUNT(*) AS n FROM referrers WHERE code_base = ?1").bind(base).first();
+        sameBaseCount = row ? row.n : 0;
+      }
+      if (!byCode) {
+        const r = await env.DB.prepare("SELECT id, code, name, phone, upi_phone FROM referrers WHERE lower(name) = lower(?1) LIMIT 5").bind(input).all();
+        byName = (r && r.results) || [];
+      }
+    } catch (err) {
+      console.error("referral lookup failed", err);
+    }
+  }
+  const c = classifyReferral({ input, byCode, byName, sameBaseCount, leadPhone: lead.phone, plan: lead.plan });
+  return {
+    lead_source: c.source,
+    referral_code: c.referrer ? c.referrer.code : "",
+    referrer_id: c.referrer ? c.referrer.id : null,
+    referrer: c.referrer,
+    referral_note: c.note,
+    commission_inr: c.commission,
+  };
+}
+
+async function handleRefLookup(url, env) {
+  const code = normalizeCode(url.searchParams.get("code"));
+  if (!code) return json({ ok: false }, 404);
+  try {
+    await ensureSchema(env);
+    const r = await env.DB.prepare("SELECT code, name FROM referrers WHERE code = ?1").bind(code).first();
+    if (!r) return json({ ok: false }, 404);
+    return json({ ok: true, code: r.code, first_name: String(r.name).split(" ")[0] });
+  } catch (err) {
+    console.error("ref lookup failed", err);
+    return json({ ok: false }, 500);
+  }
+}
+
+async function handleReferrer(request, env, ctx) {
+  const wantsJson = (request.headers.get("Accept") || "").includes("application/json");
+  const reply = (status, body) => {
+    if (wantsJson) return json(body, status);
+    const target = body.ok && body.code ? `/refer/?code=${encodeURIComponent(body.code)}` : "/refer/?error=1";
+    return Response.redirect(new URL(target, request.url).toString(), 303);
+  };
+
+  const origin = request.headers.get("Origin");
+  if (origin) {
+    let host = "";
+    try { host = new URL(origin).host; } catch {}
+    if (host !== new URL(request.url).host) return reply(403, { ok: false, error: "Invalid origin." });
+  }
+  if (Number(request.headers.get("Content-Length") || 0) > 20_000) return reply(413, { ok: false, error: "Request too large." });
+
+  let data;
+  try {
+    ({ data } = await readBody(request));
+  } catch {
+    return reply(400, { ok: false, error: "Could not read the form. Please try again." });
+  }
+  if (clean(data.company_website, 200)) return reply(200, { ok: true });
+
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  if (env.TURNSTILE_SECRET) {
+    const passed = await verifyTurnstile(env.TURNSTILE_SECRET, data["cf-turnstile-response"], ip);
+    if (!passed) return reply(403, { ok: false, error: "Quick security check failed. Please refresh the page and try again." });
+  }
+
+  const p = {
+    name: clean(data.name, MAX.name),
+    phone: localMobile(data.phone),
+    upi_phone: localMobile(data.upi_same ? data.phone : data.upi_phone),
+    email: clean(data.email, MAX.email).toLowerCase(),
+  };
+  if (p.name.length < 2) return reply(422, { ok: false, error: "Please enter your full name." });
+  if (!p.phone) return reply(422, { ok: false, error: "Please enter a valid 10-digit mobile number." });
+  if (!p.upi_phone) return reply(422, { ok: false, error: "Please enter the 10-digit number linked to your Google Pay / UPI." });
+  if (!EMAIL_RE.test(p.email)) return reply(422, { ok: false, error: "Please enter a valid email address." });
+
+  await ensureSchema(env);
+
+  // Already a partner with this mobile → give the same code back (also works as "forgot my code").
+  const existing = await env.DB.prepare("SELECT code, name FROM referrers WHERE phone = ?1").bind(p.phone).first();
+  if (existing) return reply(200, { ok: true, existing: true, code: existing.code, name: existing.name, link: shareLink(env, existing.code) });
+
+  const ipHash = await sha256(`${ip}|getrecruitercalls`);
+  try {
+    const row = await env.DB.prepare(
+      "SELECT COUNT(*) AS n FROM referrers WHERE ip_hash = ?1 AND created_at > strftime('%Y-%m-%dT%H:%M:%SZ', 'now', '-1 hour')"
+    ).bind(ipHash).first();
+    if (row && row.n >= PARTNER_SIGNUPS_PER_HOUR) return reply(429, { ok: false, error: "Too many sign-ups from this network. Please try again later." });
+  } catch (err) {
+    console.error("partner rate-limit check failed", err);
+  }
+
+  const base = codeBase(p.name);
+  let code = "";
+  for (const candidate of codeCandidates(p.name)) {
+    try {
+      await env.DB.prepare(
+        "INSERT INTO referrers (code, code_base, name, phone, upi_phone, email, ip_hash) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)"
+      ).bind(candidate, base, p.name, p.phone, p.upi_phone, p.email, ipHash).run();
+      code = candidate;
+      break;
+    } catch (err) {
+      const msg = String(err && err.message || err);
+      if (!/UNIQUE/i.test(msg)) { console.error("partner insert failed", err); break; }
+      if (/phone/i.test(msg)) { // same phone registered a moment ago
+        const again = await env.DB.prepare("SELECT code, name FROM referrers WHERE phone = ?1").bind(p.phone).first();
+        if (again) return reply(200, { ok: true, existing: true, code: again.code, name: again.name, link: shareLink(env, again.code) });
+      }
+    }
+  }
+  if (!code) return reply(500, { ok: false, error: "Could not create your code right now. Please try again or WhatsApp us." });
+
+  ctx.waitUntil(notifyNewPartner(env, { ...p, code }));
+  return reply(200, { ok: true, existing: false, code, name: p.name, link: shareLink(env, code) });
+}
+
+const shareLink = (env, code) => `${(env.SITE_URL || "https://getshortlisted.in").replace(/\/$/, "")}/?ref=${encodeURIComponent(code)}`;
+
+async function notifyNewPartner(env, p) {
+  try {
+    if (!(env.SEND_EMAIL && env.NOTIFY_TO && env.NOTIFY_FROM)) return;
+    const rows = [["Name", p.name], ["Referral code", p.code], ["Mobile / WhatsApp", p.phone], ["Google Pay / UPI number", p.upi_phone], ["Email", p.email], ["Share link", shareLink(env, p.code)]];
+    const text = `New referral partner on GetShortlisted.in\n\n${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\nThey earn ${Math.round(REFERRAL_RATE * 100)}% of every plan bought by people they refer.\n`;
+    const html = cardHtml({
+      kicker: "New referral partner",
+      title: `${p.name} joined Refer & Earn`,
+      rows,
+      buttons: [[`https://wa.me/91${p.phone}`, "#1DA851", `WhatsApp ${p.name.split(" ")[0]}`]],
+      footer: `Code <b>${esc(p.code)}</b>. They earn ${Math.round(REFERRAL_RATE * 100)}% of every plan bought by people they refer — pay to the Google Pay / UPI number above after the client pays.`,
+    });
+    const raw = buildMime({
+      from: `GetShortlisted Referrals <${env.NOTIFY_FROM}>`, fromAddr: env.NOTIFY_FROM, to: env.NOTIFY_TO, replyTo: p.email,
+      subject: `New referral partner: ${p.name} (${p.code})`, text, html,
+    });
+    await env.SEND_EMAIL.send(new EmailMessage(env.NOTIFY_FROM, env.NOTIFY_TO, raw));
+  } catch (err) {
+    console.error("partner email failed", err && err.message ? err.message : err);
+  }
 }
 
 async function verifyTurnstile(secret, token, ip) {
@@ -235,9 +406,18 @@ async function ensureSchema(env) {
         lead_id INTEGER NOT NULL, filename TEXT NOT NULL, mime TEXT NOT NULL, size INTEGER NOT NULL, data BLOB NOT NULL,
         created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')))`),
       env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_resumes_lead ON resumes (lead_id)"),
+      env.DB.prepare(`CREATE TABLE IF NOT EXISTS referrers (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%SZ', 'now')),
+        code TEXT NOT NULL UNIQUE, code_base TEXT NOT NULL, name TEXT NOT NULL,
+        phone TEXT NOT NULL UNIQUE, upi_phone TEXT NOT NULL, email TEXT NOT NULL, ip_hash TEXT,
+        status TEXT NOT NULL DEFAULT 'active')`),
+      env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_referrers_base ON referrers (code_base)"),
+      env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_referrers_ip ON referrers (ip_hash, created_at)"),
     ]);
     // v2 columns (migrations/0002). ALTER fails harmlessly if the column already exists.
-    for (const col of ["naukri_login TEXT", "plan TEXT", "resume_name TEXT"]) {
+    for (const col of ["naukri_login TEXT", "plan TEXT", "resume_name TEXT", "lead_source TEXT", "referral_input TEXT", "referral_code TEXT",
+                       "referrer_id INTEGER", "referral_note TEXT", "commission_inr INTEGER", "commission_status TEXT"]) {
       try { await env.DB.prepare(`ALTER TABLE leads ADD COLUMN ${col}`).run(); } catch {}
     }
     schemaReady = true;
@@ -323,7 +503,7 @@ async function notifyOwner(env, lead, leadId, resume) {
         fromAddr: env.NOTIFY_FROM,
         to: env.NOTIFY_TO,
         replyTo: lead.email,
-        subject: `New lead: ${lead.name} — ${planLabel} (${lead.experience || "exp n/a"})`,
+        subject: `[${lead.lead_source === SOURCE.REFERRAL ? `Referral: ${lead.referral_code}` : SOURCE_LABEL[lead.lead_source] || "Organic"}] New lead: ${lead.name} — ${planLabel}`,
         text: leadText(lead, leadId),
         html: leadHtml(lead, leadId),
         attachment: resume,
@@ -348,11 +528,25 @@ async function notifyOwner(env, lead, leadId, resume) {
 }
 
 const FIELDS = [
+  ["Lead source", "source_label"], ["Referred by", "referrer_label"], ["Referrer Google Pay / UPI", "referrer_upi"],
+  ["Referral commission (20%)", "commission_label"], ["Referral note", "referral_note"], ["Referral typed by client", "referral_typed"],
   ["Name", "name"], ["Phone / WhatsApp", "phone"], ["Email", "email"], ["Plan", "plan_label"], ["Naukri login", "naukri_login"],
   ["Resume", "resume_name"], ["Experience", "experience"], ["Target role", "target_role"], ["Message", "message"],
   ["Submitted from", "source_page"], ["UTM source", "utm_source"], ["UTM medium", "utm_medium"], ["UTM campaign", "utm_campaign"],
 ];
-const withLabels = (lead) => ({ ...lead, plan_label: PLANS[lead.plan] || "Plan not chosen", resume_name: lead.resume_name ? `${lead.resume_name} (attached)` : "" });
+const withLabels = (lead) => {
+  const r = lead.referrer;
+  return {
+    ...lead,
+    plan_label: PLANS[lead.plan] || "Plan not chosen",
+    resume_name: lead.resume_name ? `${lead.resume_name} (attached)` : "",
+    source_label: SOURCE_LABEL[lead.lead_source] || "Organic",
+    referrer_label: r ? `${r.name} · code ${r.code} · ${r.phone}` : "",
+    referrer_upi: r && lead.lead_source === SOURCE.REFERRAL ? r.upi_phone : "",
+    commission_label: lead.commission_inr ? `${inr(lead.commission_inr)} — pay after this client pays` : "",
+    referral_typed: lead.lead_source === SOURCE.UNVERIFIED ? lead.referral_input : "",
+  };
+};
 
 function leadText(lead, id) {
   const l = withLabels(lead);
@@ -394,7 +588,7 @@ function leadHtml(lead, id) {
 <tr><td align="center" style="padding:16px 10px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:14px;border-collapse:separate;overflow:hidden">
 <tr><td style="${F}background:#0F3D3A;padding:20px">
-  <div style="font-size:12px;line-height:18px;letter-spacing:.06em;text-transform:uppercase;color:#F4B13B;font-weight:700">New lead${id ? ` #${id}` : ""} · ${esc(l.plan_label)}</div>
+  <div style="font-size:12px;line-height:18px;letter-spacing:.06em;text-transform:uppercase;color:#F4B13B;font-weight:700">New lead${id ? ` #${id}` : ""} · ${esc(l.plan_label)} · ${esc(l.source_label)}</div>
   <div style="font-size:21px;line-height:28px;font-weight:700;color:#FFFFFF;margin-top:6px">${esc(lead.name)} wants to get shortlisted</div>
 </td></tr>
 ${rows}
@@ -406,6 +600,24 @@ ${rows}
 </table>
 </td></tr></table>
 </body></html>`;
+}
+
+function cardHtml({ kicker, title, rows, buttons = [], footer = "" }) {
+  const F = "font-family:Arial,Helvetica,sans-serif;";
+  const body = rows.filter(([, v]) => v).map(([k, v]) => `
+<tr><td style="${F}padding:12px 20px;border-bottom:1px solid #EEF0F3">
+  <div style="font-size:11px;line-height:16px;letter-spacing:.06em;text-transform:uppercase;color:#6B7280;font-weight:700">${esc(k)}</div>
+  <div style="font-size:16px;line-height:22px;color:#111827;margin-top:2px;word-break:break-word;overflow-wrap:anywhere">${esc(v)}</div>
+</td></tr>`).join("");
+  const btns = buttons.map(([href, bg, label]) => `<tr><td style="${F}padding:12px 20px 4px"><a href="${esc(href)}" style="${F}display:block;background:${bg};color:#ffffff;text-decoration:none;font-weight:700;font-size:16px;line-height:20px;padding:14px 16px;border-radius:10px;text-align:center">${esc(label)}</a></td></tr>`).join("");
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><title>${esc(title)}</title></head>
+<body style="margin:0;padding:0;background:#F3F4F6"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F3F4F6"><tr><td align="center" style="padding:16px 10px">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:14px;border-collapse:separate;overflow:hidden">
+<tr><td style="${F}background:#1F48D1;padding:20px"><div style="font-size:12px;line-height:18px;letter-spacing:.06em;text-transform:uppercase;color:#FFD27A;font-weight:700">${esc(kicker)}</div>
+<div style="font-size:21px;line-height:28px;font-weight:700;color:#FFFFFF;margin-top:6px">${esc(title)}</div></td></tr>
+${body}${btns}
+<tr><td style="${F}padding:14px 20px 20px;font-size:12px;line-height:18px;color:#6B7280">${footer}</td></tr>
+</table></td></tr></table></body></html>`;
 }
 
 function b64bytes(bytes) {
@@ -468,4 +680,4 @@ function buildMime({ from, fromAddr, to, replyTo, subject, text, html, attachmen
 }
 
 // Exported for tests.
-export const _internal = { validate, clean, buildMime, checkFile, EXPERIENCE_OPTIONS };
+export const _internal = { validate, clean, buildMime, checkFile, EXPERIENCE_OPTIONS, resolveReferral };

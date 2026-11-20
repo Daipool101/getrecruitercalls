@@ -862,3 +862,39 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
 .plan-price small { display: block; margin-top: 8px; font-size: .85rem; font-weight: 700; letter-spacing: .02em; color: var(--m-blue-2); }
 .plan-featured .plan-price small { color: #FFD27A; }
 .price-chip .term { color: var(--m-navy); font-weight: 700; font-size: .9rem; }
+
+/* ---------- Referral programme ---------- */
+.ref-tag { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; font-weight: 800; letter-spacing: .02em; color: #7A4B00; background: linear-gradient(135deg, #FFE7A8, #FFD27A); padding: 5px 12px; border-radius: 999px; text-decoration: none; }
+.ref-tag::before { content: "₹"; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: #F4B13B; color: #fff; font-size: .7rem; }
+.ref-tag:hover { color: #5C3800; filter: brightness(1.03); }
+.ref-tag-lg { font-size: .85rem; margin-bottom: 12px; }
+.ref-field .hint.ok { color: #1A7F4B; font-weight: 700; }
+.ref-field .hint.warn { color: var(--muted); }
+.ref-band { background: linear-gradient(135deg, #FFF7E3, #FFEFD0); border-top: 1px solid #F6E2B3; border-bottom: 1px solid #F6E2B3; padding: 40px 0; }
+.ref-band-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.ref-band h2 { font-size: clamp(1.35rem, 2.6vw, 1.9rem); margin: 0 0 6px; color: var(--m-navy); }
+.ref-band p { margin: 0; color: #5B4A2A; }
+.ref-steps { list-style: none; counter-reset: rs; padding: 0; margin: 0 0 22px; display: grid; gap: 12px; }
+.ref-steps li { counter-increment: rs; position: relative; padding: 14px 16px 14px 58px; background: #fff; border: 1px solid var(--line); border-radius: 14px; display: grid; gap: 2px; }
+.ref-steps li::before { content: counter(rs); position: absolute; left: 14px; top: 14px; width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: var(--m-blue); color: #fff; font-weight: 800; }
+.ref-steps b { color: var(--m-navy); }
+.ref-steps span { color: var(--muted); font-size: .95rem; }
+.ref-steps code { background: var(--m-soft); color: var(--m-blue-2); padding: 1px 6px; border-radius: 6px; font-weight: 700; }
+.earn-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.earn-card { background: linear-gradient(160deg, #1F48D1, #0B1F4B); color: #DCE5FA; border-radius: 16px; padding: 16px 18px; display: grid; gap: 4px; }
+.earn-card b { color: #FFD27A; font-size: 1.25rem; }
+.check { display: flex; align-items: center; gap: 10px; font-size: .92rem; color: var(--ink); cursor: pointer; }
+.check input { width: 20px; height: 20px; accent-color: var(--m-blue); }
+.ref-done { text-align: center; }
+.ref-code { font-size: clamp(2rem, 7vw, 2.8rem); font-weight: 800; letter-spacing: .08em; color: var(--m-blue-2); background: var(--m-soft); border: 2px dashed #9DB5F5; border-radius: 16px; padding: 14px; }
+.ref-link { display: flex; gap: 8px; }
+.ref-link input { flex: 1; min-width: 0; font: inherit; font-size: .9rem; padding: 10px 12px; border: 1.5px solid #D6DEEC; border-radius: 10px; background: #F7F9FC; color: var(--ink); }
+@media (max-width: 760px) {
+  .earn-cards { grid-template-columns: 1fr; }
+  .ref-band { padding: 32px 0; }
+  .ref-band-inner .btn { width: 100%; }
+}
+
+/* The hidden attribute must always win over display:grid/flex on components. */
+[hidden] { display: none !important; }
+.ref-code { font-size: clamp(1.4rem, 7.5vw, 2.6rem); letter-spacing: .04em; overflow-wrap: anywhere; word-break: break-all; line-height: 1.15; }

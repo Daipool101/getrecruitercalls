@@ -120,6 +120,61 @@ if (!READONLY) {
   r = await fetch(BASE + "/api/lead", { method: "POST", redirect: "manual", body: fd });
   ok(r.status === 303 && (r.headers.get("location") || "").endsWith("/thank-you/"), "no-JS form post redirects to /thank-you/");
 
+  // ---------------- Referral programme ----------------
+  console.log("\nReferrals:");
+  const rnd = () => Array.from({ length: 6 }, () => "abcdefghijklmnopqrstuvwxyz"[Math.floor(Math.random() * 26)]).join("");
+  const first = "Zz" + rnd();
+  const CODE = first.toUpperCase();
+  const phoneA = "9" + String(Math.floor(1e8 + Math.random() * 8e8)).padStart(9, "0");
+  const phoneB = "8" + String(Math.floor(1e8 + Math.random() * 8e8)).padStart(9, "0");
+  const partner = (fields) => {
+    const fd = new FormData();
+    for (const [k, v] of Object.entries(fields)) fd.append(k, v);
+    return fetch(BASE + "/api/referrer", { method: "POST", headers: { Accept: "application/json" }, body: fd });
+  };
+
+  r = await partner({ name: `${first} Tester`, phone: phoneA, upi_same: "1", email: "partner.a@example.com" });
+  j = await r.json();
+  ok(r.status === 200 && j.ok && j.code === CODE && !j.existing && j.link.endsWith(`/?ref=${CODE}`), `partner sign-up returns code ${j.code}`);
+
+  r = await partner({ name: `${first} Again`, phone: `+91 ${phoneA}`, upi_same: "1", email: "partner.a2@example.com" });
+  j = await r.json();
+  ok(r.status === 200 && j.ok && j.existing && j.code === CODE, "same mobile again returns the existing code");
+
+  r = await partner({ name: `${first} Second`, phone: phoneB, upi_phone: "9123456780", email: "partner.b@example.com" });
+  j = await r.json();
+  ok(r.status === 200 && j.ok && j.code === `${CODE}2`, `same first name gets ${CODE}2`);
+
+  r = await partner({ name: "X", phone: phoneB, upi_same: "1", email: "a@b.co" });
+  ok(r.status === 422, "partner: short name rejected");
+  r = await partner({ name: "Valid Name", phone: "12345", upi_same: "1", email: "a@b.co" });
+  ok(r.status === 422, "partner: bad mobile rejected");
+  r = await partner({ name: "Valid Name", phone: "9876501234", upi_phone: "", email: "a@b.co" });
+  ok(r.status === 422, "partner: missing Google Pay number rejected");
+  r = await partner({ name: "Valid Name", phone: "9876501234", upi_same: "1", email: "nope" });
+  ok(r.status === 422, "partner: bad email rejected");
+  r = await partner({ name: "Bot", phone: "9876501234", upi_same: "1", email: "a@b.co", company_website: "x" });
+  j = await r.json();
+  ok(r.status === 200 && j.ok && !j.code, "partner: honeypot ignored");
+
+  r = await fetch(`${BASE}/api/ref?code=${CODE.toLowerCase()}`);
+  j = await r.json();
+  ok(r.status === 200 && j.ok && j.code === CODE && j.first_name === first, "code lookup returns first name only");
+  r = await fetch(`${BASE}/api/ref?code=NOSUCHCODE999`);
+  ok(r.status === 404, "unknown code lookup -> 404");
+
+  const lead = (extra) => post({ ...valid, name: `Ref ${rnd()}`, ...extra });
+  r = await lead({ referral: "" }); j = await r.json();
+  ok(j.ok && j.source === "organic", "lead without referral -> organic");
+  r = await lead({ referral: CODE.toLowerCase(), plan: "done-for-you" }); j = await r.json();
+  ok(j.ok && j.source === "referral", "lead with code -> referral");
+  r = await lead({ referral: `${first} tester` }); j = await r.json();
+  ok(j.ok && j.source === "referral", "lead with partner's full name -> referral");
+  r = await lead({ referral: "Some Random Person" }); j = await r.json();
+  ok(j.ok && j.source === "referral-unverified", "lead with unknown name -> referral-unverified");
+  r = await lead({ referral: CODE, phone: phoneA }); j = await r.json();
+  ok(j.ok && j.source === "self-referral", "partner using own code -> self-referral");
+
   // Rate limit: 20 per IP per hour (2 already saved above) -> eventually 429
   let saw429 = false;
   for (let i = 0; i < 25; i++) {

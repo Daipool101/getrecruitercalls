@@ -65,6 +65,8 @@ Owner's instruction: *clean, simple, professional, call-to-action focused; don't
 
 - **2026-11-21** — Done-For-You Job Search price changed ₹8,000 → **₹9,000** (owner request). Profile Makeover stays ₹6,000.
 
+- **2026-11-21 (Refer & Earn)** — Referral programme: partners sign up at /refer/ (name, WhatsApp, Google Pay/UPI number, email) → code = first name in caps (AKASH, AKASH2…); same phone returns existing code. Every lead form has an optional "Referred by" (code or full name), auto-filled from ?ref= links (localStorage 30 days). Leads are tagged organic / referral / referral-unverified / self-referral; verified referrals store 20% commission (₹1,200 / ₹1,800) with commission_status pending→paid/cancelled. Emails show the source in the subject. Logic in src/referral.js (unit-tested: npm run test:unit). Owner guide + SQL: docs/REFERRALS.md. Nav: "Guides" replaced by "Refer & Earn 20%" (guides still in footer).
+
 ## Ideas for later (not built — owner said don't add extra things)
 - Hindi versions of key pages (`/hi/…`) to rank for Hindi searches.
 - More guides: "Naukri profile summary examples", "How to update Naukri profile daily", "Key skills for <role>", city pages.

@@ -23,6 +23,7 @@ Getrecruitercalls/
 ├── wrangler.jsonc            Cloudflare config (assets, D1, send_email, vars, custom domain)
 ├── package.json              npm scripts (dev, deploy, migrations, tests)
 ├── build.mjs                 Static site generator → writes ./public (runs automatically on dev/deploy)
+├── src/referral.js          Referral programme logic (codes, matching, 20% commission) — unit-tested
 ├── src/worker.js             Worker: /api/lead, /api/health; everything else → static assets
 ├── migrations/               D1 SQL migrations (0001_create_leads.sql)
 ├── site/

@@ -111,7 +111,7 @@ These bring leads in days, not months. Always link to the site with UTM tags so 
 | **Reddit** (r/developersIndia, r/IndianWorkplace, r/india_jobs, r/Btechtards) | Answer "not getting calls" posts genuinely. Mention the site only when relevant and allowed by the subreddit's rules. | Low cost, high trust |
 | **Quora** | Answer 5 questions/week on Naukri, resume, job switch. Link the matching guide. | Low |
 | **College placement cells / alumni groups** | Offer a free "Naukri profile session" for final-year students → leads + backlinks from college sites. | Medium |
-| **Referral** | Give past clients ₹500 off / cashback for each referral who buys. | Low |
+| **Refer & Earn 20%** | Live at /refer/. Ask every happy client to join and share their link — they earn ₹1,200–₹1,800 per referral. Track and pay with docs/REFERRALS.md. | Low |
 
 ---
 

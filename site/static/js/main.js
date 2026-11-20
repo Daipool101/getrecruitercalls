@@ -182,3 +182,115 @@
     });
   });
 })();
+
+// ---------------- Refer & Earn ----------------
+// ?ref=AKASH on any page is remembered for 30 days and pre-fills "Referred by" on every lead form.
+(function () {
+  "use strict";
+  var KEY = "gs_ref", DAYS = 30, CODE_RE = /^[A-Za-z]{2,12}\d{0,3}$/;
+  function save(code) { try { localStorage.setItem(KEY, JSON.stringify({ c: code, t: Date.now() })); } catch (e) {} }
+  function load() {
+    try {
+      var v = JSON.parse(localStorage.getItem(KEY) || "null");
+      if (v && v.c && Date.now() - v.t < DAYS * 864e5) return v.c;
+    } catch (e) {}
+    return "";
+  }
+  function lookup(code, cb) {
+    fetch("/api/ref?code=" + encodeURIComponent(code), { headers: { Accept: "application/json" } })
+      .then(function (r) { return r.ok ? r.json() : { ok: false }; })
+      .then(cb)
+      .catch(function () { cb({ ok: false }); });
+  }
+
+  var params = new URLSearchParams(location.search);
+  var fromUrl = (params.get("ref") || "").trim();
+  if (CODE_RE.test(fromUrl)) save(fromUrl.toUpperCase());
+  var stored = load();
+
+  Array.prototype.forEach.call(document.querySelectorAll("[data-ref-input]"), function (input) {
+    var status = input.parentNode.querySelector("[data-ref-status]");
+    var initial = status ? status.textContent : "";
+    function show(msg, cls) { if (status) { status.textContent = msg; status.className = "hint" + (cls ? " " + cls : ""); } }
+    function check() {
+      var v = input.value.trim();
+      if (!v) return show(initial);
+      if (!CODE_RE.test(v)) return show("Thanks — we’ll match this name with our partners.", "warn");
+      lookup(v, function (j) {
+        if (input.value.trim() !== v) return;
+        if (j && j.ok) show("✓ Referred by " + j.first_name + " (code " + j.code + ")", "ok");
+        else show("We couldn’t find this code — we’ll match it by name.", "warn");
+      });
+    }
+    if (stored && !input.value) { input.value = stored; check(); }
+    input.addEventListener("change", check);
+    input.addEventListener("blur", check);
+  });
+
+  // Partner sign-up form on /refer/
+  var form = document.querySelector("[data-ref-form]");
+  var done = document.querySelector("[data-ref-done]");
+  if (!form || !done) return;
+  var el = form.elements;
+  var status = form.querySelector(".form-status");
+  var button = form.querySelector('button[type="submit"]');
+  var same = form.querySelector("[data-upi-same]");
+  var upiField = form.querySelector("[data-upi-field]");
+  function syncUpi() { upiField.hidden = same.checked; }
+  same.addEventListener("change", syncUpi);
+  syncUpi();
+
+  function mobile(v) { var d = String(v || "").replace(/\D/g, "").replace(/^91(?=\d{10}$)/, "").replace(/^0(?=\d{10}$)/, ""); return /^[6-9]\d{9}$/.test(d) ? d : ""; }
+  function setError(msg, field) {
+    status.textContent = msg; status.className = "form-status err";
+    if (field) { field.setAttribute("aria-invalid", "true"); field.focus(); }
+    return false;
+  }
+  form.addEventListener("input", function (e) { if (e.target.hasAttribute("aria-invalid")) e.target.removeAttribute("aria-invalid"); });
+
+  function showDone(res) {
+    var link = res.link || (location.origin + "/?ref=" + res.code);
+    form.hidden = true;
+    done.hidden = false;
+    done.querySelector("[data-ref-code]").textContent = res.code;
+    done.querySelector("[data-ref-hello]").textContent = (res.name ? res.name.split(" ")[0] + ", your" : "Your") + " referral code";
+    done.querySelector("[data-ref-link]").value = link;
+    var msg = "Not getting calls from Naukri? GetShortlisted fixes your Naukri profile & resume so recruiters call you. Use my referral code " + res.code + ": " + link;
+    done.querySelector("[data-ref-share]").href = "https://wa.me/?text=" + encodeURIComponent(msg);
+    done.querySelector("[data-ref-existing]").hidden = !res.existing;
+    try { done.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (x) {}
+  }
+
+  var copyBtn = done.querySelector("[data-ref-copy]");
+  copyBtn.addEventListener("click", function () {
+    var box = done.querySelector("[data-ref-link]");
+    function ok() { copyBtn.textContent = "Copied"; setTimeout(function () { copyBtn.textContent = "Copy"; }, 1800); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(box.value).then(ok, function () { box.select(); document.execCommand("copy"); ok(); });
+    else { box.select(); document.execCommand("copy"); ok(); }
+  });
+
+  // No-JS fallback lands on /refer/?code=AKASH
+  if (params.get("code") && CODE_RE.test(params.get("code"))) showDone({ code: params.get("code").toUpperCase() });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    Array.prototype.forEach.call(form.querySelectorAll("[aria-invalid]"), function (n) { n.removeAttribute("aria-invalid"); });
+    if (el.name.value.trim().length < 2) return setError("Please enter your full name.", el.name);
+    if (!mobile(el.phone.value)) return setError("Please enter a valid 10-digit mobile number.", el.phone);
+    if (!same.checked && !mobile(el.upi_phone.value)) return setError("Please enter the 10-digit number linked to your Google Pay / UPI.", el.upi_phone);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(el.email.value.trim())) return setError("Please enter a valid email address.", el.email);
+
+    button.disabled = true;
+    var label = button.innerHTML;
+    button.textContent = "Creating your code…";
+    status.textContent = ""; status.className = "form-status";
+    fetch(form.action, { method: "POST", headers: { Accept: "application/json" }, body: new FormData(form) })
+      .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+      .then(function (res) {
+        button.disabled = false; button.innerHTML = label;
+        if (res && res.ok && res.code) showDone(res);
+        else { if (window.turnstile) try { window.turnstile.reset(); } catch (x) {} setError((res && res.error) || "Something went wrong. Please try again."); }
+      })
+      .catch(function () { button.disabled = false; button.innerHTML = label; setError("Network error. Please check your internet and try again."); });
+  });
+})();
