@@ -49,7 +49,7 @@ ${hero(aboutCrumbs, "About us", "We help good candidates get found by recruiters
         <li><strong>Where:</strong> Online, across India</li>
         <li><strong>Contact:</strong> <a href="mailto:${SITE.email}">${SITE.email}</a> or WhatsApp</li>
       </ul>
-      <a class="btn btn-gold btn-block" href="/contact/">Get my free profile check</a>
+      <a class="btn btn-gold btn-block" href="/contact/">Get Shortlisted</a>
     </div>
   </div>
 </section>
@@ -62,21 +62,21 @@ const contactCrumbs = [{ name: "Home", path: "/" }, { name: "Contact", path: "/c
 const contact = {
   path: "/contact/",
   title: "Contact Us — Get Your Naukri Profile & Resume Optimized",
-  description: "Upload your resume and get a free Naukri profile check from GetShortlisted. We reply on WhatsApp within 24 hours. Or chat with us on WhatsApp.",
+  description: "Upload your resume, pick a plan and get your Naukri profile optimized by GetShortlisted. We reply on WhatsApp within 24 hours.",
   priority: 0.8,
   schema: [
     breadcrumbSchema(contactCrumbs),
     { "@type": "ContactPage", name: "Contact GetShortlisted", url: `${SITE.url}/contact/`, about: { "@id": `${SITE.url}/#organization` } },
   ],
   body: `
-${hero(contactCrumbs, "Free profile check", "Get your Naukri profile & resume optimized", "Upload your resume in the short form. We’ll review your profile and message you on WhatsApp within 24 hours.")}
+${hero(contactCrumbs, "Get started", "Get your Naukri profile & resume optimized", "Upload your resume in the short form. We’ll review your profile and message you on WhatsApp within 24 hours.")}
 <section class="section">
   <div class="wrap contact-grid">
     <div class="prose">
       <h2 class="mt-0">What happens next?</h2>
       <ol>
-        <li><strong>Free profile check</strong> — we review your resume and Naukri profile the way a recruiter would.</li>
-        <li><strong>We message you on WhatsApp</strong> with what’s holding you back and the plan that fits: ${PLANS.map((p) => `${esc(p.name)} (${inr(p.price)})`).join(" or ")}.</li>
+        <li><strong>You share your details</strong> — resume, Naukri login email and the plan you want.</li>
+        <li><strong>We message you on WhatsApp</strong> within 24 hours to confirm your plan: ${PLANS.map((p) => `${esc(p.name)} (${inr(p.price)})`).join(" or ")}.</li>
         <li><strong>We optimize</strong> your Naukri profile and resume — and on Done-For-You, apply to jobs for you.</li>
         <li><strong>You start getting recruiter calls</strong> — and we help you stay visible.</li>
       </ol>
@@ -87,7 +87,7 @@ ${hero(contactCrumbs, "Free profile check", "Get your Naukri profile & resume op
       <p>We use your details only to provide our service. Your Naukri password is <b>never</b> typed on this website — we ask for it privately on WhatsApp after you choose a plan. We never sell your data. Read our <a href="/privacy-policy/">Privacy Policy</a>.</p>
     </div>
     <div id="get-started">
-      ${leadForm({ heading: "Get your free profile check", sub: "Takes 60 seconds. We reply on WhatsApp within 24 hours." })}
+      ${leadForm({ heading: "Get shortlisted on Naukri", sub: "Takes 60 seconds. We reply on WhatsApp within 24 hours." })}
     </div>
   </div>
 </section>`,
@@ -268,7 +268,7 @@ ${hero(termsCrumbs, "", "Terms of Service", "Last updated: 21 November 2026")}
 <p>We do not create fake experience, fake certificates or misleading claims. We may decline or stop work on any request that requires misrepresentation.</p>
 
 <h2>6. Fees and payments</h2>
-<p>Fees are as listed on our <a href="/pricing/">pricing page</a> and confirmed before work starts. The profile check is free. Unless otherwise agreed in writing, work begins after payment is received. Any refund or revision terms will be shared with you at the time of order and form part of these Terms.</p>
+<p>Fees are as listed on our <a href="/pricing/">pricing page</a> and confirmed before work starts. Unless otherwise agreed in writing, work begins after payment is received. Any refund or revision terms will be shared with you at the time of order and form part of these Terms.</p>
 
 <h2>7. Intellectual property</h2>
 <p>The website content, design, logo and guides are owned by ${esc(SITE.name)}. Once fully paid, the profile text and resume we create for you are yours to use for your personal job search.</p>
@@ -301,7 +301,7 @@ const thankYou = {
 <section class="page-hero"><div class="wrap">
   <span class="eyebrow">Request received</span>
   <h1>Thank you! We’ve got your details.</h1>
-  <p class="lead">Your free profile check has started. We’ll message you on WhatsApp within 24 hours — keep your phone handy.</p>
+  <p class="lead">We’ve received your details. We’ll message you on WhatsApp within 24 hours — keep your phone handy.</p>
   <p>${waButton({ from: "thank-you", label: "Chat on WhatsApp now" })}</p>
 </div></section>
 <section class="section"><div class="wrap">
@@ -326,7 +326,7 @@ const notFound = {
   <p class="lead">The page you’re looking for doesn’t exist or has moved.</p>
 </div></section>
 <section class="section"><div class="wrap">
-  <p><a class="btn btn-gold" href="/">Go to homepage</a> &nbsp; <a class="btn btn-dark" href="/contact/">Get my free profile check</a></p>
+  <p><a class="btn btn-gold" href="/">Go to homepage</a> &nbsp; <a class="btn btn-dark" href="/contact/">Get Shortlisted</a></p>
 </div></section>`,
 };
 

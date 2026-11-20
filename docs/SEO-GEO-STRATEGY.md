@@ -35,7 +35,7 @@ People don't search "Naukri profile optimization service" first. They search the
 | **Role-specific** | resume headline for java developer · key skills for HR executive naukri · sales executive resume | Role guides (Section 3) |
 | **Comparison** | is naukri fastforward worth it · naukri paid services review · resume writing service review | One honest comparison guide (Section 3) |
 
-**Rule:** every guide links to the matching service page and ends with the free profile check form + WhatsApp. Every service page links to 2–3 guides.
+**Rule:** every guide links to the matching service page and ends with the lead form + WhatsApp. Every service page links to 2–3 guides.
 
 ---
 
@@ -105,9 +105,9 @@ These bring leads in days, not months. Always link to the site with UTM tags so 
 
 | Channel | What to do | Effort |
 |---|---|---|
-| **Instagram Reels + YouTube Shorts** | 3 per week. 30-sec "Naukri mistake → fix" (screen recording of a blurred profile). Hook: "Applied to 100 jobs and no calls? It's probably this." CTA: "Free profile check — link in bio". | High impact |
+| **Instagram Reels + YouTube Shorts** | 3 per week. 30-sec "Naukri mistake → fix" (screen recording of a blurred profile). Hook: "Applied to 100 jobs and no calls? It's probably this." CTA: "Get shortlisted — link in bio". | High impact |
 | **LinkedIn (founder profile)** | 3 posts/week: before/after headlines, recruiter-search tips, client wins (with permission). Comment on job-seeker posts. | Medium |
-| **Telegram & WhatsApp job groups** | Share one free tip per day + the free profile check link. Don't spam; follow group rules. | Medium |
+| **Telegram & WhatsApp job groups** | Share one free tip per day + the website link. Don't spam; follow group rules. | Medium |
 | **Reddit** (r/developersIndia, r/IndianWorkplace, r/india_jobs, r/Btechtards) | Answer "not getting calls" posts genuinely. Mention the site only when relevant and allowed by the subreddit's rules. | Low cost, high trust |
 | **Quora** | Answer 5 questions/week on Naukri, resume, job switch. Link the matching guide. | Low |
 | **College placement cells / alumni groups** | Offer a free "Naukri profile session" for final-year students → leads + backlinks from college sites. | Medium |
@@ -142,7 +142,7 @@ These bring leads in days, not months. Always link to the site with UTM tags so 
 - **Before/after examples** — one Naukri headline + summary transformation per role (anonymised).
 - **Reply to every lead within 1 hour** on WhatsApp during working hours — speed doubles conversion.
 - **Response template**: greet → 3 specific problems you saw in their resume → recommend a plan → payment link.
-- Keep the free profile check genuinely useful; it's the reason people fill the form.
+- Show the price upfront and answer questions fast on WhatsApp — clear pricing + quick replies are what turn a form into a sale.
 
 ---
 

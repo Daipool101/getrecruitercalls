@@ -165,8 +165,8 @@
             try { if (window.gtag) window.gtag("event", "generate_lead"); } catch (x) {}
             form.innerHTML =
               '<div class="form-success"><div class="big"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6L20.1 8.4 18.7 7z" fill="#0F3D3A"/></svg></div>' +
-              '<h2 class="form-title">Done! Your free profile check has started.</h2>' +
-              '<p class="form-sub">We’ll message you on WhatsApp within 24 hours. Keep your phone handy.</p>' +
+              '<h2 class="form-title">Done! We’ve got your details.</h2>' +
+              '<p class="form-sub">We’ll message you on WhatsApp within 24 hours to confirm your plan. Keep your phone handy.</p>' +
               '<p class="form-sub" style="margin-top:14px"><a class="btn btn-wa btn-sm" href="/api/whatsapp?from=thanks" rel="nofollow">Chat on WhatsApp now</a></p></div>';
             form.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
           } else {

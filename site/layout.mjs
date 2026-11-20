@@ -142,7 +142,7 @@ export function waButton({ from = "site", plan = "", label = "Chat on WhatsApp",
   return `<a class="${cls}" href="${waHref(from, plan)}" rel="nofollow noopener" target="_blank">${WA_ICON}<span>${esc(label)}</span></a>`;
 }
 
-export function leadForm({ heading = "Get your free profile check", sub = "Takes 60 seconds. We reply on WhatsApp within 24 hours.", compact = false, plan = "" } = {}) {
+export function leadForm({ heading = "Get shortlisted on Naukri", sub = "Takes 60 seconds. We reply on WhatsApp within 24 hours.", compact = false, plan = "" } = {}) {
   const n = ++formCount;
   const id = (f) => `${f}-${n}`;
   return `<form class="lead-form${compact ? " compact" : ""}" action="/api/lead" method="post" enctype="multipart/form-data" novalidate data-lead-form>
@@ -187,9 +187,8 @@ export function leadForm({ heading = "Get your free profile check", sub = "Takes
     </div>
     <div class="field">
       <label for="${id("plan")}">Plan</label>
-      <select id="${id("plan")}" name="plan">
-        <option value="">Not sure yet — free check first</option>
-        ${PLANS.map((p) => `<option value="${p.id}"${p.id === plan ? " selected" : ""}>${esc(p.name)} · ${inr(p.price)}</option>`).join("")}
+      <select id="${id("plan")}" name="plan" required>
+        ${PLANS.map((p) => `<option value="${p.id}"${p.id === (plan || PLANS[0].id) ? " selected" : ""}>${esc(p.name)} · ${inr(p.price)}</option>`).join("")}
       </select>
     </div>
   </div>
@@ -207,7 +206,7 @@ export function leadForm({ heading = "Get your free profile check", sub = "Takes
   <input type="hidden" name="utm_source" value="">
   <input type="hidden" name="utm_medium" value="">
   <input type="hidden" name="utm_campaign" value="">
-  <button class="btn btn-gold btn-block btn-shine" type="submit">Get my free profile check</button>
+  <button class="btn btn-gold btn-block btn-shine" type="submit">Get Shortlisted</button>
   <p class="form-status" role="status" aria-live="polite"></p>
   <p class="form-legal">By submitting, you agree to our <a href="/privacy-policy/">Privacy Policy</a> and <a href="/terms/">Terms</a>. No spam, ever.</p>
   <p class="form-alt">Prefer chatting? ${waButton({ from: "form", label: "WhatsApp us", cls: "wa-link" })}</p>
@@ -232,14 +231,14 @@ export function pricingCards({ formPath = "", from = "pricing" } = {}) {
     </div>
   </article>`).join("")}
 </div>
-<p class="plans-note">Every plan starts with a <b>free profile check</b> — you pay only after you pick a plan. Results depend on your experience, skills and the job market, so no honest service can guarantee a job.</p>`;
+<p class="plans-note">Fill the form and we’ll confirm your plan on WhatsApp within 24 hours, before you pay. Results depend on your experience, skills and the job market, so no honest service can guarantee a job.</p>`;
 }
 
-export function ctaBand({ title = "Ready to get shortlisted?", text = "Upload your resume — we’ll show you exactly why recruiters are skipping you, free. Then we fix it, or run your whole job search for you." } = {}) {
+export function ctaBand({ title = "Ready to get shortlisted?", text = "Upload your resume and pick a plan. We fix your Naukri profile — or run your whole job search for you." } = {}) {
   return `<section class="cta-band"><div class="wrap cta-inner">
   <div><h2>${esc(title)}</h2><p>${esc(text)}</p></div>
   <div class="cta-btns">
-    <a class="btn btn-gold btn-lg btn-shine" href="/contact/">Get my free profile check</a>
+    <a class="btn btn-gold btn-lg btn-shine" href="/contact/">Get Shortlisted</a>
     ${waButton({ from: "cta-band", label: "WhatsApp us", cls: "btn btn-wa btn-lg" })}
   </div>
 </div></section>`;
@@ -321,7 +320,7 @@ ${SITE.turnstileSiteKey && /data-lead-form/.test(body) ? `<script src="https://c
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr">Menu</span><span class="bars" aria-hidden="true"></span></button>
     <nav id="site-nav" class="site-nav" aria-label="Main">
       <ul>${navLinks}</ul>
-      <a class="btn btn-gold btn-sm btn-shine" href="${ctaHref}">Free profile check</a>
+      <a class="btn btn-gold btn-sm btn-shine" href="${ctaHref}">Get Shortlisted</a>
     </nav>
   </div>
 </header>
@@ -373,7 +372,7 @@ ${body}
 </footer>
 ${showStickyCta ? `<div class="sticky-cta" data-sticky-cta>
   <a class="sticky-wa" href="${waHref("sticky")}" rel="nofollow noopener" target="_blank" aria-label="Chat with us on WhatsApp">${WA_ICON}</a>
-  <a class="btn btn-gold btn-shine sticky-main" href="${ctaHref}">Free profile check</a>
+  <a class="btn btn-gold btn-shine sticky-main" href="${ctaHref}">Get Shortlisted</a>
 </div>` : ""}
 ${noindex ? "" : `<a class="wa-float" href="${waHref("float")}" rel="nofollow noopener" target="_blank" aria-label="Chat with us on WhatsApp">${WA_ICON}<span>WhatsApp us</span></a>`}
 </body>

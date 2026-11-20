@@ -13,7 +13,11 @@ export const HOME_FAQS = [
   },
   {
     q: "How much does Naukri profile optimization cost?",
-    a: `<p>Our <b>${MAKEOVER.name}</b> (Naukri profile + ATS resume) is <b>${inr(MAKEOVER.price)}</b>. Our <b>${DFY.name}</b>, where we also manage your profile and apply to jobs on your behalf, is <b>${inr(DFY.price)}</b>. Every plan starts with a free profile check — you pay only after you choose a plan.</p>`,
+    a: `<p>Our <b>${MAKEOVER.name}</b> (Naukri profile + ATS resume) is <b>${inr(MAKEOVER.price)}</b>. Our <b>${DFY.name}</b>, where we also manage your profile and apply to jobs on your behalf, is <b>${inr(DFY.price)}</b>. We confirm everything with you on WhatsApp before you pay.</p>`,
+  },
+  {
+    q: "Why do you only work on Naukri and not LinkedIn or other job sites?",
+    a: "<p>Because Naukri is where Indian recruiters come looking for you. They search Naukri’s candidate database by keywords and call the profiles that match — so a strong Naukri profile brings calls even on days you don’t apply. On most other sites you apply and wait, or build a network for months. We put our effort where the phone actually rings, and we still keep your headline and summary ready to reuse on LinkedIn.</p>",
   },
   {
     q: "Why do you need my Naukri login?",
@@ -54,11 +58,11 @@ const body = `
       <h1>Get shortlisted. Get recruiter calls — <span class="hl">in about a week.</span></h1>
       <p class="lead">Recruiters search Naukri by keywords. If your profile doesn’t match, they never see you. We rewrite your Naukri profile and resume around what recruiters search — or run your whole job search for you.</p>
       <div class="hero-ctas">
-        <a class="btn btn-gold btn-lg btn-shine btn-pulse" href="#get-started">Get my free profile check</a>
+        <a class="btn btn-gold btn-lg btn-shine btn-pulse" href="#get-started">Get Shortlisted</a>
         <a class="btn btn-outline btn-lg" href="#plans">See plans · from ${inr(MAKEOVER.price)}</a>
       </div>
       <ul class="pills">
-        <li>Free profile check</li><li>Freshers to 15+ yrs</li><li>IT & non-IT</li>
+        <li>Reply in 24 hours</li><li>Freshers to 15+ yrs</li><li>IT & non-IT</li>
       </ul>
     </div>
 
@@ -86,17 +90,17 @@ const body = `
 <section class="section section-forest" id="get-started">
   <div class="wrap split split-center">
     <div class="form-intro">
-      <span class="kicker kicker-gold">Start here — it’s free</span>
-      <h2>Upload your resume. We’ll tell you why recruiters are skipping you.</h2>
-      <p>60 seconds to fill. A real person checks your profile the way a recruiter would and messages you on WhatsApp within 24 hours.</p>
+      <span class="kicker kicker-gold">Start here — takes 60 seconds</span>
+      <h2>Upload your resume. We’ll get recruiters calling.</h2>
+      <p>A real person messages you on WhatsApp within 24 hours to confirm your plan and get started.</p>
       <ul class="ticks">
-        <li>Free profile check before you pay anything</li>
+        <li>Plan confirmed on WhatsApp before you pay</li>
         <li>Upload your resume straight from your phone</li>
         <li>Your Naukri password is never typed on this website</li>
         <li>Explained in English or Hindi</li>
       </ul>
     </div>
-    ${leadForm({ heading: "Get your free profile check", sub: "Takes 60 seconds. We reply on WhatsApp within 24 hours.", compact: true })}
+    ${leadForm({ heading: "Get shortlisted on Naukri", sub: "Takes 60 seconds. We reply on WhatsApp within 24 hours.", compact: true })}
   </div>
 </section>
 
@@ -107,10 +111,46 @@ const body = `
       <h2>From ignored to shortlisted in 3 steps</h2>
     </div>
     <ol class="steps steps-3">
-      <li><span class="step-icon">${ICON.doc}</span><h3>Share your profile</h3><p>Upload your resume and your Naukri login email. Free profile check in 24 hours.</p></li>
+      <li><span class="step-icon">${ICON.doc}</span><h3>Share your profile</h3><p>Upload your resume, add your Naukri login email and pick a plan.</p></li>
       <li><span class="step-icon">${ICON.key}</span><h3>We fix — or we run it</h3><p>New headline, keywords, summary and ATS resume. On ${DFY.name}, we apply to jobs for you too.</p></li>
       <li><span class="step-icon">${ICON.phone}</span><h3>Recruiters call you</h3><p>Your profile shows up in recruiter searches — you just pick up the phone.</p></li>
     </ol>
+  </div>
+</section>
+
+<section class="section why-naukri" id="why-naukri">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="kicker">Why only Naukri?</span>
+      <h2>Other sites can wait. Your Naukri profile can’t.</h2>
+      <p>On Naukri, recruiters don’t wait for you to apply — they search the candidate database and call the profiles that match. That’s why we put 100% of our effort where Indian recruiters actually pick up the phone.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><span class="why-num">1</span><h3>Recruiters call you</h3><p>Recruiters search Naukri by keywords, title, city and notice period — then call. A sharp profile works for you 24×7, even when you’re not applying.</p></div>
+      <div class="why-card"><span class="why-num">2</span><h3>Made for every Indian job seeker</h3><p>Freshers to 15+ years, IT and non-IT, metros and tier-2 cities. Most other platforms work best for a narrow slice of roles.</p></div>
+      <div class="why-card"><span class="why-num">3</span><h3>Small fixes, fast calls</h3><p>Naukri ranks you on keywords, headline and how fresh your profile is — all fixable in days. Networking-led sites take months of posting.</p></div>
+    </div>
+    <div class="compare-cards" role="table" aria-label="Where recruiter calls come from">
+      <div class="cc cc-win" role="rowgroup">
+        <h3 role="row"><span role="columnheader">Naukri</span></h3>
+        <p role="row"><b role="rowheader">How recruiters reach you</b><span role="cell">They search and call you directly</span></p>
+        <p role="row"><b role="rowheader">Who it works for</b><span role="cell">All roles, freshers to senior, IT & non-IT</span></p>
+        <p role="row"><b role="rowheader">What decides visibility</b><span role="cell">Keywords & profile freshness — fixable in days</span></p>
+      </div>
+      <div class="cc" role="rowgroup">
+        <h3 role="row"><span role="columnheader">LinkedIn</span></h3>
+        <p role="row"><b role="rowheader">How recruiters reach you</b><span role="cell">Mostly messages, after networking</span></p>
+        <p role="row"><b role="rowheader">Who it works for</b><span role="cell">Strongest for corporate & senior roles</span></p>
+        <p role="row"><b role="rowheader">What decides visibility</b><span role="cell">Connections, activity & posting — slow</span></p>
+      </div>
+      <div class="cc" role="rowgroup">
+        <h3 role="row"><span role="columnheader">Other job sites</span></h3>
+        <p role="row"><b role="rowheader">How recruiters reach you</b><span role="cell">You apply and wait</span></p>
+        <p role="row"><b role="rowheader">Who it works for</b><span role="cell">Varies a lot by site and role</span></p>
+        <p role="row"><b role="rowheader">What decides visibility</b><span role="cell">How many applications you send</span></p>
+      </div>
+    </div>
+    <p class="why-note">We still make your headline and summary ready to reuse on LinkedIn — but our work goes where the calls come from.</p>
   </div>
 </section>
 
@@ -141,7 +181,7 @@ export default {
   path: "/",
   title: "Naukri Profile Optimization & Resume Writing Service India | GetShortlisted",
   description:
-    `Not getting calls from Naukri? We optimize your Naukri profile & ATS resume (${inr(MAKEOVER.price)}) or run your job search and apply for you (${inr(DFY.price)}). Free profile check.`,
+    `Not getting calls from Naukri? We optimize your Naukri profile & ATS resume (${inr(MAKEOVER.price)}) or run your job search and apply for you (${inr(DFY.price)}). Reply on WhatsApp in 24h.`,
   keywords:
     "naukri profile optimization, naukri profile optimization service, not getting calls from naukri, how to get calls from naukri, resume writing service india, ATS friendly resume, naukri resume headline, apply jobs on my behalf, job application service india, how to get shortlisted",
   priority: 1.0,

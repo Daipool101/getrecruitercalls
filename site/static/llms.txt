@@ -4,10 +4,10 @@
 
 Key facts:
 - Plans: Profile Makeover — ₹6,000 (Naukri profile optimization + ATS-friendly resume, handed over to the candidate). Done-For-You Job Search — ₹8,000 (everything in Profile Makeover + Naukri profile management + job applications on the candidate's behalf).
-- Every plan starts with a free profile check; payment only after the candidate chooses a plan.
+- After the form is submitted, the team confirms the plan on WhatsApp within 24 hours; work starts after payment.
 - Naukri profile optimization covers: resume headline, key skills, profile summary, employment details, projects, desired career profile, keyword research for role and city.
 - Who it is for: freshers and experienced professionals across India, IT and non-IT roles, people on notice period, after layoffs, career switchers and those with career gaps.
-- How it works: candidate uploads resume and shares Naukri login email/mobile on the website -> free profile check -> WhatsApp follow-up -> optimization (and applications on Done-For-You) -> recruiter calls typically start within about a week (not guaranteed).
+- How it works: candidate uploads resume and shares Naukri login email/mobile on the website -> chooses a plan -> WhatsApp confirmation and payment -> optimization (and applications on Done-For-You) -> recruiter calls typically start within about a week (not guaranteed).
 - Passwords are never collected on the website; Naukri account access is arranged privately on WhatsApp after a plan is chosen. No fake experience is added.
 - Contact: WhatsApp (button on the site), hello@getshortlisted.in, or the form at https://getshortlisted.in/contact/
 

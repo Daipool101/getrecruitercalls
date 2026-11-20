@@ -12,7 +12,7 @@ function servicePage({ path, name, title, description, keywords, h1, lead, servi
     ${breadcrumbs(crumbs)}
     <h1>${esc(h1)}</h1>
     <p class="lead">${esc(lead)}</p>
-    <div class="price-chip"><span>${esc(plan.name)}</span><b>${inr(plan.price)}</b><small>Free profile check first</small></div>
+    <div class="price-chip"><span>${esc(plan.name)}</span><b>${inr(plan.price)}</b><small>Reply on WhatsApp in 24h</small></div>
   </div>
 </section>
 
@@ -27,7 +27,7 @@ function servicePage({ path, name, title, description, keywords, h1, lead, servi
       <p class="side-wa">Questions first? ${waButton({ from: path, plan: plan.id, label: "Ask on WhatsApp", cls: "wa-link" })} &nbsp;·&nbsp; <a href="/pricing/">Compare plans</a></p>
     </div>
     <div id="get-started">
-      ${leadForm({ heading: formHeading, sub: "Free profile check · reply on WhatsApp within 24 hours.", compact: true, plan: plan.id })}
+      ${leadForm({ heading: formHeading, sub: "Takes 60 seconds · reply on WhatsApp within 24 hours.", compact: true, plan: plan.id })}
     </div>
   </div>
 </section>
@@ -62,7 +62,7 @@ const naukri = servicePage({
   plan: MAKEOVER,
   title: "Naukri Profile Optimization Service – Get Recruiter Calls",
   description:
-    `Naukri profile optimization by experts: keyword-rich resume headline, key skills, summary and ATS resume so recruiters find you and call. ${inr(MAKEOVER.price)}, free check first.`,
+    `Naukri profile optimization by experts: keyword-rich resume headline, key skills, summary and ATS resume so recruiters find you and call. ${inr(MAKEOVER.price)}.`,
   keywords: "naukri profile optimization, naukri profile optimization service, naukri profile update, how to improve naukri profile, naukri profile writing service, naukri profile optimization price, resdex",
   h1: "Naukri Profile Optimization",
   lead: "Recruiters search Naukri with keywords. We rewrite your profile and resume with the right ones — and update your Naukri profile for you — so you show up in their searches and get the call.",
@@ -80,10 +80,10 @@ const naukri = servicePage({
   faqs: [
     { q: "What do you change in my Naukri profile?", a: "<p>Resume headline, key skills, profile summary, employment details, projects, IT skills and desired career profile — plus a matching ATS-friendly resume.</p>" },
     LOGIN_FAQ,
-    { q: `How much does it cost?`, a: `<p>${inr(MAKEOVER.price)} for the ${MAKEOVER.name}. Want us to apply to jobs for you as well? The <a href="${DFY.url}">${DFY.name}</a> is ${inr(DFY.price)}. You pay only after the free profile check.</p>` },
+    { q: `How much does it cost?`, a: `<p>${inr(MAKEOVER.price)} for the ${MAKEOVER.name}. Want us to apply to jobs for you as well? The <a href="${DFY.url}">${DFY.name}</a> is ${inr(DFY.price)}. We confirm everything on WhatsApp before you pay.</p>` },
     { q: "Will this guarantee a job?", a: "<p>No honest service can. We remove the reasons recruiters aren’t finding you. Interviews and offers still depend on your skills and the market.</p>" },
   ],
-  cta: { title: "Let recruiters find your profile", text: "Upload your resume — we’ll show you what to fix, free." },
+  cta: { title: "Let recruiters find your profile", text: "Upload your resume and pick a plan — we’ll take it from there." },
 });
 
 const apply = servicePage({
@@ -110,11 +110,11 @@ const apply = servicePage({
   faqs: [
     { q: "What exactly do you do on my behalf?", a: "<p>We optimize your Naukri profile and resume, keep the profile active and updated, and apply to jobs that match the role, experience, salary and city you agree with us. You attend the recruiter calls and interviews.</p>" },
     LOGIN_FAQ,
-    { q: "Which jobs will you apply to?", a: "<p>Only jobs that match what we agree with you during the free profile check — target role, city, salary range and notice period. Nothing is applied that you wouldn’t want.</p>" },
+    { q: "Which jobs will you apply to?", a: "<p>Only jobs that match what we agree with you with you on WhatsApp before we start — target role, city, salary range and notice period. Nothing is applied that you wouldn’t want.</p>" },
     { q: "How much does it cost?", a: `<p>${inr(DFY.price)} for the ${DFY.name}. If you only want your profile and resume fixed, the <a href="${MAKEOVER.url}">${MAKEOVER.name}</a> is ${inr(MAKEOVER.price)}.</p>` },
     { q: "Do you guarantee a job?", a: "<p>No — and be careful of anyone who does. We maximise how often recruiters see and contact you. Offers depend on your interviews, skills and the market.</p>" },
   ],
-  cta: { title: "Stop applying. Start getting calls.", text: "Upload your resume — free profile check, then we take it from there." },
+  cta: { title: "Stop applying. Start getting calls.", text: "Upload your resume — we’ll take it from there." },
 });
 
 const resume = servicePage({
@@ -144,15 +144,15 @@ const resume = servicePage({
     { q: "How long should my resume be?", a: "<p>One page for freshers and up to about 5 years of experience; two pages for more experienced professionals.</p>" },
     { q: "How much does it cost?", a: `<p>Resume writing is part of the ${MAKEOVER.name} (${inr(MAKEOVER.price)}), together with your Naukri profile — because recruiters check both.</p>` },
   ],
-  cta: { title: "Get a resume that gets shortlisted", text: "Upload your current resume — we’ll show you what to fix, free." },
+  cta: { title: "Get a resume that gets shortlisted", text: "Upload your current resume — we’ll make it recruiter-ready." },
 });
 
 /* ---------------- Pricing ---------------- */
 
 const PRICING_FAQS = [
-  { q: "Is the profile check really free?", a: "<p>Yes. We review your resume and Naukri profile, tell you what’s stopping recruiters from calling and recommend a plan. You pay only if you decide to go ahead.</p>" },
+  { q: "What happens after I fill the form?", a: "<p>We message you on WhatsApp within 24 hours to confirm your plan, target role and city, and share the payment details. Work starts once payment is received.</p>" },
   { q: `What’s the difference between ${MAKEOVER.name} and ${DFY.name}?`, a: `<p>${MAKEOVER.name} (${inr(MAKEOVER.price)}) fixes your Naukri profile and resume, and you continue applying yourself. ${DFY.name} (${inr(DFY.price)}) includes all of that, and we also manage your Naukri profile and apply to matching jobs on your behalf.</p>` },
-  { q: "How do I pay?", a: "<p>After the free profile check we share the payment details on WhatsApp. Work starts once payment is received.</p>" },
+  { q: "How do I pay?", a: "<p>We share the payment details on WhatsApp after confirming your plan. Work starts once payment is received.</p>" },
   LOGIN_FAQ,
   { q: "Do you guarantee a job or a number of calls?", a: "<p>No. Hiring depends on employers, the market and your interviews. We make sure your profile and resume are not the reason recruiters skip you — many candidates see more calls within about a week.</p>" },
 ];
@@ -160,7 +160,7 @@ const pricingCrumbs = [{ name: "Home", path: "/" }, { name: "Pricing", path: "/p
 const pricing = {
   path: "/pricing/",
   title: "Naukri Profile Optimization Price & Plans in India",
-  description: `Naukri profile + ATS resume optimization: ${inr(MAKEOVER.price)}. Done-for-you job search where we apply for you: ${inr(DFY.price)}. Free profile check before you pay.`,
+  description: `Naukri profile + ATS resume optimization: ${inr(MAKEOVER.price)}. Done-for-you job search where we apply for you: ${inr(DFY.price)}. Reply on WhatsApp within 24 hours.`,
   keywords: "naukri profile optimization price, naukri profile optimization cost, resume writing service price india, job application service price, naukri paid services",
   priority: 0.9,
   schema: [
@@ -173,7 +173,7 @@ const pricing = {
   <div class="wrap">
     ${breadcrumbs(pricingCrumbs)}
     <span class="eyebrow">Plans & pricing</span>
-    <h1>Simple pricing. Free profile check first.</h1>
+    <h1>Simple, transparent pricing.</h1>
     <p class="lead">Fix your Naukri profile and resume once — or hand over your whole job search to us.</p>
   </div>
 </section>
@@ -186,7 +186,7 @@ const pricing = {
     ${faqList(PRICING_FAQS)}
   </div>
 </section>
-${ctaBand({ title: "Not sure which plan fits you?", text: "Start with the free profile check — we’ll recommend the right plan honestly." })}`,
+${ctaBand({ title: "Not sure which plan fits you?", text: "Ask us on WhatsApp — we’ll recommend the right plan honestly." })}`,
 };
 
 export default [naukri, apply, resume, pricing];

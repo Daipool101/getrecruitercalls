@@ -674,11 +674,10 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
 @media (max-width: 760px) { .cta-btns, .cta-btns .btn { width: 100%; } }
 
 /* =====================================================================
-   v5 — Mobile colour theme (≤760px only; desktop keeps the forest/gold look).
+   v5 — Site colour theme (all screen sizes; originally mobile-only).
    Clean white + job-portal blue + navy, the colours Indian job seekers already
    associate with job search. Logo tile stays gold as our own brand accent.
    ===================================================================== */
-@media (max-width: 760px) {
   :root {
     --m-blue: #2A5BF0;
     --m-blue-2: #1F48D1;
@@ -819,4 +818,42 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
   .site-footer a:not(.btn):hover { color: #fff; }
   .brand-light .wordmark b { background-image: linear-gradient(90deg, #8FB0FF, #FFD27A 40%, #8FB0FF 80%); }
   .footer-bottom { border-top-color: rgba(255,255,255,.12); }
+
+/* ---------- Theme: desktop touch-ups ---------- */
+.hero-grid::before { background-image: radial-gradient(rgba(42,91,240,.10) 1px, transparent 1px); }
+.site-nav ul a::after { background: linear-gradient(90deg, #2A5BF0, #5B8CFF); }
+.site-nav a:not(.btn) { color: var(--m-navy); }
+.site-nav a:not(.btn):hover, .site-nav a[aria-current="page"] { color: var(--m-blue-2); }
+.btn-sm.btn-gold { box-shadow: 0 6px 16px rgba(42,91,240,.28); }
+.hero .lead { max-width: 34em; }
+.plan:not(.plan-featured) .btn-dark { background: var(--m-navy); }
+.steps li { box-shadow: var(--shadow); }
+
+/* ---------- Why only Naukri ---------- */
+.why-naukri { background: linear-gradient(160deg, #0B1F4B 0%, #102A66 60%, #16307A 100%); color: #DCE5FA; }
+.why-naukri .kicker { color: #FFD27A; }
+.why-naukri h2 { color: #fff; }
+.why-naukri .section-head p { color: rgba(220,229,250,.9); }
+.why-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-bottom: 28px; }
+.why-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 20px; padding: 24px; }
+.why-card h3 { color: #fff; font-size: 1.15rem; margin: 10px 0 6px; }
+.why-card p { margin: 0; color: rgba(220,229,250,.88); font-size: .97rem; }
+.why-num { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, #FFD27A, #F4B13B); color: #081634; font-weight: 800; }
+.compare-cards { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 14px; align-items: stretch; }
+.cc { background: #fff; color: var(--ink); border-radius: 18px; padding: 20px; display: grid; gap: 12px; align-content: start; }
+.cc h3 { margin: 0 0 2px; font-size: 1.15rem; color: var(--m-navy); }
+.cc p { margin: 0; display: grid; gap: 2px; }
+.cc b { font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.cc span { font-size: .97rem; color: var(--ink); }
+.cc-win { background: linear-gradient(160deg, #3B6CFF, #1F48D1); box-shadow: 0 18px 40px rgba(0,0,0,.3); }
+.cc-win h3, .cc-win span { color: #fff; }
+.cc-win b { color: #FFD27A; }
+.cc-win h3::after { content: "Our focus"; margin-left: 10px; font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; background: #FFD27A; color: #081634; padding: 3px 8px; border-radius: 999px; vertical-align: middle; }
+.why-note { text-align: center; margin: 22px auto 0; max-width: 46em; color: rgba(220,229,250,.8); font-size: .95rem; }
+@media (max-width: 900px) {
+  .why-grid, .compare-cards { grid-template-columns: 1fr; }
+  .why-card { padding: 20px; }
 }
+
+/* Readability: gold label on the blue form band (beats the generic .kicker colour). */
+.section-forest .kicker, .section-forest .kicker-gold { color: #FFE3A3; }

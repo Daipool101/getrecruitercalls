@@ -17,7 +17,7 @@ import { EmailMessage } from "cloudflare:email";
 
 const MAX = { name: 80, phone: 20, email: 120, login: 120, experience: 40, plan: 40, target_role: 120, message: 1500, utm: 100, page: 200 };
 const EXPERIENCE_OPTIONS = ["Fresher (0-1 yr)", "1-3 yrs", "3-6 yrs", "6-10 yrs", "10-15 yrs", "15+ yrs"];
-const PLANS = { "": "Not sure — free check first", makeover: "Profile Makeover (₹6,000)", "done-for-you": "Done-For-You Job Search (₹8,000)" };
+const PLANS = { makeover: "Profile Makeover (₹6,000)", "done-for-you": "Done-For-You Job Search (₹8,000)" };
 const RATE_LIMIT_PER_HOUR = 20;
 const MAX_FILE = 1_900_000; // D1 rows are limited to 2 MB
 const MAX_BODY = 2_500_000; // whole request (file + fields)
@@ -60,10 +60,10 @@ function handleWhatsApp(url, env) {
   const number = String(env.WHATSAPP_NUMBER || "").replace(/\D/g, "");
   if (number.length < 10) return Response.redirect(new URL("/contact/", url).toString(), 302);
   const plan = url.searchParams.get("plan") || "";
-  const planName = { makeover: "Profile Makeover (₹6,000)", "done-for-you": "Done-For-You Job Search (₹8,000)" }[plan];
-  const text = planName
-    ? `Hi GetShortlisted! I'm interested in the ${planName}. Can you check my Naukri profile?`
-    : "Hi GetShortlisted! I'm not getting calls from Naukri. Can you check my profile?";
+  const opener = "Hi team! My Naukri profile has been around forever, but recruiter calls are still a rare sight. 😭";
+  const text = plan === "done-for-you"
+    ? `${opener} I want the Done-For-You Job Search (₹8,000) — please take over my Naukri job search and help me turn things around!`
+    : `${opener} I desperately need a profile makeover. Help me turn things around!`;
   return new Response(null, {
     status: 302,
     headers: { Location: `https://wa.me/${number}?text=${encodeURIComponent(text)}`, "Cache-Control": "no-store" },
@@ -293,7 +293,7 @@ function validate(lead, hasResume) {
   if (lead.naukri_login && !EMAIL_RE.test(lead.naukri_login) && !indianMobile(lead.naukri_login))
     errors.push("Naukri login should be the email or mobile number you use on Naukri.");
   if (lead.experience && !EXPERIENCE_OPTIONS.includes(lead.experience)) errors.push("Please choose your experience from the list.");
-  if (!(lead.plan in PLANS)) errors.push("Please choose a plan from the list.");
+  if (!Object.prototype.hasOwnProperty.call(PLANS, lead.plan)) errors.push("Please choose a plan: Profile Makeover or Done-For-You Job Search.");
   return errors;
 }
 
@@ -317,13 +317,13 @@ async function notifyOwner(env, lead, leadId, resume) {
   let status = "skipped";
   try {
     if (env.SEND_EMAIL && env.NOTIFY_TO && env.NOTIFY_FROM) {
-      const planLabel = PLANS[lead.plan] || PLANS[""];
+      const planLabel = PLANS[lead.plan] || "Plan not chosen";
       const raw = buildMime({
         from: `GetShortlisted Leads <${env.NOTIFY_FROM}>`,
         fromAddr: env.NOTIFY_FROM,
         to: env.NOTIFY_TO,
         replyTo: lead.email,
-        subject: `New lead: ${lead.name} — ${lead.plan ? planLabel : "free profile check"} (${lead.experience || "exp n/a"})`,
+        subject: `New lead: ${lead.name} — ${planLabel} (${lead.experience || "exp n/a"})`,
         text: leadText(lead, leadId),
         html: leadHtml(lead, leadId),
         attachment: resume,
@@ -352,7 +352,7 @@ const FIELDS = [
   ["Resume", "resume_name"], ["Experience", "experience"], ["Target role", "target_role"], ["Message", "message"],
   ["Submitted from", "source_page"], ["UTM source", "utm_source"], ["UTM medium", "utm_medium"], ["UTM campaign", "utm_campaign"],
 ];
-const withLabels = (lead) => ({ ...lead, plan_label: PLANS[lead.plan] || PLANS[""], resume_name: lead.resume_name ? `${lead.resume_name} (attached)` : "" });
+const withLabels = (lead) => ({ ...lead, plan_label: PLANS[lead.plan] || "Plan not chosen", resume_name: lead.resume_name ? `${lead.resume_name} (attached)` : "" });
 
 function leadText(lead, id) {
   const l = withLabels(lead);
