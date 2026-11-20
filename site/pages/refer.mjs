@@ -6,7 +6,7 @@ const earn = (p) => Math.round((p.price * REFERRAL_PERCENT) / 100);
 const FAQS = [
   { q: "How much do I earn?", a: `<p>${REFERRAL_PERCENT}% of the plan your friend buys: ${PLANS.map((p) => `<b>${inr(earn(p))}</b> on ${esc(p.name)} (${inr(p.price)})`).join(" and ")}. No limit on how many people you refer.</p>` },
   { q: "When and how do I get paid?", a: "<p>After your friend pays for their plan, we send your share to the Google Pay / UPI number you give us. We’ll message you on WhatsApp when it’s sent.</p>" },
-  { q: "What is my referral code?", a: "<p>Your first name in capitals — for example <b>AKASH</b>. If that name is already taken, we add a number (AKASH2). Your friend types it in the “Referred by” box, or simply opens your share link and it’s filled in automatically.</p>" },
+  { q: "What is my referral code?", a: "<p>Your first name in capitals — for example <b>JOHN</b>. If that name is already taken, we add a number (JOHN2). Your friend types it in the “Referred by” box, or simply opens your share link and it’s filled in automatically.</p>" },
   { q: "I forgot my code. What do I do?", a: "<p>Fill this form again with the same mobile number — we’ll show your existing code.</p>" },
   { q: "Can I use my own code?", a: "<p>No — referrals only count for other people. If you want our service yourself, just sign up normally.</p>" },
   { q: "Who should I refer?", a: "<p>Anyone on Naukri who isn’t getting recruiter calls: friends, colleagues, juniors from college, people on notice period or after a layoff.</p>" },
@@ -41,7 +41,7 @@ export default {
       <span class="kicker">How it works</span>
       <h2 class="mt-0">3 steps. No limit.</h2>
       <ol class="ref-steps">
-        <li><b>Get your code</b><span>Fill the form — your code is your first name, like <code>AKASH</code>.</span></li>
+        <li><b>Get your code</b><span>Fill the form — your code is your first name, like <code>JOHN</code>.</span></li>
         <li><b>Share it</b><span>Send your link on WhatsApp. Friends who open it are tagged to you automatically.</span></li>
         <li><b>Get paid</b><span>When your friend pays for a plan, you get ${REFERRAL_PERCENT}% on Google Pay / UPI.</span></li>
       </ol>
@@ -58,7 +58,7 @@ export default {
         </div>
         <div class="field">
           <label for="rf-name">Full name</label>
-          <input id="rf-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="80" placeholder="e.g. Akash Sharma">
+          <input id="rf-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="80" placeholder="e.g. John Mathew">
         </div>
         <div class="field">
           <label for="rf-phone">Mobile (WhatsApp)</label>
