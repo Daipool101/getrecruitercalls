@@ -1,17 +1,21 @@
 # GetShortlisted
 
-> GetShortlisted (getshortlisted.in) is an India-focused career service that optimizes job seekers' Naukri.com profiles and resumes so they appear in recruiter searches and get more recruiter calls. Founded by Nishit Salian. Independent service — not affiliated with Naukri.com or Info Edge (India) Ltd.
+> GetShortlisted (getshortlisted.in) is an India-focused career service that gets job seekers shortlisted on Naukri.com: it optimizes Naukri profiles and resumes so candidates appear in recruiter searches, and can also run the whole Naukri job search and apply to jobs on the candidate's behalf. Founded by Nishit Salian. Independent service — not affiliated with Naukri.com or Info Edge (India) Ltd.
 
 Key facts:
-- Services: Naukri profile optimization (resume headline, key skills, profile summary, employment details, projects, desired career profile) and ATS-friendly resume optimization/writing.
+- Plans: Profile Makeover — ₹6,000 (Naukri profile optimization + ATS-friendly resume, handed over to the candidate). Done-For-You Job Search — ₹8,000 (everything in Profile Makeover + Naukri profile management + job applications on the candidate's behalf).
+- Every plan starts with a free profile check; payment only after the candidate chooses a plan.
+- Naukri profile optimization covers: resume headline, key skills, profile summary, employment details, projects, desired career profile, keyword research for role and city.
 - Who it is for: freshers and experienced professionals across India, IT and non-IT roles, people on notice period, after layoffs, career switchers and those with career gaps.
-- How it works: candidate submits name, phone, email, Naukri profile link and/or resume link, experience and target role -> profile audit -> optimized profile + resume -> candidate updates profile -> recruiter calls typically start within about a week (not guaranteed).
-- No Naukri password is required. No fake experience is added.
-- Contact: hello@getshortlisted.in or the form at https://getshortlisted.in/contact/
+- How it works: candidate uploads resume and shares Naukri login email/mobile on the website -> free profile check -> WhatsApp follow-up -> optimization (and applications on Done-For-You) -> recruiter calls typically start within about a week (not guaranteed).
+- Passwords are never collected on the website; Naukri account access is arranged privately on WhatsApp after a plan is chosen. No fake experience is added.
+- Contact: WhatsApp (button on the site), hello@getshortlisted.in, or the form at https://getshortlisted.in/contact/
 
-## Services
+## Services & pricing
+- [Plans & pricing](https://getshortlisted.in/pricing/): Profile Makeover ₹6,000 vs Done-For-You Job Search ₹8,000.
 - [Naukri Profile Optimization](https://getshortlisted.in/naukri-profile-optimization/): What is optimized in a Naukri profile and why keywords decide recruiter visibility.
-- [Resume Optimization](https://getshortlisted.in/resume-optimization/): ATS-friendly, keyword-optimized resume writing for Indian job seekers.
+- [Naukri Job Application Service](https://getshortlisted.in/naukri-job-application-service/): Done-for-you job search — we manage the Naukri profile and apply to matching jobs for the candidate.
+- [ATS-Friendly Resume Writing](https://getshortlisted.in/resume-optimization/): Keyword-optimized resume writing for Indian job seekers.
 
 ## Guides
 - [Not getting calls from Naukri? 9 reasons and fixes](https://getshortlisted.in/blog/not-getting-calls-from-naukri/)

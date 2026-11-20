@@ -7,7 +7,7 @@
 - **What it sells:** Naukri profile optimization + resume (ATS) optimization for job seekers in India, so recruiters find them and call them — owner's experience: calls usually start within about a week.
 - **Customer:** Any job seeker on Naukri not getting recruiter calls — freshers to senior, IT and non-IT, notice period, layoffs, career gaps, switchers.
 - **Owner / founder (as shown on site):** Nishit Salian
-- **Lead notification email:** nishit.salian02@gmail.com
+- **Lead notification email:** the owner's Gmail (stored only as the NOTIFY_TO secret)
 - **Public contact email on site:** hello@getshortlisted.in (must be created in Cloudflare Email Routing → forward to the Gmail)
 - **Owner communicates in:** English + Hindi (Hinglish). Keep instructions simple.
 
@@ -32,7 +32,9 @@ Owner's instruction: *clean, simple, professional, call-to-action focused; don't
 - **No fake testimonials, ratings, review counts or client numbers.** Google penalizes fake reviews and it's legally risky. Add real testimonials only with the client's written permission (screenshots of WhatsApp messages with names blurred are fine as images; do not add `Review`/`AggregateRating` schema for self-written reviews).
 - **Never promise a job or a fixed number of calls.** Wording used: "usually within a week", "many candidates…". Terms page has a no-guarantee clause.
 - **Trademark disclaimer:** "Not affiliated with Naukri.com or Info Edge (India) Ltd." is in the footer and Terms. Keep it.
-- No Naukri password is ever requested — this is a trust point used across the site.
+- **Passwords are never collected on the website** (phishing-flag risk + trust). Owner gets the Naukri password privately on WhatsApp after the client picks a plan. The form collects Naukri login email/mobile + resume upload only.
+- Prices live in `site/config.mjs → PLANS` (and labels in `src/worker.js → PLANS`). Keep both in sync.
+- Owner's WhatsApp number and lead Gmail must never be in the repo or HTML — only as Cloudflare secrets (`WHATSAPP_NUMBER`, `NOTIFY_TO`). Repo is PUBLIC.
 - Guides should start with a "Quick answer" box and use question-style headings (good for AI answers).
 
 ## Things written on the site that the owner should confirm ⚠
@@ -55,7 +57,10 @@ Owner's instruction: *clean, simple, professional, call-to-action focused; don't
 
 - **2026-11-20 (rebrand v3)** — Renamed to **GetShortlisted / getshortlisted.in** everywhere (pages, schema, emails, llms.txt, manifest, tests). Worker name `getrecruitercalls` and D1 `getrecruitercalls-db` intentionally NOT renamed (Workers Builds project + live D1 are tied to them). New animated logo (check-mark → upward arrow on gold→clay tile, sparkle; `site/brand.mjs`), new favicon/PNG icons/og-image (`tools/make-icons.mjs` + `tools/make-ico.py`). Mobile-first polish: animated mobile menu, sticky bottom "Get Shortlisted" bar on phones, scroll-reveal, button shine/pulse, 16px inputs. 39/39 tests pass locally. Domain still to connect: add getshortlisted.in to Cloudflare, change nameservers at Hostinger, then uncomment `routes`.
 
-- **2026-11-20 (domain LIVE)** — getshortlisted.in zone active on Cloudflare account tsupport76; `routes` (apex + www custom domains) enabled in wrangler.jsonc. https://getshortlisted.in and https://www.getshortlisted.in both serve the site (www not yet redirected to apex — canonical tags point to apex, so SEO is fine; optional Redirect Rule later). Live read-only tests 29/29. Home page order now: hero → lead form → 3 steps → services → FAQ. **Next:** Email Routing for getshortlisted.in (verify nishit.salian02@gmail.com, create hello@ address) → uncomment `send_email`.
+- **2026-11-20 (domain LIVE)** — getshortlisted.in zone active on Cloudflare account tsupport76; `routes` (apex + www custom domains) enabled in wrangler.jsonc. https://getshortlisted.in and https://www.getshortlisted.in both serve the site (www not yet redirected to apex — canonical tags point to apex, so SEO is fine; optional Redirect Rule later). Live read-only tests 29/29. Home page order now: hero → lead form → 3 steps → services → FAQ. **Next:** Email Routing for getshortlisted.in (verify the owner's Gmail (stored only as the NOTIFY_TO secret), create hello@ address) → uncomment `send_email`.
+
+- **2026-11-21 (v4: plans, upload, WhatsApp)** — Plans: Profile Makeover ₹6,000; Done-For-You Job Search ₹8,000 (owner said "$8,000" once — assumed ₹; confirm; also confirm whether ₹8,000 is one-time or per period). New pages /pricing/ and /naukri-job-application-service/. Form: resume file upload (PDF/DOC/DOCX ≤1.9 MB, magic-byte checked, stored in D1 `resumes` table, attached to lead email), Naukri login email/mobile, plan select; Drive/Naukri link fields removed. WhatsApp via /api/whatsapp redirect (number from secret). Turnstile optional (site key in config, TURNSTILE_SECRET secret). Mobile scroll glitch fixed (header no longer resizes on scroll; sticky bar only shows when hero/form/footer are off-screen; no scroll-reveal or heavy blur/animations on phones) — measured 0 layout shift. send_email binding enabled without destination; NOTIFY_TO now a secret. 47/47 local tests pass.
+- **Pending (owner):** set secrets NOTIFY_TO + WHATSAPP_NUMBER; Email Routing verify Gmail; optional Turnstile; make GitHub repo private (old commits still contain the Gmail); Google Search Console + Google Analytics later.
 
 ## Ideas for later (not built — owner said don't add extra things)
 - Hindi versions of key pages (`/hi/…`) to rank for Hindi searches.

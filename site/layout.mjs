@@ -1,4 +1,4 @@
-import { SITE, NAV, EXPERIENCE_OPTIONS } from "./config.mjs";
+import { SITE, NAV, EXPERIENCE_OPTIONS, PLANS, inr } from "./config.mjs";
 import { logoMark, WORDMARK } from "./brand.mjs";
 
 export const esc = (s = "") =>
@@ -18,6 +18,9 @@ export function orgSchema() {
     "@id": ORG_ID,
     name: SITE.name,
     alternateName: ["Get Shortlisted", "getshortlisted.in"],
+    slogan: "Get shortlisted. Get recruiter calls.",
+    priceRange: `${inr(PLANS[0].price)} – ${inr(PLANS[PLANS.length - 1].price)}`,
+    currenciesAccepted: "INR",
     url: SITE.url,
     logo: abs("/img/logo.png"),
     image: abs(SITE.ogImage),
@@ -29,8 +32,26 @@ export function orgSchema() {
       "Naukri profile optimization", "Resume optimization", "ATS-friendly resume", "Naukri resume headline",
       "Naukri key skills", "Recruiter search (Resdex)", "Job search in India", "LinkedIn profile basics",
     ],
-    serviceType: ["Naukri profile optimization", "Resume optimization", "ATS resume writing"],
+    serviceType: ["Naukri profile optimization", "Resume optimization", "ATS resume writing", "Job application service"],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Plans",
+      itemListElement: PLANS.map((p) => planOffer(p)),
+    },
     ...(sameAs.length ? { sameAs } : {}),
+  };
+}
+
+export function planOffer(p) {
+  return {
+    "@type": "Offer",
+    name: p.name,
+    description: p.pitch,
+    price: String(p.price),
+    priceCurrency: "INR",
+    url: abs(p.url),
+    availability: "https://schema.org/InStock",
+    itemOffered: { "@type": "Service", name: p.name, areaServed: { "@type": "Country", name: "India" } },
   };
 }
 
@@ -60,8 +81,9 @@ export function faqSchema(faqs) {
   };
 }
 
-export function serviceSchema({ name, path, description, serviceType }) {
+export function serviceSchema({ name, path, description, serviceType, plan }) {
   return {
+    ...(plan ? { offers: planOffer(plan) } : {}),
     "@type": "Service",
     "@id": `${abs(path)}#service`,
     name,
@@ -111,10 +133,20 @@ export function breadcrumbs(items) {
 }
 
 let formCount = 0;
-export function leadForm({ heading = "Get your profile reviewed", sub = "Share your details. We'll reply on WhatsApp / email within 24 hours.", compact = false } = {}) {
+export const WA_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91A9.85 9.85 0 0 0 12.04 2zm5.8 14.03c-.25.69-1.45 1.33-2 1.38-.51.05-1 .23-3.36-.7-2.84-1.12-4.65-4.03-4.79-4.22-.14-.18-1.14-1.52-1.14-2.9 0-1.38.72-2.06.98-2.34.25-.28.55-.35.74-.35l.53.01c.17 0 .4-.06.62.48.25.6.84 2.06.92 2.21.07.14.12.31.02.5-.09.18-.14.3-.28.46l-.42.49c-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.92 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.17-.19.7-.82.89-1.1.18-.28.37-.23.62-.14.25.09 1.6.76 1.88.9.27.13.46.2.53.32.07.11.07.65-.18 1.34z"/></svg>`;
+
+/** Link to the WhatsApp redirect. The number lives only in a Cloudflare secret, never in the HTML. */
+export const waHref = (from = "site", plan = "") =>
+  `/api/whatsapp?from=${encodeURIComponent(from)}${plan ? `&plan=${encodeURIComponent(plan)}` : ""}`;
+
+export function waButton({ from = "site", plan = "", label = "Chat on WhatsApp", cls = "btn btn-wa" } = {}) {
+  return `<a class="${cls}" href="${waHref(from, plan)}" rel="nofollow noopener" target="_blank">${WA_ICON}<span>${esc(label)}</span></a>`;
+}
+
+export function leadForm({ heading = "Get your free profile check", sub = "Takes 60 seconds. We reply on WhatsApp within 24 hours.", compact = false, plan = "" } = {}) {
   const n = ++formCount;
   const id = (f) => `${f}-${n}`;
-  return `<form class="lead-form${compact ? " compact" : ""}" action="/api/lead" method="post" novalidate data-lead-form>
+  return `<form class="lead-form${compact ? " compact" : ""}" action="/api/lead" method="post" enctype="multipart/form-data" novalidate data-lead-form>
   <div class="form-head">
     <h2 class="form-title">${esc(heading)}</h2>
     <p class="form-sub">${esc(sub)}</p>
@@ -134,13 +166,17 @@ export function leadForm({ heading = "Get your profile reviewed", sub = "Share y
     </div>
   </div>
   <div class="field">
-    <label for="${id("naukri")}">Naukri profile link</label>
-    <input id="${id("naukri")}" name="naukri_url" type="url" inputmode="url" maxlength="500" placeholder="https://www.naukri.com/mnjuser/profile?id=...">
+    <span class="label" id="${id("resume")}-l">Upload your resume <span class="opt">(PDF or Word, max 2 MB)</span></span>
+    <label class="file-drop" for="${id("resume")}">
+      <input id="${id("resume")}" name="resume" type="file" aria-labelledby="${id("resume")}-l" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+      <span class="file-btn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg></span>
+      <span class="file-text"><b>Choose file</b><span class="file-name"></span><span class="file-hint">From your phone or computer</span></span>
+    </label>
   </div>
   <div class="field">
-    <label for="${id("resume")}">Resume link <span class="opt">(Google Drive / Dropbox)</span></label>
-    <input id="${id("resume")}" name="resume_url" type="url" inputmode="url" maxlength="500" placeholder="https://drive.google.com/...">
-    <p class="hint">Share at least one — Naukri link or resume link.</p>
+    <label for="${id("login")}">Naukri login email or mobile</label>
+    <input id="${id("login")}" name="naukri_login" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="120" placeholder="The email / mobile you use on Naukri">
+    <p class="hint lock">Naukri profiles have no shareable link, so we update yours from inside your account. <b>Never type your password here</b> — we ask for it only on WhatsApp, after you choose a plan.</p>
   </div>
   <div class="field-row">
     <div class="field">
@@ -151,29 +187,62 @@ export function leadForm({ heading = "Get your profile reviewed", sub = "Share y
       </select>
     </div>
     <div class="field">
-      <label for="${id("role")}">Target job role</label>
-      <input id="${id("role")}" name="target_role" type="text" maxlength="120" placeholder="e.g. Data Analyst">
+      <label for="${id("plan")}">Plan</label>
+      <select id="${id("plan")}" name="plan">
+        <option value="">Not sure yet — free check first</option>
+        ${PLANS.map((p) => `<option value="${p.id}"${p.id === plan ? " selected" : ""}>${esc(p.name)} · ${inr(p.price)}</option>`).join("")}
+      </select>
     </div>
+  </div>
+  <div class="field">
+    <label for="${id("role")}">Target job role <span class="opt">(optional)</span></label>
+    <input id="${id("role")}" name="target_role" type="text" maxlength="120" placeholder="e.g. Data Analyst, Sales Manager">
   </div>
   ${compact ? "" : `<div class="field">
     <label for="${id("msg")}">Anything else? <span class="opt">(optional)</span></label>
     <textarea id="${id("msg")}" name="message" rows="3" maxlength="1500" placeholder="Notice period, preferred city, current CTC, problem you are facing..."></textarea>
   </div>`}
+  ${SITE.turnstileSiteKey ? `<div class="cf-turnstile" data-sitekey="${esc(SITE.turnstileSiteKey)}" data-size="flexible" data-appearance="interaction-only"></div>` : ""}
   <div class="hp" aria-hidden="true"><label for="${id("cw")}">Company website</label><input id="${id("cw")}" name="company_website" type="text" tabindex="-1" autocomplete="off"></div>
   <input type="hidden" name="source_page" value="">
   <input type="hidden" name="utm_source" value="">
   <input type="hidden" name="utm_medium" value="">
   <input type="hidden" name="utm_campaign" value="">
-  <button class="btn btn-gold btn-block btn-shine" type="submit">Get Shortlisted <span class="arrow" aria-hidden="true">→</span></button>
+  <button class="btn btn-gold btn-block btn-shine" type="submit">Get my free profile check <span class="arrow" aria-hidden="true">→</span></button>
   <p class="form-status" role="status" aria-live="polite"></p>
-  <p class="form-legal">By submitting, you agree to our <a href="/privacy-policy/">Privacy Policy</a>. No spam.</p>
+  <p class="form-legal">By submitting, you agree to our <a href="/privacy-policy/">Privacy Policy</a> and <a href="/terms/">Terms</a>. No spam, ever.</p>
+  <p class="form-alt">Prefer chatting? ${waButton({ from: "form", label: "WhatsApp us", cls: "wa-link" })}</p>
 </form>`;
 }
 
-export function ctaBand({ title = "Ready to start getting recruiter calls?", text = "Share your Naukri profile or resume. We’ll show you exactly what’s stopping recruiters from calling — and fix it." } = {}) {
+/** Pricing cards (home + /pricing/). Buttons pre-select the plan in the nearest form. */
+export function pricingCards({ formPath = "", from = "pricing" } = {}) {
+  return `<div class="plans">${PLANS.map((p) => `
+  <article class="plan${p.featured ? " plan-featured" : ""}">
+    <div class="plan-top">
+      <span class="plan-tag">${esc(p.tag)}</span>
+      <h3>${esc(p.name)}</h3>
+      <p class="plan-price"><b>${inr(p.price)}</b></p>
+      <p class="plan-pitch">${esc(p.pitch)}</p>
+    </div>
+    <ul class="plan-list">${p.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
+    <div class="plan-ctas">
+      <a class="btn ${p.featured ? "btn-gold btn-shine" : "btn-dark"} btn-block" href="${formPath ? `${formPath}?plan=${p.id}#get-started` : "#get-started"}" data-plan="${p.id}">Choose ${esc(p.name)} <span class="arrow" aria-hidden="true">→</span></a>
+      ${waButton({ from, plan: p.id, label: "Ask on WhatsApp", cls: "wa-link" })}
+      <a class="plan-more" href="${p.url}">What’s included →</a>
+    </div>
+  </article>`).join("")}
+</div>
+<p class="plans-note">Every plan starts with a <b>free profile check</b> — you pay only after you pick a plan. Results depend on your experience, skills and the job market, so no honest service can guarantee a job.</p>`;
+}
+
+export function ctaBand({ title = "Ready to get shortlisted?", text = "Upload your resume — we’ll show you exactly why recruiters are skipping you, free. Then we fix it, or run your whole job search for you." } = {}) {
   return `<section class="cta-band"><div class="wrap cta-inner">
   <div><h2>${esc(title)}</h2><p>${esc(text)}</p></div>
-  <a class="btn btn-gold btn-lg btn-shine" href="/contact/">Get my profile optimized <span class="arrow" aria-hidden="true">→</span></a>
+  <div class="cta-btns">
+    <a class="btn btn-gold btn-lg btn-shine" href="/contact/">Get my free profile check <span class="arrow" aria-hidden="true">→</span></a>
+    ${waButton({ from: "cta-band", label: "WhatsApp us", cls: "btn btn-wa btn-lg" })}
+  </div>
 </div></section>`;
 }
 
@@ -243,6 +312,7 @@ ${published ? `<meta property="article:published_time" content="${published}">\n
 <link rel="stylesheet" href="/css/styles.css?v=${globalThis.ASSET_VER || SITE.updated}">
 <script type="application/ld+json">${JSON.stringify(graph).replace(/</g, "\\u003c")}</script>
 <script src="/js/main.js?v=${globalThis.ASSET_VER || SITE.updated}" defer></script>
+${SITE.turnstileSiteKey && /data-lead-form/.test(body) ? `<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>` : ""}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -252,7 +322,7 @@ ${published ? `<meta property="article:published_time" content="${published}">\n
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr">Menu</span><span class="bars" aria-hidden="true"></span></button>
     <nav id="site-nav" class="site-nav" aria-label="Main">
       <ul>${navLinks}</ul>
-      <a class="btn btn-gold btn-sm btn-shine" href="${ctaHref}">Get Shortlisted</a>
+      <a class="btn btn-gold btn-sm btn-shine" href="${ctaHref}">Free profile check</a>
     </nav>
   </div>
 </header>
@@ -263,15 +333,16 @@ ${body}
   <div class="wrap footer-grid">
     <div class="footer-brand">
       <a class="brand brand-light" href="/" aria-label="${esc(SITE.name)} home">${logoMark()}${WORDMARK}</a>
-      <p>Naukri profile optimization and ATS-friendly resume writing for job seekers across India — so recruiters find you, and call you.</p>
+      <p>Naukri profile optimization, ATS resume writing and done-for-you job applications for job seekers across India — so recruiters find you, and call you.</p>
       <a class="btn btn-gold btn-sm" href="/contact/">Get my profile optimized</a>
     </div>
     <div>
       <h3>Services</h3>
       <ul>
+        <li><a href="/pricing/">Plans & pricing</a></li>
         <li><a href="/naukri-profile-optimization/">Naukri Profile Optimization</a></li>
-        <li><a href="/resume-optimization/">Resume Optimization</a></li>
-        <li><a href="/#how-it-works">How it works</a></li>
+        <li><a href="/naukri-job-application-service/">We Apply to Jobs For You</a></li>
+        <li><a href="/resume-optimization/">ATS Resume Writing</a></li>
         <li><a href="/faq/">FAQ</a></li>
       </ul>
     </div>
@@ -302,9 +373,10 @@ ${body}
   </div>
 </footer>
 ${showStickyCta ? `<div class="sticky-cta" data-sticky-cta>
-  <div class="sticky-cta-text"><b>Not getting calls?</b><span>Reply within 24 hours</span></div>
-  <a class="btn btn-gold btn-shine" href="${ctaHref}">Get Shortlisted <span class="arrow" aria-hidden="true">→</span></a>
+  <a class="sticky-wa" href="${waHref("sticky")}" rel="nofollow noopener" target="_blank" aria-label="Chat with us on WhatsApp">${WA_ICON}</a>
+  <a class="btn btn-gold btn-shine sticky-main" href="${ctaHref}">Free profile check <span class="arrow" aria-hidden="true">→</span></a>
 </div>` : ""}
+${noindex ? "" : `<a class="wa-float" href="${waHref("float")}" rel="nofollow noopener" target="_blank" aria-label="Chat with us on WhatsApp">${WA_ICON}<span>WhatsApp us</span></a>`}
 </body>
 </html>
 `;

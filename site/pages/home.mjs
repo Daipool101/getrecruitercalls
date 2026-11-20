@@ -1,53 +1,64 @@
-import { leadForm, faqList, faqSchema, serviceSchema } from "../layout.mjs";
+import { leadForm, faqList, faqSchema, serviceSchema, pricingCards, waButton } from "../layout.mjs";
 import { ICON } from "../icons.mjs";
-import { SITE } from "../config.mjs";
+import { SITE, PLANS, inr } from "../config.mjs";
 
-// Full list is reused on /faq/. Home shows only the first 4.
+const [MAKEOVER, DFY] = PLANS;
+
+// Full list is reused on /faq/. Home shows the first 6.
+// Questions are written the way people type them into Google / ChatGPT (GEO): short question, direct first sentence.
 export const HOME_FAQS = [
   {
     q: "Why am I not getting calls from Naukri?",
-    a: "<p>Usually it’s not your experience — recruiters just can’t find you. They search Naukri with keywords, job titles, location and notice period. If your headline, key skills and summary don’t use those words, or your profile isn’t updated, you don’t show up. We fix exactly that.</p>",
+    a: "<p>Usually it’s not your experience — recruiters simply can’t find you. Recruiters search Naukri’s database (Resdex) by keywords, job title, location, notice period and how recently the profile was updated. If your resume headline, key skills and summary don’t contain the words they type, your profile never shows up. We fix exactly that.</p>",
+  },
+  {
+    q: "How much does Naukri profile optimization cost?",
+    a: `<p>Our <b>${MAKEOVER.name}</b> (Naukri profile + ATS resume) is <b>${inr(MAKEOVER.price)}</b>. Our <b>${DFY.name}</b>, where we also manage your profile and apply to jobs on your behalf, is <b>${inr(DFY.price)}</b>. Every plan starts with a free profile check — you pay only after you choose a plan.</p>`,
+  },
+  {
+    q: "Why do you need my Naukri login?",
+    a: "<p>Naukri profiles don’t have a shareable public link, and the fields recruiters see (headline, key skills, summary, preferences) can only be changed from inside your account. On the form we ask only for your Naukri login email or mobile. <b>We never ask for your password on this website</b> — we ask for it privately on WhatsApp after you choose a plan, and we recommend you change it once we’re done.</p>",
+  },
+  {
+    q: "Can you apply to jobs on my behalf?",
+    a: `<p>Yes — that’s our <a href="${DFY.url}">${DFY.name}</a>. We optimize your profile and resume, keep your Naukri profile active and apply to jobs that match your role, experience and city. You just attend the recruiter calls and interviews.</p>`,
   },
   {
     q: "How soon will I start getting calls?",
-    a: "<p>Many candidates see more profile views and recruiter calls within about a week. It depends on your role, experience, city and the job market, so we can’t guarantee a job — but we make sure your profile isn’t holding you back.</p>",
-  },
-  {
-    q: "Do I need to share my Naukri password?",
-    a: "<p>No. You only share your profile link or resume. We send you the new content and show you where to paste it.</p>",
+    a: "<p>Many candidates see more profile views and recruiter calls within about a week. It depends on your role, experience, city and the job market, so no one can honestly guarantee a job — but we make sure your profile isn’t what’s holding you back.</p>",
   },
   {
     q: "Is this for freshers too?",
-    a: "<p>Yes — freshers, experienced professionals, people on notice period, after a layoff or switching careers, in IT and non-IT roles across India.</p>",
+    a: "<p>Yes — freshers, experienced professionals, people serving notice period, after a layoff or a career gap, and career switchers, in IT and non-IT roles across India.</p>",
   },
   {
     q: "What is Naukri profile optimization?",
-    a: "<p>Rewriting your Naukri resume headline, key skills, profile summary, employment details and career preferences around the keywords recruiters search for, so your profile ranks higher and gets more calls.</p>",
+    a: "<p>Rewriting your Naukri resume headline, key skills, profile summary, employment details, projects and career preferences around the exact keywords recruiters search for, so your profile ranks higher in recruiter searches and you get more calls.</p>",
   },
   {
     q: "Do you also make my resume ATS-friendly?",
-    a: "<p>Yes. We rewrite your resume in a clean, ATS-friendly format with the right keywords and achievement-based points, matching your Naukri profile.</p>",
+    a: "<p>Yes. Both plans include an ATS-friendly resume (PDF + Word) with the right keywords and achievement-based points, matching your Naukri profile.</p>",
   },
   {
     q: "Is GetShortlisted connected to Naukri.com?",
-    a: "<p>No. We are an independent career service, not affiliated with Naukri.com or Info Edge (India) Ltd. No fake experience, no tricks — just your real profile presented the right way.</p>",
+    a: "<p>No. We are an independent career service, not affiliated with Naukri.com or Info Edge (India) Ltd. No fake experience, no tricks — just your real profile presented the way recruiters search.</p>",
   },
 ];
-const SHOWN = HOME_FAQS.slice(0, 4);
+const SHOWN = HOME_FAQS.slice(0, 6);
 
 const body = `
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <span class="eyebrow">Naukri profile & resume optimization</span>
+      <span class="eyebrow">Naukri profile & resume experts · All India</span>
       <h1>Get shortlisted. Get recruiter calls — <span class="hl">in about a week.</span></h1>
-      <p class="lead">We fix your Naukri profile and resume with the keywords recruiters search for. You get found. Your phone rings.</p>
+      <p class="lead">Recruiters search Naukri by keywords. If your profile doesn’t match, they never see you. We rewrite your Naukri profile and resume around what recruiters search — or run your whole job search for you.</p>
       <div class="hero-ctas">
-        <a class="btn btn-gold btn-lg btn-shine btn-pulse" href="#get-started">Get Shortlisted <span class="arrow" aria-hidden="true">→</span></a>
-        <a class="btn btn-outline btn-lg" href="#how-it-works">How it works</a>
+        <a class="btn btn-gold btn-lg btn-shine btn-pulse" href="#get-started">Get my free profile check <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn-outline btn-lg" href="#plans">See plans · from ${inr(MAKEOVER.price)}</a>
       </div>
       <ul class="pills">
-        <li>No password needed</li><li>Freshers & experienced</li><li>All of India</li>
+        <li>Free profile check</li><li>Freshers to 15+ yrs</li><li>IT & non-IT</li>
       </ul>
     </div>
 
@@ -61,11 +72,11 @@ const body = `
         <span class="bars-mini"><i></i><i></i><i></i><i></i><i></i></span>
       </div>
       <div class="pcard pc-clay">
-        <div><b>Resume headline</b><small>Optimized for recruiter search</small></div>
+        <div><b>Resume headline</b><small>Matches recruiter searches</small></div>
         <span class="pc-check">✓</span>
       </div>
       <div class="pcard pc-sand">
-        <div><b>Key skills</b><small>Matched to your target role</small></div>
+        <div><b>Jobs applied for you</b><small>On the Done-For-You plan</small></div>
         <span class="pc-check dark">✓</span>
       </div>
     </div>
@@ -75,16 +86,17 @@ const body = `
 <section class="section section-forest" id="get-started">
   <div class="wrap split split-center">
     <div class="form-intro">
-      <span class="kicker kicker-gold">Get started</span>
-      <h2>Share your profile. We’ll do the rest.</h2>
-      <p>Fill the form in under a minute. We’ll reply on WhatsApp or email within 24 hours.</p>
+      <span class="kicker kicker-gold">Start here — it’s free</span>
+      <h2>Upload your resume. We’ll tell you why recruiters are skipping you.</h2>
+      <p>60 seconds to fill. A real person checks your profile the way a recruiter would and messages you on WhatsApp within 24 hours.</p>
       <ul class="ticks">
-        <li>A real person reviews your profile</li>
-        <li>Honest advice — no fake experience</li>
+        <li>Free profile check before you pay anything</li>
+        <li>Upload your resume straight from your phone</li>
+        <li>Your Naukri password is never typed on this website</li>
         <li>Explained in English or Hindi</li>
       </ul>
     </div>
-    ${leadForm({ heading: "Get Shortlisted", sub: "Share your Naukri link or resume.", compact: true })}
+    ${leadForm({ heading: "Get your free profile check", sub: "Takes 60 seconds. We reply on WhatsApp within 24 hours.", compact: true })}
   </div>
 </section>
 
@@ -92,65 +104,46 @@ const body = `
   <div class="wrap">
     <div class="section-head center">
       <span class="kicker">How it works</span>
-      <h2>Three simple steps</h2>
+      <h2>From ignored to shortlisted in 3 steps</h2>
     </div>
     <ol class="steps steps-3">
-      <li><span class="step-icon">${ICON.doc}</span><h3>Share your profile</h3><p>Send your Naukri link or resume using the short form.</p></li>
-      <li><span class="step-icon">${ICON.key}</span><h3>We optimize it</h3><p>New headline, keywords, summary and an ATS-friendly resume.</p></li>
-      <li><span class="step-icon">${ICON.phone}</span><h3>Recruiters call you</h3><p>Your profile shows up in searches — and the calls start.</p></li>
+      <li><span class="step-icon">${ICON.doc}</span><h3>Share your profile</h3><p>Upload your resume and your Naukri login email. Free profile check in 24 hours.</p></li>
+      <li><span class="step-icon">${ICON.key}</span><h3>We fix — or we run it</h3><p>New headline, keywords, summary and ATS resume. On ${DFY.name}, we apply to jobs for you too.</p></li>
+      <li><span class="step-icon">${ICON.phone}</span><h3>Recruiters call you</h3><p>Your profile shows up in recruiter searches — you just pick up the phone.</p></li>
     </ol>
   </div>
 </section>
 
-<section class="section section-sand" id="services">
+<section class="section section-sand" id="plans">
   <div class="wrap">
     <div class="section-head center">
-      <span class="kicker">Our services</span>
-      <h2>Get found. Get shortlisted.</h2>
+      <span class="kicker">Plans & pricing</span>
+      <h2>Two ways to get shortlisted</h2>
+      <p>Fix your profile once — or hand over your whole Naukri job search.</p>
     </div>
-    <div class="grid grid-2">
-      <a class="svc svc-forest" href="/naukri-profile-optimization/">
-        <h3>Naukri Profile Optimization</h3>
-        <ul>
-          <li>Search-ready resume headline</li>
-          <li>Key skills recruiters filter by</li>
-          <li>Strong profile summary</li>
-        </ul>
-        <span class="more">Learn more →</span>
-      </a>
-      <a class="svc svc-gold" href="/resume-optimization/">
-        <h3>Resume Optimization</h3>
-        <ul>
-          <li>Clean ATS-friendly format</li>
-          <li>Right keywords for your role</li>
-          <li>Results, not just duties</li>
-        </ul>
-        <span class="more">Learn more →</span>
-      </a>
-    </div>
+    ${pricingCards({ from: "home-plans" })}
   </div>
 </section>
-
 
 <section class="section" id="faq">
   <div class="wrap">
     <div class="section-head center">
       <span class="kicker">FAQ</span>
-      <h2>Common questions</h2>
+      <h2>Questions job seekers ask us</h2>
     </div>
     ${faqList(SHOWN)}
-    <p class="center" style="margin-top:24px"><a href="/faq/">More questions →</a></p>
+    <p class="center faq-more"><a href="/faq/">More questions →</a> &nbsp;·&nbsp; ${waButton({ from: "home-faq", label: "Ask us on WhatsApp", cls: "wa-link" })}</p>
   </div>
 </section>
 `;
 
 export default {
   path: "/",
-  title: "Naukri Profile Optimization & Resume Service | GetShortlisted",
+  title: "Naukri Profile Optimization & Resume Writing Service India | GetShortlisted",
   description:
-    "Not getting calls from Naukri? We optimize your Naukri profile and resume with recruiter keywords, a strong headline and ATS-friendly format so recruiters call you.",
+    `Not getting calls from Naukri? We optimize your Naukri profile & ATS resume (${inr(MAKEOVER.price)}) or run your job search and apply for you (${inr(DFY.price)}). Free profile check.`,
   keywords:
-    "naukri profile optimization, naukri profile optimization service, resume optimization, not getting calls from naukri, how to get recruiter calls, naukri resume headline, ATS friendly resume, resume writing service India",
+    "naukri profile optimization, naukri profile optimization service, not getting calls from naukri, how to get calls from naukri, resume writing service india, ATS friendly resume, naukri resume headline, apply jobs on my behalf, job application service india, how to get shortlisted",
   priority: 1.0,
   changefreq: "weekly",
   schema: [
@@ -158,7 +151,7 @@ export default {
       "@type": "WebPage",
       "@id": `${SITE.url}/#webpage`,
       url: SITE.url + "/",
-      name: "Naukri Profile Optimization & Resume Service",
+      name: "Naukri Profile Optimization & Resume Writing Service in India",
       isPartOf: { "@id": `${SITE.url}/#website` },
       about: { "@id": `${SITE.url}/#organization` },
       inLanguage: "en-IN",
@@ -168,13 +161,15 @@ export default {
       name: "Naukri Profile Optimization",
       path: "/naukri-profile-optimization/",
       serviceType: "Naukri profile optimization",
-      description: "Rewriting Naukri resume headline, key skills, profile summary and career details around recruiter search keywords to get more recruiter calls.",
+      description: "Rewriting Naukri resume headline, key skills, profile summary and career details around recruiter search keywords, plus an ATS-friendly resume.",
+      plan: MAKEOVER,
     }),
     serviceSchema({
-      name: "Resume Optimization",
-      path: "/resume-optimization/",
-      serviceType: "ATS-friendly resume writing",
-      description: "ATS-friendly, keyword-optimized resume writing for job seekers in India.",
+      name: "Naukri Job Application Service",
+      path: "/naukri-job-application-service/",
+      serviceType: "Job application service",
+      description: "Done-for-you Naukri job search: profile and resume optimization, profile management and job applications on the candidate’s behalf.",
+      plan: DFY,
     }),
     faqSchema(SHOWN),
   ],

@@ -45,7 +45,7 @@ Cloudflare builds the site, **creates the D1 database automatically**, and gives
 Every push to `main` on GitHub redeploys automatically.
 
 See leads anytime: dashboard → **Storage & Databases → D1 → getrecruitercalls-db → Console** → run
-`SELECT * FROM leads ORDER BY id DESC;`
+`SELECT id, created_at, name, phone, email, plan, naukri_login, resume_name, email_status FROM leads ORDER BY id DESC;`
 
 ### Step 2 — Connect the domain getshortlisted.in
 1. The domain is registered at Hostinger. In Cloudflare: **Add a domain** → `getshortlisted.in` → Free plan.
@@ -53,12 +53,22 @@ See leads anytime: dashboard → **Storage & Databases → D1 → getrecruiterca
 2. In `wrangler.jsonc`, uncomment the `"routes"` block, push to GitHub.
 3. Dashboard → `getshortlisted.in` → **Rules → Redirect Rules → template "Redirect from WWW to root"**.
 
-### Step 3 — Turn on lead emails
-1. Dashboard → `getshortlisted.in` → **Email → Email Routing → Enable**.
-2. **Destination addresses** → add `nishit.salian02@gmail.com` → click the verify link in Gmail.
-3. **Custom addresses** → create `hello@getshortlisted.in` → send to the Gmail.
-4. In `wrangler.jsonc`, uncomment the `"send_email"` block, push to GitHub.
-5. Submit the form once and check Gmail (and Spam the first time).
+### Step 3 — Turn on lead emails, WhatsApp button and bot check
+**Secrets** (never in this repo): Workers & Pages → `getrecruitercalls` → **Settings → Variables and Secrets → Add** → type **Secret**:
+
+| Name | Value |
+|---|---|
+| `NOTIFY_TO` | Gmail that receives leads (must be verified in step 2 below) |
+| `WHATSAPP_NUMBER` | `91` + 10-digit WhatsApp number, digits only |
+| `TURNSTILE_SECRET` | *(optional)* Turnstile secret key — only together with `turnstileSiteKey` in `site/config.mjs` |
+
+Email Routing:
+1. Dashboard → `getshortlisted.in` → **Email → Email Routing → Enable** (let it add the MX/SPF records).
+2. **Destination addresses** → add the lead Gmail → click the verify link in Gmail.
+3. **Routing rules → Custom address** → `hello` → send to that Gmail.
+4. Submit the form once and check Gmail (and Spam the first time). Leads + resumes are always saved in D1 even if email fails.
+
+For local development put the same names in a `.dev.vars` file (git-ignored).
 
 ### Test the live site
 - `https://<your-site>/api/health` → `{"ok":true,…}`

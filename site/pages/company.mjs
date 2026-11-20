@@ -1,6 +1,6 @@
-import { leadForm, faqList, faqSchema, ctaBand, breadcrumbSchema, breadcrumbs, esc } from "../layout.mjs";
+import { leadForm, faqList, faqSchema, ctaBand, breadcrumbSchema, breadcrumbs, esc, waButton } from "../layout.mjs";
 import { HOME_FAQS } from "./home.mjs";
-import { SITE } from "../config.mjs";
+import { SITE, PLANS, inr } from "../config.mjs";
 
 const hero = (crumbs, eyebrow, h1, lead) => `
 <section class="page-hero">
@@ -37,19 +37,20 @@ ${hero(aboutCrumbs, "About us", "We help good candidates get found by recruiters
         <li><strong>Honesty first.</strong> We never add fake experience, fake skills or anything you can’t defend in an interview.</li>
         <li><strong>Recruiter-search thinking.</strong> We write for how recruiters actually search, filter and shortlist.</li>
         <li><strong>Simple language.</strong> We explain every change clearly — in English or Hindi.</li>
-        <li><strong>Your profile, your control.</strong> We never ask for your Naukri password.</li>
+        <li><strong>Your account, your control.</strong> We never ask for passwords on our website — only privately on WhatsApp, and only after you choose a plan.</li>
       </ul>
     </div>
     <div class="card">
       <h3>At a glance</h3>
       <ul class="checklist">
-        <li><strong>What:</strong> Naukri profile optimization & ATS-friendly resume writing</li>
+        <li><strong>What:</strong> Naukri profile optimization, ATS resume writing & job applications on your behalf</li>
+        <li><strong>Plans:</strong> ${PLANS.map((p) => `${esc(p.name)} ${inr(p.price)}`).join(" · ")}</li>
         <li><strong>Who:</strong> Freshers to senior professionals, IT and non-IT</li>
         <li><strong>Where:</strong> Online, across India</li>
         <li><strong>Founder:</strong> ${esc(SITE.founder)}</li>
-        <li><strong>Contact:</strong> <a href="mailto:${SITE.email}">${SITE.email}</a></li>
+        <li><strong>Contact:</strong> <a href="mailto:${SITE.email}">${SITE.email}</a> or WhatsApp</li>
       </ul>
-      <a class="btn btn-gold btn-block" href="/contact/">Get my profile reviewed</a>
+      <a class="btn btn-gold btn-block" href="/contact/">Get my free profile check</a>
     </div>
   </div>
 </section>
@@ -62,31 +63,32 @@ const contactCrumbs = [{ name: "Home", path: "/" }, { name: "Contact", path: "/c
 const contact = {
   path: "/contact/",
   title: "Contact Us — Get Your Naukri Profile & Resume Optimized",
-  description: "Share your Naukri profile link or resume and get it reviewed by GetShortlisted. We reply on WhatsApp or email within 24 hours.",
+  description: "Upload your resume and get a free Naukri profile check from GetShortlisted. We reply on WhatsApp within 24 hours. Or chat with us on WhatsApp.",
   priority: 0.8,
   schema: [
     breadcrumbSchema(contactCrumbs),
     { "@type": "ContactPage", name: "Contact GetShortlisted", url: `${SITE.url}/contact/`, about: { "@id": `${SITE.url}/#organization` } },
   ],
   body: `
-${hero(contactCrumbs, "Get started", "Get your Naukri profile & resume optimized", "Fill in the short form. We’ll review your profile and get back to you on WhatsApp or email within 24 hours.")}
+${hero(contactCrumbs, "Free profile check", "Get your Naukri profile & resume optimized", "Upload your resume in the short form. We’ll review your profile and message you on WhatsApp within 24 hours.")}
 <section class="section">
   <div class="wrap contact-grid">
     <div class="prose">
       <h2 class="mt-0">What happens next?</h2>
       <ol>
-        <li><strong>We review your profile</strong> — headline, skills, summary, resume and settings — the way a recruiter would.</li>
-        <li><strong>We contact you</strong> on WhatsApp or email to understand your target role, city and timeline.</li>
-        <li><strong>We optimize</strong> your Naukri profile and resume, and guide you on updating everything.</li>
+        <li><strong>Free profile check</strong> — we review your resume and Naukri profile the way a recruiter would.</li>
+        <li><strong>We message you on WhatsApp</strong> with what’s holding you back and the plan that fits: ${PLANS.map((p) => `${esc(p.name)} (${inr(p.price)})`).join(" or ")}.</li>
+        <li><strong>We optimize</strong> your Naukri profile and resume — and on Done-For-You, apply to jobs for you.</li>
         <li><strong>You start getting recruiter calls</strong> — and we help you stay visible.</li>
       </ol>
-      <h2>Prefer email?</h2>
-      <p>Write to us at <a href="mailto:${SITE.email}">${SITE.email}</a> with your Naukri profile link or resume attached.</p>
+      <h2>Prefer WhatsApp or email?</h2>
+      <p>${waButton({ from: "contact", label: "Chat with us on WhatsApp" })}</p>
+      <p>Or write to <a href="mailto:${SITE.email}">${SITE.email}</a> with your resume attached.</p>
       <h2>Your data is safe</h2>
-      <p>We only use your details to respond to your request. We never ask for your Naukri password and never sell your data. Read our <a href="/privacy-policy/">Privacy Policy</a>.</p>
+      <p>We use your details only to provide our service. Your Naukri password is <b>never</b> typed on this website — we ask for it privately on WhatsApp after you choose a plan. We never sell your data. Read our <a href="/privacy-policy/">Privacy Policy</a>.</p>
     </div>
     <div id="get-started">
-      ${leadForm({ heading: "Start your profile review", sub: "Takes less than a minute." })}
+      ${leadForm({ heading: "Get your free profile check", sub: "Takes 60 seconds. We reply on WhatsApp within 24 hours." })}
     </div>
   </div>
 </section>`,
@@ -97,15 +99,15 @@ ${hero(contactCrumbs, "Get started", "Get your Naukri profile & resume optimized
 const EXTRA_FAQS = [
   {
     q: "What details do I need to share?",
-    a: "<p>Your name, mobile number (WhatsApp), email, your Naukri profile link and/or resume link, your experience and the role you are targeting. That’s it.</p>",
+    a: "<p>Your name, WhatsApp number, email, your resume (PDF or Word upload) and/or your Naukri login email or mobile, your experience and the role you are targeting. That’s it — no password on the website.</p>",
   },
   {
-    q: "How do I find my Naukri profile link?",
-    a: "<p>Log in to Naukri, open your profile, and copy the URL from the browser address bar. On the mobile app, you can share or copy your profile link from the profile page. If you can’t find it, just share your resume link instead.</p>",
+    q: "Why can’t I just send my Naukri profile link?",
+    a: "<p>Naukri doesn’t give job seekers a public, shareable profile link — recruiters see your profile inside their own Resdex tool. That’s why we work from your resume and, for the update itself, from inside your account.</p>",
   },
   {
-    q: "How do I share my resume as a link?",
-    a: "<p>Upload your resume to Google Drive, right-click it and choose Share → “Anyone with the link” (Viewer), then copy the link and paste it in the form.</p>",
+    q: "Is it safe to share my Naukri login?",
+    a: "<p>We only ask for your password privately on WhatsApp after you choose a plan, use it only to update your profile and apply to jobs you agreed to, and never store it on this website. We recommend changing your password once the work is done.</p>",
   },
   {
     q: "Do you help with LinkedIn too?",
@@ -151,7 +153,7 @@ const privacy = {
   changefreq: "yearly",
   schema: [breadcrumbSchema(privacyCrumbs)],
   body: `
-${hero(privacyCrumbs, "", "Privacy Policy", `Last updated: 19 November 2026`)}
+${hero(privacyCrumbs, "", "Privacy Policy", `Last updated: 21 November 2026`)}
 <section class="section"><div class="wrap prose">
 <p>This Privacy Policy explains how ${esc(SITE.name)} (“we”, “us”, “our”), operating the website <a href="${SITE.url}">${SITE.domain}</a>, collects, uses and protects your personal information. We follow the principles of India’s Digital Personal Data Protection Act, 2023 (DPDP Act) and the Information Technology Act, 2000. By using our website or submitting your details, you agree to this policy.</p>
 
@@ -159,7 +161,9 @@ ${hero(privacyCrumbs, "", "Privacy Policy", `Last updated: 19 November 2026`)}
 <p><strong>Information you give us</strong> through our form or by email:</p>
 <ul>
   <li>Name, mobile number, email address</li>
-  <li>Naukri profile link and/or resume link, and the information contained in them</li>
+  <li>Your resume file (PDF or Word) and the information contained in it</li>
+  <li>The email address or mobile number you use to log in to Naukri</li>
+  <li>The plan you are interested in</li>
   <li>Experience level, target job role and any message you choose to share</li>
 </ul>
 <p><strong>Information collected automatically:</strong></p>
@@ -168,7 +172,7 @@ ${hero(privacyCrumbs, "", "Privacy Policy", `Last updated: 19 November 2026`)}
   <li>Your browser user-agent and a one-way hashed (non-reversible) version of your IP address, used only to prevent spam and abuse</li>
   <li>Basic, aggregated technical logs from our hosting provider (Cloudflare) for security and performance</li>
 </ul>
-<p>We do <strong>not</strong> ask for or store your Naukri password, bank details or government ID numbers.</p>
+<p>Our website does <strong>not</strong> ask for or store your Naukri password, bank details or government ID numbers. If you choose a plan where we update your profile or apply to jobs for you, we ask for your Naukri password privately on WhatsApp, use it only for the work you agreed to, and do not keep it after the work ends. You can change your password at any time.</p>
 
 <h2>2. How we use your information</h2>
 <ul>
@@ -191,7 +195,7 @@ ${hero(privacyCrumbs, "", "Privacy Policy", `Last updated: 19 November 2026`)}
 <p>We do not share your details with employers or recruiters on your behalf without your explicit permission.</p>
 
 <h2>5. Data storage and security</h2>
-<p>Your form submissions are stored in a secured database hosted by Cloudflare and delivered to our business email. We use HTTPS encryption, access controls and spam protection to keep your data safe. No method of transmission or storage is 100% secure, but we take reasonable steps to protect your information.</p>
+<p>Your form submissions and resume files are stored in a secured database hosted by Cloudflare and delivered to our business email. We use HTTPS encryption, access controls and spam protection to keep your data safe. No method of transmission or storage is 100% secure, but we take reasonable steps to protect your information.</p>
 
 <h2>6. Data retention</h2>
 <p>We keep your information only as long as needed to provide our service and for a reasonable period afterwards (generally up to 24 months), unless a longer period is required by law. You can ask us to delete your data earlier.</p>
@@ -237,24 +241,27 @@ const terms = {
   changefreq: "yearly",
   schema: [breadcrumbSchema(termsCrumbs)],
   body: `
-${hero(termsCrumbs, "", "Terms of Service", "Last updated: 19 November 2026")}
+${hero(termsCrumbs, "", "Terms of Service", "Last updated: 21 November 2026")}
 <section class="section"><div class="wrap prose">
 <p>These Terms of Service (“Terms”) govern your use of <a href="${SITE.url}">${SITE.domain}</a> and the services offered by ${esc(SITE.name)} (“we”, “us”). By using the website or our services, you agree to these Terms.</p>
 
 <h2>1. Our services</h2>
-<p>We provide career services including Naukri profile optimization, resume writing and optimization, and related guidance (“Services”). The exact scope, deliverables, timeline and fees for your order will be confirmed with you before work begins.</p>
+<p>We provide career services including Naukri profile optimization, resume writing and optimization, Naukri profile management and job applications on your behalf, and related guidance (“Services”). Current plans: ${PLANS.map((p) => `<strong>${esc(p.name)}</strong> (${inr(p.price)})`).join(" and ")}. The exact scope, deliverables and timeline for your order will be confirmed with you before work begins.</p>
 
 <h2>2. No guarantee of jobs or calls</h2>
 <p>We work to improve how your profile and resume are presented and found by recruiters. However, hiring decisions are made by employers and recruiters, and depend on factors outside our control — including the job market, your experience, skills, location, notice period, salary expectations and interview performance. <strong>We do not guarantee any specific number of recruiter calls, interviews, job offers or salary.</strong> Any timelines mentioned (such as “within a week”) describe typical experience, not a promise.</p>
 
 <h2>3. Independence from Naukri.com</h2>
-<p>${esc(SITE.name)} is an independent service. We are not affiliated with, endorsed by, or partnered with Naukri.com or Info Edge (India) Ltd. “Naukri” is a trademark of its respective owner and is used only to describe the platform our Services relate to. You are responsible for following Naukri’s own terms of use when updating your profile.</p>
+<p>${esc(SITE.name)} is an independent service. We are not affiliated with, endorsed by, or partnered with Naukri.com or Info Edge (India) Ltd. “Naukri” is a trademark of its respective owner and is used only to describe the platform our Services relate to. You remain the owner of your Naukri account and are responsible for following Naukri’s own terms of use.</p>
+
+<h2>3A. Account access you authorise</h2>
+<p>For plans where we update your profile or apply to jobs for you, you authorise us to log in to your Naukri account for that purpose only. You share your password privately (never through our website form), we act only within the role, location and salary preferences agreed with you, and you can withdraw this permission at any time by changing your password. We recommend changing your password once the Services end.</p>
 
 <h2>4. Your responsibilities</h2>
 <ul>
   <li>Provide true, accurate and complete information about your education, experience and skills.</li>
   <li>Review all content we provide before using it, and only publish what is true.</li>
-  <li>Keep your account passwords private — we will never ask for them.</li>
+  <li>Never enter passwords in our website form. Share account access only in the way described in section 3A.</li>
   <li>Use the website lawfully and do not submit spam, false information or someone else’s details without permission.</li>
 </ul>
 
@@ -262,7 +269,7 @@ ${hero(termsCrumbs, "", "Terms of Service", "Last updated: 19 November 2026")}
 <p>We do not create fake experience, fake certificates or misleading claims. We may decline or stop work on any request that requires misrepresentation.</p>
 
 <h2>6. Fees and payments</h2>
-<p>Fees for Services are communicated before work starts. Unless otherwise agreed in writing, work begins after payment is received. Any refund or revision terms will be shared with you at the time of order and form part of these Terms.</p>
+<p>Fees are as listed on our <a href="/pricing/">pricing page</a> and confirmed before work starts. The profile check is free. Unless otherwise agreed in writing, work begins after payment is received. Any refund or revision terms will be shared with you at the time of order and form part of these Terms.</p>
 
 <h2>7. Intellectual property</h2>
 <p>The website content, design, logo and guides are owned by ${esc(SITE.name)}. Once fully paid, the profile text and resume we create for you are yours to use for your personal job search.</p>
@@ -295,7 +302,8 @@ const thankYou = {
 <section class="page-hero"><div class="wrap">
   <span class="eyebrow">Request received</span>
   <h1>Thank you! We’ve got your details.</h1>
-  <p class="lead">We’ll review your profile and reach out on WhatsApp / email within 24 hours. Keep your phone handy.</p>
+  <p class="lead">Your free profile check has started. We’ll message you on WhatsApp within 24 hours — keep your phone handy.</p>
+  <p>${waButton({ from: "thank-you", label: "Chat on WhatsApp now" })}</p>
 </div></section>
 <section class="section"><div class="wrap">
   <h2>While you wait</h2>
@@ -319,7 +327,7 @@ const notFound = {
   <p class="lead">The page you’re looking for doesn’t exist or has moved.</p>
 </div></section>
 <section class="section"><div class="wrap">
-  <p><a class="btn btn-gold" href="/">Go to homepage</a> &nbsp; <a class="btn btn-dark" href="/contact/">Get my profile optimized</a></p>
+  <p><a class="btn btn-gold" href="/">Go to homepage</a> &nbsp; <a class="btn btn-dark" href="/contact/">Get my free profile check</a></p>
 </div></section>`,
 };
 

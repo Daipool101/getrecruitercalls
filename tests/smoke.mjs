@@ -55,25 +55,30 @@ const health = await fetch(BASE + "/api/health").then((r) => r.json());
 ok(health.ok === true, "GET /api/health ok");
 const getLead = await fetch(BASE + "/api/lead");
 ok(getLead.status === 405, "GET /api/lead -> 405");
+ok(!home.text.includes("wa.me/"), "WhatsApp number is not in the page HTML");
+const wa = await fetch(BASE + "/api/whatsapp?from=test&plan=makeover", { redirect: "manual" });
+ok(wa.status === 302 && /^(https:\/\/wa\.me\/\d{10,}\?text=|.*\/contact\/$)/.test(wa.headers.get("location") || ""), `GET /api/whatsapp redirects (${(wa.headers.get("location") || "").slice(0, 24)}…)`);
+ok(wa.headers.get("x-robots-tag") === "noindex, nofollow", "API responses are noindex");
 
 if (!READONLY) {
-  const post = (body, headers = {}) =>
-    fetch(BASE + "/api/lead", {
-      method: "POST",
-      redirect: "manual",
-      headers: { "Content-Type": "application/x-www-form-urlencoded", Accept: "application/json", ...headers },
-      body: new URLSearchParams(body).toString(),
-    });
+  const PDF = new Uint8Array([...new TextEncoder().encode("%PDF-1.4\n"), ...new Uint8Array(400).fill(32), ...new TextEncoder().encode("\n%%EOF")]);
+  const post = (fields, { file, headers = {} } = {}) => {
+    const fd = new FormData();
+    for (const [k, v] of Object.entries(fields)) fd.append(k, v);
+    if (file) fd.append("resume", new Blob([file.bytes], { type: file.type || "application/pdf" }), file.name);
+    return fetch(BASE + "/api/lead", { method: "POST", redirect: "manual", headers: { Accept: "application/json", ...headers }, body: fd });
+  };
   const valid = {
     name: "Test Candidate", phone: "+91 98765 43210", email: "test.candidate@example.com",
-    naukri_url: "https://www.naukri.com/mnjuser/profile?id=test", resume_url: "",
+    naukri_login: "test.candidate@example.com", plan: "makeover",
     experience: "3-6 yrs", target_role: "Data Analyst", message: "Smoke test — please ignore.", source_page: "/",
     utm_source: "smoke", utm_medium: "test", utm_campaign: "ci",
   };
+  const resume = { bytes: PDF, name: "Test Resume.pdf" };
 
-  let r = await post(valid);
+  let r = await post(valid, { file: resume });
   let j = await r.json();
-  ok(r.status === 200 && j.ok && j.id, `valid lead accepted (id ${j.id})`);
+  ok(r.status === 200 && j.ok && j.id, `valid lead with resume upload accepted (id ${j.id})`);
 
   r = await post({ ...valid, phone: "12345" });
   j = await r.json();
@@ -82,12 +87,22 @@ if (!READONLY) {
   r = await post({ ...valid, email: "nope" });
   ok(r.status === 422, "invalid email rejected");
 
-  r = await post({ ...valid, naukri_url: "", resume_url: "" });
+  r = await post({ ...valid, naukri_login: "" });
   j = await r.json();
-  ok(r.status === 422 && /Naukri profile link or your resume link/.test(j.error), "missing both links rejected");
+  ok(r.status === 422 && /upload your resume or enter your Naukri login/.test(j.error), "missing resume and Naukri login rejected");
 
-  r = await post({ ...valid, naukri_url: "javascript:alert(1)" });
-  ok(r.status === 422, "non-http link rejected");
+  r = await post({ ...valid, naukri_login: "not a login" });
+  ok(r.status === 422, "invalid Naukri login rejected");
+
+  r = await post(valid, { file: { bytes: new TextEncoder().encode("MZ".padEnd(500, "x")), name: "resume.pdf" } });
+  j = await r.json();
+  ok(r.status === 422 && /real PDF/.test(j.error), "fake PDF (wrong file content) rejected");
+
+  r = await post(valid, { file: { bytes: PDF, name: "resume.exe", type: "application/octet-stream" } });
+  ok(r.status === 422, "non-resume file type rejected");
+
+  r = await post({ ...valid, plan: "free-iphone" });
+  ok(r.status === 422, "unknown plan rejected");
 
   r = await post({ ...valid, experience: "100 yrs" });
   ok(r.status === 422, "unknown experience option rejected");
@@ -96,15 +111,13 @@ if (!READONLY) {
   j = await r.json();
   ok(r.status === 200 && j.ok && !j.id, "honeypot silently ignored (not saved)");
 
-  r = await post(valid, { Origin: "https://evil.example" });
+  r = await post(valid, { headers: { Origin: "https://evil.example" } });
   ok(r.status === 403, "cross-origin post blocked");
 
-  // No-JS fallback: plain form post -> 303 redirect to /thank-you/
-  r = await fetch(BASE + "/api/lead", {
-    method: "POST", redirect: "manual",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({ ...valid, name: "No JS Candidate" }).toString(),
-  });
+  // No-JS fallback: plain multipart form post -> 303 redirect to /thank-you/
+  const fd = new FormData();
+  for (const [k, v] of Object.entries({ ...valid, name: "No JS Candidate" })) fd.append(k, v);
+  r = await fetch(BASE + "/api/lead", { method: "POST", redirect: "manual", body: fd });
   ok(r.status === 303 && (r.headers.get("location") || "").endsWith("/thank-you/"), "no-JS form post redirects to /thank-you/");
 
   // Rate limit: 5 per IP per hour (2 already saved above) -> eventually 429

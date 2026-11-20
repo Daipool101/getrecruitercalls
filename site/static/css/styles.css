@@ -571,3 +571,104 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
   .hero + .section-forest { border-radius: 26px 26px 0 0; margin-top: -24px; }
   .hero .hero-grid { padding-bottom: calc(52px + 24px); }
 }
+
+/* =====================================================================
+   v4 — smoother mobile scrolling, resume upload, plans, WhatsApp
+   ===================================================================== */
+:root { --wa: #25D366; --wa-ink: #075E54; }
+
+/* ---------- Smooth scrolling on phones (fixes the "glitchy" hero → form transition) ---------- */
+.site-header.scrolled .header-inner { min-height: 68px; } /* header never changes height while scrolling */
+.hero, .section-forest { contain: paint; }
+@media (max-width: 760px) {
+  .site-header.scrolled .header-inner, .header-inner { min-height: 62px; }
+  /* Blurs and big animated gradients are expensive on phones — swap for solid colours / static art. */
+  .site-header, .site-header.scrolled { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--paper); }
+  .sticky-cta { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; background: var(--forest-ink) !important; }
+  .hero::before, .hero::after { animation: none; }
+  .hero-grid::before { display: none; }
+  .pcard { animation: cardIn .7s cubic-bezier(.2,.8,.2,1) both; }
+  .pcard:nth-child(n) { animation-delay: .15s; }
+  .bars-mini i, .btn-pulse { animation: none; }
+  .hero + .section-forest { box-shadow: none; }
+  html { scroll-padding-top: 72px; }
+}
+
+/* ---------- Form additions ---------- */
+.field .label { font-size: .88rem; font-weight: 700; color: var(--forest); }
+.file-drop { position: relative; display: flex; align-items: center; gap: 14px; padding: 12px 14px; border: 1.5px dashed #CDB797; border-radius: 12px; background: var(--paper); cursor: pointer; transition: border-color .2s ease, background-color .2s ease; font-weight: 500; color: var(--ink); font-size: 1rem; }
+.file-drop:hover, .file-drop:focus-within { border-color: var(--forest); background: var(--white); }
+.file-drop input[type="file"] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.file-btn { flex: none; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--forest); color: var(--gold); }
+.file-btn svg { width: 22px; height: 22px; }
+.file-text { display: grid; line-height: 1.3; min-width: 0; }
+.file-text b { color: var(--forest); }
+.file-name { font-size: .88rem; color: var(--clay-ink); font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-name:empty { display: none; }
+.file-hint { font-size: .8rem; color: var(--muted); }
+.has-file .file-drop { border-style: solid; border-color: var(--forest); background: #F3F8F6; }
+.has-file .file-hint { display: none; }
+.has-file .file-text b::after { content: " ✓"; color: #1A7F4B; }
+.file-drop:has(input[aria-invalid="true"]) { border-color: var(--clay-ink); }
+.hint.lock { position: relative; padding-left: 20px; line-height: 1.45; }
+.hint.lock::before { content: ""; position: absolute; left: 0; top: .15em; width: 14px; height: 14px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230F3D3A' stroke-width='2.4' stroke-linecap='round'%3E%3Crect x='4' y='11' width='16' height='10' rx='2'/%3E%3Cpath d='M8 11V7a4 4 0 0 1 8 0v4'/%3E%3C/svg%3E") center/contain no-repeat; }
+.hint.lock b { color: var(--forest); }
+.form-alt { margin: 0; text-align: center; font-size: .9rem; color: var(--muted); }
+.cf-turnstile { min-height: 0; }
+
+/* ---------- WhatsApp ---------- */
+.btn-wa { background: var(--wa); color: #fff; box-shadow: 0 8px 22px rgba(37,211,102,.32); }
+.btn-wa:hover { background: #1EBE5A; color: #fff; }
+.btn-wa svg, .wa-link svg { width: 1.25em; height: 1.25em; flex: none; }
+.wa-link { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: #128C4A; text-decoration: none; }
+.wa-link:hover { color: var(--wa-ink); text-decoration: underline; }
+.section-forest .wa-link, .cta-band .wa-link { color: #7BE3A3; }
+.wa-float { position: fixed; right: 22px; bottom: 22px; z-index: 55; display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px 12px 14px; border-radius: 999px; background: var(--wa); color: #fff; font-weight: 700; text-decoration: none; box-shadow: 0 14px 34px rgba(7,94,84,.35); transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease; }
+.wa-float svg { width: 26px; height: 26px; }
+.wa-float:hover { transform: translateY(-3px); color: #fff; box-shadow: 0 18px 40px rgba(7,94,84,.42); }
+.sticky-cta .sticky-wa { flex: none; width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; background: var(--wa); color: #fff; }
+.sticky-cta .sticky-wa svg { width: 28px; height: 28px; }
+.sticky-cta .sticky-main { flex: 1; }
+@media (max-width: 760px) {
+  .wa-float { display: none; }
+  .sticky-cta { padding: 8px; gap: 8px; }
+}
+
+/* ---------- Plans ---------- */
+.plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; max-width: 980px; margin: 0 auto; align-items: stretch; }
+.plan { position: relative; display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--line); border-radius: 26px; padding: 30px; box-shadow: var(--shadow); transition: transform .3s ease, box-shadow .3s ease; }
+.plan:hover { transform: translateY(-4px); box-shadow: 0 22px 48px rgba(15,61,58,.14); }
+.plan-featured { background: radial-gradient(600px 300px at 100% 0%, #1C5550 0%, var(--forest) 60%); color: var(--sand); border-color: transparent; }
+.plan-featured h3, .plan-featured .plan-price b { color: var(--white); }
+.plan-tag { align-self: flex-start; display: inline-block; font-size: .74rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; background: var(--sand); color: var(--forest); margin-bottom: 14px; }
+.plan-featured .plan-tag { background: linear-gradient(135deg, #FFC85A, #F4B13B 50%, #EE9640); color: var(--forest-ink); }
+.plan h3 { font-size: 1.45rem; margin-bottom: .2em; }
+.plan-price { margin: 4px 0 10px; line-height: 1; }
+.plan-price b { font-size: clamp(2.3rem, 5vw, 2.9rem); font-weight: 800; letter-spacing: -.03em; color: var(--forest); }
+.plan-pitch { color: var(--muted); margin-bottom: 18px; }
+.plan-featured .plan-pitch { color: rgba(242,230,214,.88); }
+.plan-list { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 10px; }
+.plan-list li { position: relative; padding-left: 30px; }
+.plan-list li::before { content: ""; position: absolute; left: 0; top: .2em; width: 20px; height: 20px; border-radius: 50%; background: var(--forest) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6L20.1 8.4 18.7 7z' fill='%23F4B13B'/%3E%3C/svg%3E") center/14px no-repeat; }
+.plan-featured .plan-list li::before { background-color: var(--gold); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6L20.1 8.4 18.7 7z' fill='%230F3D3A'/%3E%3C/svg%3E"); }
+.plan-ctas { margin-top: auto; display: grid; gap: 12px; justify-items: center; }
+.plan-ctas .btn { width: 100%; }
+.plan-featured .wa-link { color: #7BE3A3; }
+.plan-more { font-size: .9rem; font-weight: 600; color: var(--muted); }
+.plan-featured .plan-more { color: rgba(242,230,214,.75); }
+.plans-note { max-width: 760px; margin: 24px auto 0; text-align: center; font-size: .92rem; color: var(--muted); }
+@media (max-width: 760px) {
+  .plans { grid-template-columns: 1fr; gap: 16px; }
+  .plan { padding: 24px 20px; border-radius: 22px; }
+  .plan-featured { order: -1; }
+}
+
+/* ---------- Misc ---------- */
+.price-chip { display: inline-flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin-top: 20px; padding: 10px 16px; border-radius: 14px; background: rgba(242,230,214,.08); border: 1px solid rgba(242,230,214,.18); }
+.price-chip span { color: rgba(242,230,214,.85); font-weight: 600; }
+.price-chip b { color: var(--gold); font-size: 1.4rem; }
+.price-chip small { color: rgba(242,230,214,.7); }
+.cta-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+.faq-more { margin-top: 24px; }
+.side-wa { margin-top: 20px; font-size: .95rem; }
+@media (max-width: 760px) { .cta-btns, .cta-btns .btn { width: 100%; } }
