@@ -72,6 +72,22 @@ const body = `
   </div>
 </section>
 
+<section class="section section-forest" id="get-started">
+  <div class="wrap split split-center">
+    <div class="form-intro">
+      <span class="kicker kicker-gold">Get started</span>
+      <h2>Share your profile. We’ll do the rest.</h2>
+      <p>Fill the form in under a minute. We’ll reply on WhatsApp or email within 24 hours.</p>
+      <ul class="ticks">
+        <li>A real person reviews your profile</li>
+        <li>Honest advice — no fake experience</li>
+        <li>Explained in English or Hindi</li>
+      </ul>
+    </div>
+    ${leadForm({ heading: "Get Shortlisted", sub: "Share your Naukri link or resume.", compact: true })}
+  </div>
+</section>
+
 <section class="section" id="how-it-works">
   <div class="wrap">
     <div class="section-head center">
@@ -115,21 +131,6 @@ const body = `
   </div>
 </section>
 
-<section class="section section-forest" id="get-started">
-  <div class="wrap split split-center">
-    <div class="form-intro">
-      <span class="kicker kicker-gold">Get started</span>
-      <h2>Share your profile. We’ll do the rest.</h2>
-      <p>Fill the form in under a minute. We’ll reply on WhatsApp or email within 24 hours.</p>
-      <ul class="ticks">
-        <li>A real person reviews your profile</li>
-        <li>Honest advice — no fake experience</li>
-        <li>Explained in English or Hindi</li>
-      </ul>
-    </div>
-    ${leadForm({ heading: "Get Shortlisted", sub: "Share your Naukri link or resume.", compact: true })}
-  </div>
-</section>
 
 <section class="section" id="faq">
   <div class="wrap">

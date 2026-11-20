@@ -562,3 +562,12 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
   .js [data-reveal] { opacity: 1 !important; transform: none !important; }
   .btn-shine::after { display: none; }
 }
+
+/* Form section directly under the hero: a deeper "sheet" that slides over the hero so the two dark blocks read as separate. */
+.hero + .section-forest { margin-top: -32px; z-index: 2; border-radius: 34px 34px 0 0; background: radial-gradient(900px 420px at 15% 0%, #134A46 0%, var(--forest-ink) 60%), var(--forest-ink); box-shadow: 0 -18px 40px rgba(0,0,0,.22); }
+.hero + .section-forest::after { content: ""; position: absolute; top: 0; left: 50%; width: min(220px, 50%); height: 4px; transform: translateX(-50%); border-radius: 0 0 6px 6px; background: linear-gradient(90deg, var(--gold), var(--clay)); }
+.hero .hero-grid { padding-bottom: calc(96px + 32px); }
+@media (max-width: 760px) {
+  .hero + .section-forest { border-radius: 26px 26px 0 0; margin-top: -24px; }
+  .hero .hero-grid { padding-bottom: calc(52px + 24px); }
+}
