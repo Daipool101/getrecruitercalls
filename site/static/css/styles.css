@@ -442,7 +442,7 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
   .site-nav { display: flex; visibility: hidden; opacity: 0; transform: translateY(-10px); pointer-events: none; transition: opacity .25s ease, transform .3s cubic-bezier(.2,.8,.2,1), visibility 0s .3s; border-radius: 0 0 22px 22px; padding: 6px 20px 22px; max-height: calc(100vh - 60px); overflow-y: auto; }
   .site-nav.open { visibility: visible; opacity: 1; transform: none; pointer-events: auto; transition: opacity .25s ease, transform .3s cubic-bezier(.2,.8,.2,1), visibility 0s; }
   .site-nav ul a { font-size: 1.08rem; padding: 15px 4px; display: flex; justify-content: space-between; align-items: center; }
-  .site-nav ul a::after { content: "›"; font-size: 1.4rem; color: var(--clay); line-height: 1; }
+  .site-nav ul a::after { content: none; }
   .site-nav ul li { opacity: 0; transform: translateY(-6px); transition: opacity .3s ease, transform .3s ease; }
   .site-nav.open ul li { opacity: 1; transform: none; }
   .site-nav.open ul li:nth-child(2) { transition-delay: .04s; } .site-nav.open ul li:nth-child(3) { transition-delay: .08s; } .site-nav.open ul li:nth-child(4) { transition-delay: .12s; }

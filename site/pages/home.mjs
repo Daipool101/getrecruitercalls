@@ -54,7 +54,7 @@ const body = `
       <h1>Get shortlisted. Get recruiter calls — <span class="hl">in about a week.</span></h1>
       <p class="lead">Recruiters search Naukri by keywords. If your profile doesn’t match, they never see you. We rewrite your Naukri profile and resume around what recruiters search — or run your whole job search for you.</p>
       <div class="hero-ctas">
-        <a class="btn btn-gold btn-lg btn-shine btn-pulse" href="#get-started">Get my free profile check <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn-gold btn-lg btn-shine btn-pulse" href="#get-started">Get my free profile check</a>
         <a class="btn btn-outline btn-lg" href="#plans">See plans · from ${inr(MAKEOVER.price)}</a>
       </div>
       <ul class="pills">
@@ -132,7 +132,7 @@ const body = `
       <h2>Questions job seekers ask us</h2>
     </div>
     ${faqList(SHOWN)}
-    <p class="center faq-more"><a href="/faq/">More questions →</a> &nbsp;·&nbsp; ${waButton({ from: "home-faq", label: "Ask us on WhatsApp", cls: "wa-link" })}</p>
+    <p class="center faq-more"><a href="/faq/">More questions</a> &nbsp;·&nbsp; ${waButton({ from: "home-faq", label: "Ask us on WhatsApp", cls: "wa-link" })}</p>
   </div>
 </section>
 `;

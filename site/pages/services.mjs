@@ -24,7 +24,7 @@ function servicePage({ path, name, title, description, keywords, h1, lead, servi
       <div class="included">
         ${included.map(([t, d], i) => `<div class="inc inc-${i % 4}"><b>${esc(t)}</b><span>${esc(d)}</span></div>`).join("")}
       </div>
-      <p class="side-wa">Questions first? ${waButton({ from: path, plan: plan.id, label: "Ask on WhatsApp", cls: "wa-link" })} &nbsp;·&nbsp; <a href="/pricing/">Compare plans →</a></p>
+      <p class="side-wa">Questions first? ${waButton({ from: path, plan: plan.id, label: "Ask on WhatsApp", cls: "wa-link" })} &nbsp;·&nbsp; <a href="/pricing/">Compare plans</a></p>
     </div>
     <div id="get-started">
       ${leadForm({ heading: formHeading, sub: "Free profile check · reply on WhatsApp within 24 hours.", compact: true, plan: plan.id })}

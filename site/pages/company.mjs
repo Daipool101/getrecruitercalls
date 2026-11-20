@@ -308,8 +308,8 @@ const thankYou = {
 <section class="section"><div class="wrap">
   <h2>While you wait</h2>
   <div class="grid grid-2">
-    <a class="card post-card" href="/blog/not-getting-calls-from-naukri/"><span class="tag">Naukri guide</span><h3>9 reasons you’re not getting calls from Naukri</h3><span class="more">Read →</span></a>
-    <a class="card post-card" href="/blog/naukri-resume-headline-examples/"><span class="tag">Examples</span><h3>30+ Naukri resume headline examples</h3><span class="more">Read →</span></a>
+    <a class="card post-card" href="/blog/not-getting-calls-from-naukri/"><span class="tag">Naukri guide</span><h3>9 reasons you’re not getting calls from Naukri</h3><span class="more">Read</span></a>
+    <a class="card post-card" href="/blog/naukri-resume-headline-examples/"><span class="tag">Examples</span><h3>30+ Naukri resume headline examples</h3><span class="more">Read</span></a>
   </div>
 </div></section>`,
 };

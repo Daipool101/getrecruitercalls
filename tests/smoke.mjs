@@ -120,9 +120,9 @@ if (!READONLY) {
   r = await fetch(BASE + "/api/lead", { method: "POST", redirect: "manual", body: fd });
   ok(r.status === 303 && (r.headers.get("location") || "").endsWith("/thank-you/"), "no-JS form post redirects to /thank-you/");
 
-  // Rate limit: 5 per IP per hour (2 already saved above) -> eventually 429
+  // Rate limit: 20 per IP per hour (2 already saved above) -> eventually 429
   let saw429 = false;
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 25; i++) {
     const rr = await post({ ...valid, name: `Rate ${i}` });
     if (rr.status === 429) { saw429 = true; break; }
   }

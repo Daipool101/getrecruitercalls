@@ -208,7 +208,7 @@ export function leadForm({ heading = "Get your free profile check", sub = "Takes
   <input type="hidden" name="utm_source" value="">
   <input type="hidden" name="utm_medium" value="">
   <input type="hidden" name="utm_campaign" value="">
-  <button class="btn btn-gold btn-block btn-shine" type="submit">Get my free profile check <span class="arrow" aria-hidden="true">→</span></button>
+  <button class="btn btn-gold btn-block btn-shine" type="submit">Get my free profile check</button>
   <p class="form-status" role="status" aria-live="polite"></p>
   <p class="form-legal">By submitting, you agree to our <a href="/privacy-policy/">Privacy Policy</a> and <a href="/terms/">Terms</a>. No spam, ever.</p>
   <p class="form-alt">Prefer chatting? ${waButton({ from: "form", label: "WhatsApp us", cls: "wa-link" })}</p>
@@ -227,9 +227,9 @@ export function pricingCards({ formPath = "", from = "pricing" } = {}) {
     </div>
     <ul class="plan-list">${p.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>
     <div class="plan-ctas">
-      <a class="btn ${p.featured ? "btn-gold btn-shine" : "btn-dark"} btn-block" href="${formPath ? `${formPath}?plan=${p.id}#get-started` : "#get-started"}" data-plan="${p.id}">Choose ${esc(p.name)} <span class="arrow" aria-hidden="true">→</span></a>
+      <a class="btn ${p.featured ? "btn-gold btn-shine" : "btn-dark"} btn-block" href="${formPath ? `${formPath}?plan=${p.id}#get-started` : "#get-started"}" data-plan="${p.id}">Choose ${esc(p.name)}</a>
       ${waButton({ from, plan: p.id, label: "Ask on WhatsApp", cls: "wa-link" })}
-      <a class="plan-more" href="${p.url}">What’s included →</a>
+      <a class="plan-more" href="${p.url}">What’s included</a>
     </div>
   </article>`).join("")}
 </div>
@@ -240,7 +240,7 @@ export function ctaBand({ title = "Ready to get shortlisted?", text = "Upload yo
   return `<section class="cta-band"><div class="wrap cta-inner">
   <div><h2>${esc(title)}</h2><p>${esc(text)}</p></div>
   <div class="cta-btns">
-    <a class="btn btn-gold btn-lg btn-shine" href="/contact/">Get my free profile check <span class="arrow" aria-hidden="true">→</span></a>
+    <a class="btn btn-gold btn-lg btn-shine" href="/contact/">Get my free profile check</a>
     ${waButton({ from: "cta-band", label: "WhatsApp us", cls: "btn btn-wa btn-lg" })}
   </div>
 </div></section>`;
@@ -374,7 +374,7 @@ ${body}
 </footer>
 ${showStickyCta ? `<div class="sticky-cta" data-sticky-cta>
   <a class="sticky-wa" href="${waHref("sticky")}" rel="nofollow noopener" target="_blank" aria-label="Chat with us on WhatsApp">${WA_ICON}</a>
-  <a class="btn btn-gold btn-shine sticky-main" href="${ctaHref}">Free profile check <span class="arrow" aria-hidden="true">→</span></a>
+  <a class="btn btn-gold btn-shine sticky-main" href="${ctaHref}">Free profile check</a>
 </div>` : ""}
 ${noindex ? "" : `<a class="wa-float" href="${waHref("float")}" rel="nofollow noopener" target="_blank" aria-label="Chat with us on WhatsApp">${WA_ICON}<span>WhatsApp us</span></a>`}
 </body>

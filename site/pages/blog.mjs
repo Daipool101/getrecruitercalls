@@ -377,7 +377,7 @@ const indexBody = `
 </section>
 <section class="section">
   <div class="wrap grid grid-2">
-    ${posts.map((p) => `<a class="card post-card" href="${p.path}"><span class="tag">${esc(p._card.tag)}</span><h3>${esc(p._card.h1)}</h3><p>${esc(p._card.description)}</p><span class="more">Read guide (${p._card.readMins} min) →</span></a>`).join("")}
+    ${posts.map((p) => `<a class="card post-card" href="${p.path}"><span class="tag">${esc(p._card.tag)}</span><h3>${esc(p._card.h1)}</h3><p>${esc(p._card.description)}</p><span class="more">Read guide (${p._card.readMins} min)</span></a>`).join("")}
   </div>
 </section>
 ${ctaBand()}`;

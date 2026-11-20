@@ -18,7 +18,7 @@ import { EmailMessage } from "cloudflare:email";
 const MAX = { name: 80, phone: 20, email: 120, login: 120, experience: 40, plan: 40, target_role: 120, message: 1500, utm: 100, page: 200 };
 const EXPERIENCE_OPTIONS = ["Fresher (0-1 yr)", "1-3 yrs", "3-6 yrs", "6-10 yrs", "10-15 yrs", "15+ yrs"];
 const PLANS = { "": "Not sure — free check first", makeover: "Profile Makeover (₹6,000)", "done-for-you": "Done-For-You Job Search (₹8,000)" };
-const RATE_LIMIT_PER_HOUR = 5;
+const RATE_LIMIT_PER_HOUR = 20;
 const MAX_FILE = 1_900_000; // D1 rows are limited to 2 MB
 const MAX_BODY = 2_500_000; // whole request (file + fields)
 const FILE_TYPES = {
