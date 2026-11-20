@@ -365,25 +365,47 @@ function esc(s) {
 }
 
 function leadHtml(lead, id) {
+  // Phone-first, single-column, table-based layout (Gmail/Outlook-safe). Every label sits above its value,
+  // so nothing overflows on a narrow screen; colours are chosen to survive Gmail's dark-mode inversion.
   const l = withLabels(lead);
   const waNumber = lead.phone.replace(/\D/g, "").replace(/^0/, "");
   const wa = waNumber.length === 10 ? `91${waNumber}` : waNumber;
-  const rows = FIELDS.filter(([, k]) => l[k]).map(([label, k]) =>
-    `<tr><td style="padding:8px 12px;color:#0F3D3A;font-weight:600;white-space:nowrap;vertical-align:top">${esc(label)}</td><td style="padding:8px 12px;color:#222">${esc(l[k]).replace(/\n/g, "<br>")}</td></tr>`
-  ).join("");
-  return `<!doctype html><html><body style="margin:0;background:#F2E6D6;font-family:Arial,sans-serif">
-<div style="max-width:620px;margin:0 auto;padding:24px">
-  <div style="background:#0F3D3A;color:#F2E6D6;padding:20px 24px;border-radius:14px 14px 0 0">
-    <div style="font-size:13px;color:#F4B13B;letter-spacing:.06em;text-transform:uppercase">New lead${id ? ` #${id}` : ""} · ${esc(l.plan_label)}</div>
-    <div style="font-size:22px;font-weight:700;margin-top:4px">${esc(lead.name)} wants to get shortlisted</div>
-  </div>
-  <table style="width:100%;background:#fff;border-collapse:collapse;font-size:14px">${rows}</table>
-  <div style="background:#fff;padding:16px 24px 24px;border-radius:0 0 14px 14px">
-    <a href="https://wa.me/${esc(wa)}" style="display:inline-block;background:#25D366;color:#fff;text-decoration:none;font-weight:700;padding:10px 18px;border-radius:10px">WhatsApp ${esc(lead.name.split(" ")[0])}</a>
-    &nbsp;<a href="mailto:${esc(lead.email)}" style="display:inline-block;background:#E0745E;color:#fff;text-decoration:none;font-weight:700;padding:10px 18px;border-radius:10px">Email</a>
-    <p style="color:#666;font-size:12px;margin-top:16px">Hitting “Reply” on this email will reply to the candidate. Ask for the Naukri password only on WhatsApp, after they choose a plan.</p>
-  </div>
-</div></body></html>`;
+  const first = esc(lead.name.split(" ")[0]);
+  const F = "font-family:Arial,Helvetica,sans-serif;";
+  const value = (k) => {
+    const v = esc(l[k]).replace(/\n/g, "<br>");
+    if (k === "email") return `<a href="mailto:${esc(lead.email)}" style="color:#1F48D1;text-decoration:none">${v}</a>`;
+    if (k === "phone") return `<a href="tel:+${esc(wa)}" style="color:#1F48D1;text-decoration:none">${v}</a>`;
+    return v;
+  };
+  const rows = FIELDS.filter(([, k]) => l[k]).map(([label, k]) => `
+<tr><td style="${F}padding:12px 20px;border-bottom:1px solid #EEF0F3">
+  <div style="font-size:11px;line-height:16px;letter-spacing:.06em;text-transform:uppercase;color:#6B7280;font-weight:700">${esc(label)}</div>
+  <div style="font-size:16px;line-height:22px;color:#111827;margin-top:2px;word-break:break-word;overflow-wrap:anywhere">${value(k)}</div>
+</td></tr>`).join("");
+  const button = (href, bg, text) =>
+    `<a href="${href}" style="${F}display:block;background:${bg};color:#ffffff;text-decoration:none;font-weight:700;font-size:16px;line-height:20px;padding:14px 16px;border-radius:10px;text-align:center">${text}</a>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark"><meta name="supported-color-schemes" content="light dark">
+<title>New lead</title></head>
+<body style="margin:0;padding:0;background:#F3F4F6;-webkit-text-size-adjust:100%">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F3F4F6">
+<tr><td align="center" style="padding:16px 10px">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:14px;border-collapse:separate;overflow:hidden">
+<tr><td style="${F}background:#0F3D3A;padding:20px">
+  <div style="font-size:12px;line-height:18px;letter-spacing:.06em;text-transform:uppercase;color:#F4B13B;font-weight:700">New lead${id ? ` #${id}` : ""} · ${esc(l.plan_label)}</div>
+  <div style="font-size:21px;line-height:28px;font-weight:700;color:#FFFFFF;margin-top:6px">${esc(lead.name)} wants to get shortlisted</div>
+</td></tr>
+${rows}
+<tr><td style="${F}padding:18px 20px 6px">${button(`https://wa.me/${esc(wa)}`, "#1DA851", `WhatsApp ${first}`)}</td></tr>
+<tr><td style="${F}padding:6px 20px 6px">${button(`mailto:${esc(lead.email)}`, "#1F48D1", `Email ${first}`)}</td></tr>
+<tr><td style="${F}padding:12px 20px 20px;font-size:12px;line-height:18px;color:#6B7280">
+  Tap “Reply” to answer the candidate directly. Ask for the Naukri password only on WhatsApp, after they choose a plan.${lead.resume_name ? " The resume is attached to this email." : ""}
+</td></tr>
+</table>
+</td></tr></table>
+</body></html>`;
 }
 
 function b64bytes(bytes) {

@@ -283,7 +283,7 @@ ${keywords ? `<meta name="keywords" content="${esc(keywords)}">` : ""}
 <link rel="canonical" href="${canonical}">
 <link rel="alternate" hreflang="en-IN" href="${canonical}">
 <link rel="alternate" hreflang="x-default" href="${canonical}">
-<meta name="theme-color" content="${SITE.themeColor}">
+<meta name="theme-color" content="#FFFFFF">
 <meta name="author" content="${esc(SITE.founder)}">
 <meta property="og:site_name" content="${esc(SITE.name)}">
 <meta property="og:locale" content="${SITE.locale}">
