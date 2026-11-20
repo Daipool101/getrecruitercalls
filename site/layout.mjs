@@ -220,7 +220,7 @@ export function pricingCards({ formPath = "", from = "pricing" } = {}) {
     <div class="plan-top">
       <span class="plan-tag">${esc(p.tag)}</span>
       <h3>${esc(p.name)}</h3>
-      <p class="plan-price"><b>${inr(p.price)}</b></p>
+      <p class="plan-price"><b>${inr(p.price)}</b>${p.term ? `<small>${esc(p.term)}</small>` : ""}</p>
       <p class="plan-pitch">${esc(p.pitch)}</p>
     </div>
     <ul class="plan-list">${p.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>

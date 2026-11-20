@@ -12,7 +12,7 @@ function servicePage({ path, name, title, description, keywords, h1, lead, servi
     ${breadcrumbs(crumbs)}
     <h1>${esc(h1)}</h1>
     <p class="lead">${esc(lead)}</p>
-    <div class="price-chip"><span>${esc(plan.name)}</span><b>${inr(plan.price)}</b><small>Reply on WhatsApp in 24h</small></div>
+    <div class="price-chip"><span>${esc(plan.name)}</span><b>${inr(plan.price)}</b>${plan.term ? `<span class="term">${esc(plan.term)}</span>` : ""}<small>Reply on WhatsApp in 24h</small></div>
   </div>
 </section>
 
@@ -53,7 +53,7 @@ ${ctaBand(cta)}`;
 
 const LOGIN_FAQ = {
   q: "Do you need my Naukri login?",
-  a: "<p>Yes, to update your profile for you — Naukri profiles have no shareable link, and recruiter-visible fields can only be edited from inside the account. The form asks only for your Naukri login email or mobile. <b>We never ask for your password on this website</b>; we ask for it privately on WhatsApp after you choose a plan. Change it once we’re done if you like.</p>",
+  a: "<p>Yes, to update your profile for you — Naukri profiles have no shareable link. The form asks only for your Naukri login email or mobile. <b>We never ask for your password on this website</b>; we ask for it privately on WhatsApp after you choose a plan. Change it once we’re done if you like.</p>",
 };
 
 const naukri = servicePage({
@@ -92,25 +92,26 @@ const apply = servicePage({
   plan: DFY,
   title: "Naukri Job Application Service – We Apply For You",
   description:
-    `Done-for-you job search in India: we optimize your Naukri profile & resume, manage it and apply to matching jobs on your behalf. You just take recruiter calls. ${inr(DFY.price)}.`,
+    `Done-for-you job search in India: we optimize your Naukri profile & resume, and apply to relevant jobs for you for 1 month. You just take recruiter calls. ${inr(DFY.price)}.`,
   keywords: "job application service india, apply jobs on my behalf, naukri profile management service, done for you job search, job search assistance service india, someone to apply for jobs for me, naukri job apply service",
   h1: "We apply to jobs for you",
-  lead: "Busy, on notice, or tired of applying? We take over your Naukri job search — profile, resume and applications — so you only spend time on recruiter calls and interviews.",
+  lead: "Busy, on notice, or tired of applying? We take over your Naukri job search for 1 month — profile, resume and applications — so you only spend time on recruiter calls and interviews.",
   serviceType: "Job application service",
   schemaDesc: "Done-for-you Naukri job search: profile and ATS resume optimization, ongoing Naukri profile management and job applications on the candidate’s behalf.",
   included: [
     ["Full Profile Makeover", "Naukri profile + ATS resume, rewritten"],
     ["Profile management", "Kept active, fresh and visible to recruiters"],
-    ["Applications for you", "Jobs that match your role, experience & city"],
+    ["1 month of applications", "Relevant jobs matching your profile"],
     ["Role-tuned resume", "Adjusted for the jobs we apply to"],
     ["Your preferences first", "Role, city & salary agreed with you"],
     ["You take the calls", "Interviews and decisions stay with you"],
   ],
   formHeading: "Apply to jobs for me",
   faqs: [
-    { q: "What exactly do you do on my behalf?", a: "<p>We optimize your Naukri profile and resume, keep the profile active and updated, and apply to jobs that match the role, experience, salary and city you agree with us. You attend the recruiter calls and interviews.</p>" },
+    { q: "What exactly do you do on my behalf?", a: "<p>We optimize your Naukri profile and resume, keep the profile active and updated, and for 1 month apply to relevant jobs that match the role, experience, salary and city you agree with us. You attend the recruiter calls and interviews.</p>" },
     LOGIN_FAQ,
-    { q: "Which jobs will you apply to?", a: "<p>Only jobs that match what we agree with you with you on WhatsApp before we start — target role, city, salary range and notice period. Nothing is applied that you wouldn’t want.</p>" },
+    { q: "How long do you apply to jobs for me?", a: "<p>For 1 month. During that month we apply to relevant jobs according to your profile — matching your role, experience, city and salary range — while keeping your Naukri profile active.</p>" },
+    { q: "Which jobs will you apply to?", a: "<p>Only relevant jobs that match your profile and what we agree with you on WhatsApp before we start — target role, city, salary range and notice period. Nothing is applied that you wouldn’t want.</p>" },
     { q: "How much does it cost?", a: `<p>${inr(DFY.price)} for the ${DFY.name}. If you only want your profile and resume fixed, the <a href="${MAKEOVER.url}">${MAKEOVER.name}</a> is ${inr(MAKEOVER.price)}.</p>` },
     { q: "Do you guarantee a job?", a: "<p>No — and be careful of anyone who does. We maximise how often recruiters see and contact you. Offers depend on your interviews, skills and the market.</p>" },
   ],
@@ -151,7 +152,7 @@ const resume = servicePage({
 
 const PRICING_FAQS = [
   { q: "What happens after I fill the form?", a: "<p>We message you on WhatsApp within 24 hours to confirm your plan, target role and city, and share the payment details. Work starts once payment is received.</p>" },
-  { q: `What’s the difference between ${MAKEOVER.name} and ${DFY.name}?`, a: `<p>${MAKEOVER.name} (${inr(MAKEOVER.price)}) fixes your Naukri profile and resume, and you continue applying yourself. ${DFY.name} (${inr(DFY.price)}) includes all of that, and we also manage your Naukri profile and apply to matching jobs on your behalf.</p>` },
+  { q: `What’s the difference between ${MAKEOVER.name} and ${DFY.name}?`, a: `<p>${MAKEOVER.name} (${inr(MAKEOVER.price)}) fixes your Naukri profile and resume, and you continue applying yourself. ${DFY.name} (${inr(DFY.price)}) includes all of that, and we also manage your Naukri profile and apply to relevant jobs for you for 1 month.</p>` },
   { q: "How do I pay?", a: "<p>We share the payment details on WhatsApp after confirming your plan. Work starts once payment is received.</p>" },
   LOGIN_FAQ,
   { q: "Do you guarantee a job or a number of calls?", a: "<p>No. Hiring depends on employers, the market and your interviews. We make sure your profile and resume are not the reason recruiters skip you — many candidates see more calls within about a week.</p>" },

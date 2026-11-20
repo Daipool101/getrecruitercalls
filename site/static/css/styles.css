@@ -857,3 +857,8 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
 
 /* Readability: gold label on the blue form band (beats the generic .kicker colour). */
 .section-forest .kicker, .section-forest .kicker-gold { color: #FFE3A3; }
+
+/* Plan term (e.g. "1 month of job applications") */
+.plan-price small { display: block; margin-top: 8px; font-size: .85rem; font-weight: 700; letter-spacing: .02em; color: var(--m-blue-2); }
+.plan-featured .plan-price small { color: #FFD27A; }
+.price-chip .term { color: var(--m-navy); font-weight: 700; font-size: .9rem; }

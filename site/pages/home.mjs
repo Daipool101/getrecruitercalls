@@ -13,7 +13,7 @@ export const HOME_FAQS = [
   },
   {
     q: "How much does Naukri profile optimization cost?",
-    a: `<p>Our <b>${MAKEOVER.name}</b> (Naukri profile + ATS resume) is <b>${inr(MAKEOVER.price)}</b>. Our <b>${DFY.name}</b>, where we also manage your profile and apply to jobs on your behalf, is <b>${inr(DFY.price)}</b>. We confirm everything with you on WhatsApp before you pay.</p>`,
+    a: `<p>Our <b>${MAKEOVER.name}</b> (Naukri profile + ATS resume) is <b>${inr(MAKEOVER.price)}</b>. Our <b>${DFY.name}</b>, where we also manage your profile and apply to relevant jobs for you for 1 month, is <b>${inr(DFY.price)}</b>. We confirm everything with you on WhatsApp before you pay.</p>`,
   },
   {
     q: "Why do you only work on Naukri and not LinkedIn or other job sites?",
@@ -21,11 +21,11 @@ export const HOME_FAQS = [
   },
   {
     q: "Why do you need my Naukri login?",
-    a: "<p>Naukri profiles don’t have a shareable public link, and the fields recruiters see (headline, key skills, summary, preferences) can only be changed from inside your account. On the form we ask only for your Naukri login email or mobile. <b>We never ask for your password on this website</b> — we ask for it privately on WhatsApp after you choose a plan, and we recommend you change it once we’re done.</p>",
+    a: "<p>Naukri profiles don’t have a shareable public link. On the form we ask only for your Naukri login email or mobile. <b>We never ask for your password on this website</b> — we ask for it privately on WhatsApp after you choose a plan, and we recommend you change it once we’re done.</p>",
   },
   {
     q: "Can you apply to jobs on my behalf?",
-    a: `<p>Yes — that’s our <a href="${DFY.url}">${DFY.name}</a>. We optimize your profile and resume, keep your Naukri profile active and apply to jobs that match your role, experience and city. You just attend the recruiter calls and interviews.</p>`,
+    a: `<p>Yes — that’s our <a href="${DFY.url}">${DFY.name}</a>. We optimize your profile and resume, keep your Naukri profile active and, for 1 month, apply to relevant jobs that match your role, experience and city. You just attend the recruiter calls and interviews.</p>`,
   },
   {
     q: "How soon will I start getting calls?",
@@ -112,7 +112,7 @@ const body = `
     </div>
     <ol class="steps steps-3">
       <li><span class="step-icon">${ICON.doc}</span><h3>Share your profile</h3><p>Upload your resume, add your Naukri login email and pick a plan.</p></li>
-      <li><span class="step-icon">${ICON.key}</span><h3>We fix — or we run it</h3><p>New headline, keywords, summary and ATS resume. On ${DFY.name}, we apply to jobs for you too.</p></li>
+      <li><span class="step-icon">${ICON.key}</span><h3>We fix — or we run it</h3><p>New headline, keywords, summary and ATS resume. On ${DFY.name}, we apply to relevant jobs for you for 1 month.</p></li>
       <li><span class="step-icon">${ICON.phone}</span><h3>Recruiters call you</h3><p>Your profile shows up in recruiter searches — you just pick up the phone.</p></li>
     </ol>
   </div>
