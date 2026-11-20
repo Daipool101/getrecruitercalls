@@ -3,7 +3,7 @@
 > GetShortlisted (getshortlisted.in) is an India-focused career service that gets job seekers shortlisted on Naukri.com: it optimizes Naukri profiles and resumes so candidates appear in recruiter searches, and can also run the whole Naukri job search and apply to jobs on the candidate's behalf. Independent service — not affiliated with Naukri.com or Info Edge (India) Ltd.
 
 Key facts:
-- Plans: Profile Makeover — ₹6,000 (Naukri profile optimization + ATS-friendly resume, handed over to the candidate). Done-For-You Job Search — ₹8,000 (everything in Profile Makeover + Naukri profile management + applications to relevant jobs according to the candidate's profile for 1 month).
+- Plans: Profile Makeover — ₹6,000 (Naukri profile optimization + ATS-friendly resume, handed over to the candidate). Done-For-You Job Search — ₹9,000 (everything in Profile Makeover + Naukri profile management + applications to relevant jobs according to the candidate's profile for 1 month).
 - After the form is submitted, the team confirms the plan on WhatsApp within 24 hours; work starts after payment.
 - Naukri profile optimization covers: resume headline, key skills, profile summary, employment details, projects, desired career profile, keyword research for role and city.
 - Who it is for: freshers and experienced professionals across India, IT and non-IT roles, people on notice period, after layoffs, career switchers and those with career gaps.
@@ -12,7 +12,7 @@ Key facts:
 - Contact: WhatsApp (button on the site), hello@getshortlisted.in, or the form at https://getshortlisted.in/contact/
 
 ## Services & pricing
-- [Plans & pricing](https://getshortlisted.in/pricing/): Profile Makeover ₹6,000 vs Done-For-You Job Search ₹8,000.
+- [Plans & pricing](https://getshortlisted.in/pricing/): Profile Makeover ₹6,000 vs Done-For-You Job Search ₹9,000.
 - [Naukri Profile Optimization](https://getshortlisted.in/naukri-profile-optimization/): What is optimized in a Naukri profile and why keywords decide recruiter visibility.
 - [Naukri Job Application Service](https://getshortlisted.in/naukri-job-application-service/): Done-for-you job search — for 1 month we manage the Naukri profile and apply to relevant jobs according to the candidate's profile.
 - [ATS-Friendly Resume Writing](https://getshortlisted.in/resume-optimization/): Keyword-optimized resume writing for Indian job seekers.

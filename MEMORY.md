@@ -63,6 +63,8 @@ Owner's instruction: *clean, simple, professional, call-to-action focused; don't
 
 - **2026-11-21 (v5)** — No free profile check is offered (owner decision): all "free check" copy removed; main CTA is "Get Shortlisted"; plan is required (₹6,000 pre-selected; "Not sure" option removed). Blue/white/navy theme now applies on desktop too (was mobile-only). New home section "Why only Naukri?" + FAQ (recruiters search Naukri and call you; other sites = you apply and wait). WhatsApp opener text set by owner ("Hi team! My Naukri profile has been around forever…"). Founder name removed from the whole site.
 
+- **2026-11-21** — Done-For-You Job Search price changed ₹8,000 → **₹9,000** (owner request). Profile Makeover stays ₹6,000.
+
 ## Ideas for later (not built — owner said don't add extra things)
 - Hindi versions of key pages (`/hi/…`) to rank for Hindi searches.
 - More guides: "Naukri profile summary examples", "How to update Naukri profile daily", "Key skills for <role>", city pages.

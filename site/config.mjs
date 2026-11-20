@@ -47,7 +47,7 @@ export const PLANS = [
   {
     id: "done-for-you",
     name: "Done-For-You Job Search",
-    price: 8000,
+    price: 9000,
     tag: "Hands-free",
     featured: true,
     pitch: "We take over your Naukri job search for 1 month — profile, resume and applications. You just pick up recruiter calls.",
