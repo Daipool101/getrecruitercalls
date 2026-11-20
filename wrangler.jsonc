@@ -23,11 +23,12 @@
   // Free address: https://getrecruitercalls.<your-account>.workers.dev
   "workers_dev": true,
 
-  // STEP 2 (after getshortlisted.in is added to this Cloudflare account and its nameservers point to Cloudflare): uncomment to attach the domain.
-  // "routes": [
-  //   { "pattern": "getshortlisted.in", "custom_domain": true },
-  //   { "pattern": "www.getshortlisted.in", "custom_domain": true }
-  // ],
+  // Custom domain (zone getshortlisted.in is active on this Cloudflare account since 2026-11-20).
+  // Cloudflare creates the DNS records + SSL certificates for these automatically on deploy.
+  "routes": [
+    { "pattern": "getshortlisted.in", "custom_domain": true },
+    { "pattern": "www.getshortlisted.in", "custom_domain": true }
+  ],
 
   // D1 database that stores every lead (form submission).
   // No database_id needed: `wrangler deploy` creates the database automatically on first deploy,
