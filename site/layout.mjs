@@ -26,7 +26,6 @@ export function orgSchema() {
     image: abs(SITE.ogImage),
     description: SITE.description,
     email: SITE.email,
-    founder: { "@type": "Person", name: SITE.founder },
     areaServed: { "@type": "Country", name: "India" },
     knowsAbout: [
       "Naukri profile optimization", "Resume optimization", "ATS-friendly resume", "Naukri resume headline",
@@ -107,7 +106,7 @@ export function articleSchema({ title, description, path, published, modified })
     datePublished: published,
     dateModified: modified || published,
     inLanguage: "en-IN",
-    author: { "@type": "Person", name: SITE.founder, url: abs("/about/") },
+    author: { "@id": ORG_ID },
     publisher: { "@id": ORG_ID },
   };
 }
@@ -284,7 +283,7 @@ ${keywords ? `<meta name="keywords" content="${esc(keywords)}">` : ""}
 <link rel="alternate" hreflang="en-IN" href="${canonical}">
 <link rel="alternate" hreflang="x-default" href="${canonical}">
 <meta name="theme-color" content="#FFFFFF">
-<meta name="author" content="${esc(SITE.founder)}">
+<meta name="author" content="${esc(SITE.name)}">
 <meta property="og:site_name" content="${esc(SITE.name)}">
 <meta property="og:locale" content="${SITE.locale}">
 <meta property="og:type" content="${ogType}">

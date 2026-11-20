@@ -159,7 +159,7 @@ These bring leads in days, not months. Always link to the site with UTM tags so 
 
 ## 11. Owner checklist
 
-- [ ] Email Routing on + verify Nishit's Gmail (lead emails)
+- [x] Email Routing on + verify the lead Gmail (lead emails)
 - [ ] Google Search Console + sitemap
 - [ ] Bing Webmaster Tools
 - [ ] Cloudflare Web Analytics (or GA4)

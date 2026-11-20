@@ -18,7 +18,7 @@ const aboutCrumbs = [{ name: "Home", path: "/" }, { name: "About", path: "/about
 const about = {
   path: "/about/",
   title: "About GetShortlisted — Naukri Profile & Resume Experts",
-  description: `GetShortlisted helps job seekers across India get more recruiter calls by optimizing their Naukri profiles and resumes. Founded by ${SITE.founder}.`,
+  description: `GetShortlisted helps job seekers across India get more recruiter calls by optimizing their Naukri profiles and resumes.`,
   priority: 0.6,
   schema: [
     breadcrumbSchema(aboutCrumbs),
@@ -30,7 +30,7 @@ ${hero(aboutCrumbs, "About us", "We help good candidates get found by recruiters
   <div class="wrap split">
     <div class="prose">
       <h2 class="mt-0">Our story</h2>
-      <p>${esc(SITE.founder)} started GetShortlisted after seeing the same pattern again and again: skilled professionals and freshers with strong backgrounds, sitting with zero recruiter calls for weeks. The fix was almost never “more experience”. It was a better resume headline, the right key skills, a sharper summary, realistic preferences and a resume that software could actually read.</p>
+      <p>GetShortlisted was started after seeing the same pattern again and again: skilled professionals and freshers with strong backgrounds, sitting with zero recruiter calls for weeks. The fix was almost never “more experience”. It was a better resume headline, the right key skills, a sharper summary, realistic preferences and a resume that software could actually read.</p>
       <p>After a few focused changes, those same profiles started showing up in recruiter searches — and the calls followed, often within a week. GetShortlisted turns that experience into a simple, personal service for every job seeker.</p>
       <h2>What we believe</h2>
       <ul class="checklist">
@@ -47,7 +47,6 @@ ${hero(aboutCrumbs, "About us", "We help good candidates get found by recruiters
         <li><strong>Plans:</strong> ${PLANS.map((p) => `${esc(p.name)} ${inr(p.price)}`).join(" · ")}</li>
         <li><strong>Who:</strong> Freshers to senior professionals, IT and non-IT</li>
         <li><strong>Where:</strong> Online, across India</li>
-        <li><strong>Founder:</strong> ${esc(SITE.founder)}</li>
         <li><strong>Contact:</strong> <a href="mailto:${SITE.email}">${SITE.email}</a> or WhatsApp</li>
       </ul>
       <a class="btn btn-gold btn-block" href="/contact/">Get my free profile check</a>
@@ -225,7 +224,7 @@ ${hero(privacyCrumbs, "", "Privacy Policy", `Last updated: 21 November 2026`)}
 
 <h2>12. Contact & grievance officer</h2>
 <p>For any privacy question or grievance, contact our Grievance Officer:<br>
-<strong>${esc(SITE.founder)}</strong>, ${esc(SITE.name)}<br>
+<strong>Grievance Officer</strong>, ${esc(SITE.name)}<br>
 Email: <a href="mailto:${SITE.email}">${SITE.email}</a></p>
 </div></section>`,
 };

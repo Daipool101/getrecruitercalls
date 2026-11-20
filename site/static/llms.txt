@@ -1,6 +1,6 @@
 # GetShortlisted
 
-> GetShortlisted (getshortlisted.in) is an India-focused career service that gets job seekers shortlisted on Naukri.com: it optimizes Naukri profiles and resumes so candidates appear in recruiter searches, and can also run the whole Naukri job search and apply to jobs on the candidate's behalf. Founded by Nishit Salian. Independent service — not affiliated with Naukri.com or Info Edge (India) Ltd.
+> GetShortlisted (getshortlisted.in) is an India-focused career service that gets job seekers shortlisted on Naukri.com: it optimizes Naukri profiles and resumes so candidates appear in recruiter searches, and can also run the whole Naukri job search and apply to jobs on the candidate's behalf. Independent service — not affiliated with Naukri.com or Info Edge (India) Ltd.
 
 Key facts:
 - Plans: Profile Makeover — ₹6,000 (Naukri profile optimization + ATS-friendly resume, handed over to the candidate). Done-For-You Job Search — ₹8,000 (everything in Profile Makeover + Naukri profile management + job applications on the candidate's behalf).

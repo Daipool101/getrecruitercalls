@@ -12,7 +12,7 @@ function article({ path, title, h1, description, keywords, tag, readMins, intro,
     <span class="eyebrow">${esc(tag)}</span>
     <h1>${esc(h1)}</h1>
     <p class="lead">${intro}</p>
-    <p class="article-meta">By <a href="/about/" style="color:inherit">${esc(SITE.founder)}</a> · Updated <time datetime="${PUBLISHED}">19 Nov 2026</time> · ${readMins} min read</p>
+    <p class="article-meta">By <a href="/about/" style="color:inherit">the ${esc(SITE.name)} team</a> · Updated <time datetime="${PUBLISHED}">19 Nov 2026</time> · ${readMins} min read</p>
   </div>
 </section>
 <section class="section">

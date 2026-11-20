@@ -6,7 +6,7 @@
 - **Name / domain:** GetShortlisted — https://getshortlisted.in (renamed from GetRecruiterCalls on 2026-11-20; domain bought at Hostinger, nameservers moved to Cloudflare (kami/max.ns.cloudflare.com), LIVE since 2026-11-20. getshortlisted.com belongs to someone else — never use .com)
 - **What it sells:** Naukri profile optimization + resume (ATS) optimization for job seekers in India, so recruiters find them and call them — owner's experience: calls usually start within about a week.
 - **Customer:** Any job seeker on Naukri not getting recruiter calls — freshers to senior, IT and non-IT, notice period, layoffs, career gaps, switchers.
-- **Owner / founder (as shown on site):** Nishit Salian
+- **Founder / owner name:** NOT shown anywhere on the site (removed 2026-11-21 at owner's request). Articles are by "the GetShortlisted team"; schema uses the Organization only. Do not add a person's name back unless asked.
 - **Lead notification email:** the owner's Gmail (stored only as the NOTIFY_TO secret)
 - **Public contact email on site:** hello@getshortlisted.in (must be created in Cloudflare Email Routing → forward to the Gmail)
 - **Owner communicates in:** English + Hindi (Hinglish). Keep instructions simple.
@@ -38,7 +38,6 @@ Owner's instruction: *clean, simple, professional, call-to-action focused; don't
 - Guides should start with a "Quick answer" box and use question-style headings (good for AI answers).
 
 ## Things written on the site that the owner should confirm ⚠
-- [ ] Founder name "Nishit Salian" shown publicly on About, articles and schema.
 - [ ] Promise "We reply on WhatsApp / email within 24 hours".
 - [ ] "We can talk to you in Hindi".
 - [ ] Data retention "up to 24 months" in Privacy Policy; Grievance Officer = founder.

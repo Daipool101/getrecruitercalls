@@ -6,7 +6,6 @@ export const SITE = {
   tagline: "Naukri Profile & Resume Optimization",
   description:
     "Not getting calls from Naukri? GetShortlisted optimizes your Naukri profile and resume with the right keywords, headline and ATS-friendly format so recruiters find you and call you.",
-  founder: "Nishit Salian",
   // Public contact address. Create it in Cloudflare Email Routing (forward to your Gmail).
   email: "hello@getshortlisted.in",
   country: "India",
