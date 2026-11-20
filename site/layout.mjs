@@ -17,7 +17,7 @@ export function orgSchema() {
     "@type": ["Organization", "ProfessionalService"],
     "@id": ORG_ID,
     name: SITE.name,
-    alternateName: ["Get Shortlisted", "getshortlisted.com"],
+    alternateName: ["Get Shortlisted", "getshortlisted.in"],
     url: SITE.url,
     logo: abs("/img/logo.png"),
     image: abs(SITE.ogImage),

@@ -1,5 +1,5 @@
 // Smoke tests against a running server.
-// Usage: start `npm run dev` in one terminal, then `npm test` (or BASE=https://getshortlisted.com npm test — read-only checks only with READONLY=1).
+// Usage: start `npm run dev` in one terminal, then `npm test` (or BASE=https://getshortlisted.in npm test — read-only checks only with READONLY=1).
 const BASE = process.env.BASE || "http://127.0.0.1:8787";
 const READONLY = process.env.READONLY === "1";
 let pass = 0, fail = 0;
@@ -16,7 +16,7 @@ console.log(`Testing ${BASE}\n`);
 console.log("Pages:");
 const sitemap = await get("/sitemap.xml");
 ok(sitemap.status === 200, "sitemap.xml 200");
-const paths = [...sitemap.text.matchAll(/<loc>https:\/\/getshortlisted.com([^<]*)<\/loc>/g)].map((m) => m[1]);
+const paths = [...sitemap.text.matchAll(/<loc>https:\/\/getshortlisted\.in([^<]*)<\/loc>/g)].map((m) => m[1]);
 ok(paths.length >= 10, `sitemap lists ${paths.length} URLs`);
 const titles = new Set(), descs = new Set();
 for (const p of paths) {
@@ -30,7 +30,7 @@ for (const p of paths) {
     const ld = JSON.parse(r.text.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
     ldOk = Array.isArray(ld["@graph"]) && ld["@graph"].length >= 2;
   } catch {}
-  const good = r.status === 200 && title && desc && canon === `https://getshortlisted.com${p}` && h1s === 1 && ldOk && !titles.has(title) && !descs.has(desc);
+  const good = r.status === 200 && title && desc && canon === `https://getshortlisted.in${p}` && h1s === 1 && ldOk && !titles.has(title) && !descs.has(desc);
   titles.add(title); descs.add(desc);
   ok(good, `${p} — 200, unique title/description, canonical, single H1, JSON-LD (title ${title?.length}ch, desc ${desc?.length}ch)`);
 }
@@ -41,7 +41,7 @@ for (const f of ["/robots.txt", "/llms.txt", "/favicon.svg", "/favicon.ico", "/s
   ok((await get(f)).status === 200, `${f} 200`);
 }
 const robots = await get("/robots.txt");
-ok(robots.text.includes("Sitemap: https://getshortlisted.com/sitemap.xml"), "robots.txt points to sitemap");
+ok(robots.text.includes("Sitemap: https://getshortlisted.in/sitemap.xml"), "robots.txt points to sitemap");
 const nf = await get("/this-page-does-not-exist/");
 ok(nf.status === 404 && nf.text.includes("This page took a different job"), "unknown URL returns custom 404");
 const ty = await get("/thank-you/");

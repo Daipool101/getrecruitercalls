@@ -1,14 +1,14 @@
 // Single source of truth for site-wide details. Change here -> rebuild -> every page updates.
 export const SITE = {
   name: "GetShortlisted",
-  domain: "getshortlisted.com",
-  url: "https://getshortlisted.com",
+  domain: "getshortlisted.in",
+  url: "https://getshortlisted.in",
   tagline: "Naukri Profile & Resume Optimization",
   description:
     "Not getting calls from Naukri? GetShortlisted optimizes your Naukri profile and resume with the right keywords, headline and ATS-friendly format so recruiters find you and call you.",
   founder: "Nishit Salian",
   // Public contact address. Create it in Cloudflare Email Routing (forward to your Gmail).
-  email: "hello@getshortlisted.com",
+  email: "hello@getshortlisted.in",
   country: "India",
   locale: "en_IN",
   themeColor: "#0F3D3A",

@@ -50,7 +50,7 @@ await shot("img/og-image.png", 1200, 630, `${font}
   <div style="position:absolute;left:80px;top:70px;display:flex;align-items:center;gap:18px">${mark(76)}<span style="font-size:42px;font-weight:600;letter-spacing:-1px">Get<b style="font-weight:800;color:#F4B13B">Shortlisted</b></span></div>
   <div style="position:absolute;left:80px;top:212px;font-size:76px;line-height:1.05;font-weight:800;letter-spacing:-2.5px;color:#fff">Get shortlisted.<br><span style="color:#F4B13B">Get recruiter calls.</span></div>
   <div style="position:absolute;left:80px;top:420px;font-size:30px;font-weight:500;color:rgba(242,230,214,.9);width:640px;line-height:1.35">Naukri profile &amp; ATS resume optimization for job seekers across India.</div>
-  <div style="position:absolute;left:80px;top:522px;padding:14px 26px;border-radius:14px;background:linear-gradient(135deg,#FFC85A,#F4B13B 45%,#EE9640);color:#0A2B29;font-size:28px;font-weight:800">getshortlisted.com</div>
+  <div style="position:absolute;left:80px;top:522px;padding:14px 26px;border-radius:14px;background:linear-gradient(135deg,#FFC85A,#F4B13B 45%,#EE9640);color:#0A2B29;font-size:28px;font-weight:800">getshortlisted.in</div>
 </div>`);
 
 await rm(tmp, { recursive: true, force: true });

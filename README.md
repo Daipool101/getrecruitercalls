@@ -1,4 +1,4 @@
-# GetShortlisted.com
+# GetShortlisted.in
 
 Naukri profile & resume optimization website. Cloudflare Workers (hosting) + D1 (leads database) + Email Routing (lead notification email).
 
@@ -47,16 +47,16 @@ Every push to `main` on GitHub redeploys automatically.
 See leads anytime: dashboard → **Storage & Databases → D1 → getrecruitercalls-db → Console** → run
 `SELECT * FROM leads ORDER BY id DESC;`
 
-### Step 2 — Connect the domain getshortlisted.com
-1. The domain is registered at Spaceship. In Cloudflare: **Add a domain** → `getshortlisted.com` → Free plan.
-   Cloudflare shows 2 nameservers → in Spaceship, **Domain → Nameservers → Custom** → paste them. Wait until Cloudflare says "Active".
+### Step 2 — Connect the domain getshortlisted.in
+1. The domain is registered at Hostinger. In Cloudflare: **Add a domain** → `getshortlisted.in` → Free plan.
+   Cloudflare shows 2 nameservers → in Hostinger, **Domains → getshortlisted.in → DNS / Nameservers → Change nameservers** → paste them. Wait until Cloudflare says "Active" (can take a few hours).
 2. In `wrangler.jsonc`, uncomment the `"routes"` block, push to GitHub.
-3. Dashboard → `getshortlisted.com` → **Rules → Redirect Rules → template "Redirect from WWW to root"**.
+3. Dashboard → `getshortlisted.in` → **Rules → Redirect Rules → template "Redirect from WWW to root"**.
 
 ### Step 3 — Turn on lead emails
-1. Dashboard → `getshortlisted.com` → **Email → Email Routing → Enable**.
+1. Dashboard → `getshortlisted.in` → **Email → Email Routing → Enable**.
 2. **Destination addresses** → add `nishit.salian02@gmail.com` → click the verify link in Gmail.
-3. **Custom addresses** → create `hello@getshortlisted.com` → send to the Gmail.
+3. **Custom addresses** → create `hello@getshortlisted.in` → send to the Gmail.
 4. In `wrangler.jsonc`, uncomment the `"send_email"` block, push to GitHub.
 5. Submit the form once and check Gmail (and Spam the first time).
 
@@ -67,7 +67,7 @@ See leads anytime: dashboard → **Storage & Databases → D1 → getrecruiterca
 ---
 
 ## After launch — get found on Google & AI search
-1. **Google Search Console** → add Domain property `getshortlisted.com` (verify via Cloudflare DNS) → **Sitemaps** → submit `https://getshortlisted.com/sitemap.xml` → use **URL Inspection → Request indexing** for the home page and service pages.
+1. **Google Search Console** → add Domain property `getshortlisted.in` (verify via Cloudflare DNS) → **Sitemaps** → submit `https://getshortlisted.in/sitemap.xml` → use **URL Inspection → Request indexing** for the home page and service pages.
 2. **Bing Webmaster Tools** → import from Search Console (Bing also feeds ChatGPT search & Copilot).
 3. **Cloudflare Web Analytics** (free, no cookies) → dashboard → Analytics & Logs → Web Analytics → enable for the domain (automatic setup).
 4. Create **LinkedIn / Instagram / YouTube** pages for GetShortlisted and add the links in `site/config.mjs → social` (helps Google & AI trust the brand).

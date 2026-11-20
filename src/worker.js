@@ -1,5 +1,5 @@
 /**
- * GetShortlisted.com — Cloudflare Worker
+ * GetShortlisted.in — Cloudflare Worker
  *
  * Static pages are served by Workers Static Assets (./public).
  * This Worker only handles /api/* (see run_worker_first in wrangler.jsonc):
@@ -255,7 +255,7 @@ const FIELDS = [
 
 function leadText(lead, id) {
   const lines = FIELDS.filter(([, k]) => lead[k]).map(([label, k]) => `${label}: ${lead[k]}`);
-  return `New lead on GetShortlisted.com${id ? ` (#${id})` : ""}\n\n${lines.join("\n")}\n\nReply to this email to respond to the candidate directly.\n`;
+  return `New lead on GetShortlisted.in${id ? ` (#${id})` : ""}\n\n${lines.join("\n")}\n\nReply to this email to respond to the candidate directly.\n`;
 }
 
 function esc(s) {
@@ -299,7 +299,7 @@ function encodeHeader(str) {
 
 function buildMime({ from, fromAddr, to, replyTo, subject, text, html }) {
   const boundary = `grc_${crypto.randomUUID()}`;
-  const domain = fromAddr.split("@")[1] || "getshortlisted.com";
+  const domain = fromAddr.split("@")[1] || "getshortlisted.in";
   const headers = [
     `From: ${from}`,
     `To: ${to}`,

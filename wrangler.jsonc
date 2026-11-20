@@ -23,10 +23,10 @@
   // Free address: https://getrecruitercalls.<your-account>.workers.dev
   "workers_dev": true,
 
-  // STEP 2 (after getshortlisted.com is added to this Cloudflare account and its nameservers point to Cloudflare): uncomment to attach the domain.
+  // STEP 2 (after getshortlisted.in is added to this Cloudflare account and its nameservers point to Cloudflare): uncomment to attach the domain.
   // "routes": [
-  //   { "pattern": "getshortlisted.com", "custom_domain": true },
-  //   { "pattern": "www.getshortlisted.com", "custom_domain": true }
+  //   { "pattern": "getshortlisted.in", "custom_domain": true },
+  //   { "pattern": "www.getshortlisted.in", "custom_domain": true }
   // ],
 
   // D1 database that stores every lead (form submission).
@@ -40,7 +40,7 @@
     }
   ],
 
-  // STEP 3 (after Email Routing is enabled for getshortlisted.com and the Gmail below is VERIFIED):
+  // STEP 3 (after Email Routing is enabled for getshortlisted.in and the Gmail below is VERIFIED):
   // uncomment to email every lead. Until then leads are only saved in the D1 database.
   // "send_email": [
   //   {
@@ -51,8 +51,8 @@
 
   "vars": {
     "NOTIFY_TO": "nishit.salian02@gmail.com",
-    "NOTIFY_FROM": "leads@getshortlisted.com",
-    "SITE_URL": "https://getshortlisted.com"
+    "NOTIFY_FROM": "leads@getshortlisted.in",
+    "SITE_URL": "https://getshortlisted.in"
   },
 
   "observability": { "enabled": true }

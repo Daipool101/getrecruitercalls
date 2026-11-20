@@ -3,12 +3,12 @@
 > Read this first in any new session (human or AI). It records what the project is, what was decided and why, and what is still open. Update it whenever something important changes.
 
 ## The business
-- **Name / domain:** GetShortlisted — https://getshortlisted.com (renamed from GetRecruiterCalls on 2026-11-20; domain registered at Spaceship, not yet on Cloudflare)
+- **Name / domain:** GetShortlisted — https://getshortlisted.in (renamed from GetRecruiterCalls on 2026-11-20; domain bought at Hostinger, not yet on Cloudflare. getshortlisted.com belongs to someone else — never use .com)
 - **What it sells:** Naukri profile optimization + resume (ATS) optimization for job seekers in India, so recruiters find them and call them — owner's experience: calls usually start within about a week.
 - **Customer:** Any job seeker on Naukri not getting recruiter calls — freshers to senior, IT and non-IT, notice period, layoffs, career gaps, switchers.
 - **Owner / founder (as shown on site):** Nishit Salian
 - **Lead notification email:** nishit.salian02@gmail.com
-- **Public contact email on site:** hello@getshortlisted.com (must be created in Cloudflare Email Routing → forward to the Gmail)
+- **Public contact email on site:** hello@getshortlisted.in (must be created in Cloudflare Email Routing → forward to the Gmail)
 - **Owner communicates in:** English + Hindi (Hinglish). Keep instructions simple.
 
 ## Goal of the website
@@ -53,7 +53,7 @@ Owner's instruction: *clean, simple, professional, call-to-action focused; don't
 
 - **2026-11-19 (LIVE)** — Deployed via Cloudflare Workers Builds (GitHub import) on Cloudflare account of tsupport76: https://getrecruitercalls.tsupport76.workers.dev . Live tests 29/29 pass; one test lead "Live Test (Claude)" (id 1) saved in production D1 — safe to delete. Every push to `main` auto-deploys. Next: buy getrecruitercalls.com in this Cloudflare account → uncomment `routes`; enable Email Routing + verify Gmail → uncomment `send_email`.
 
-- **2026-11-20 (rebrand v3)** — Renamed to **GetShortlisted / getshortlisted.com** everywhere (pages, schema, emails, llms.txt, manifest, tests). Worker name `getrecruitercalls` and D1 `getrecruitercalls-db` intentionally NOT renamed (Workers Builds project + live D1 are tied to them). New animated logo (check-mark → upward arrow on gold→clay tile, sparkle; `site/brand.mjs`), new favicon/PNG icons/og-image (`tools/make-icons.mjs` + `tools/make-ico.py`). Mobile-first polish: animated mobile menu, sticky bottom "Get Shortlisted" bar on phones, scroll-reveal, button shine/pulse, 16px inputs. 39/39 tests pass locally. Domain still to connect: add getshortlisted.com to Cloudflare, change nameservers at Spaceship, then uncomment `routes`.
+- **2026-11-20 (rebrand v3)** — Renamed to **GetShortlisted / getshortlisted.in** everywhere (pages, schema, emails, llms.txt, manifest, tests). Worker name `getrecruitercalls` and D1 `getrecruitercalls-db` intentionally NOT renamed (Workers Builds project + live D1 are tied to them). New animated logo (check-mark → upward arrow on gold→clay tile, sparkle; `site/brand.mjs`), new favicon/PNG icons/og-image (`tools/make-icons.mjs` + `tools/make-ico.py`). Mobile-first polish: animated mobile menu, sticky bottom "Get Shortlisted" bar on phones, scroll-reveal, button shine/pulse, 16px inputs. 39/39 tests pass locally. Domain still to connect: add getshortlisted.in to Cloudflare, change nameservers at Hostinger, then uncomment `routes`.
 
 ## Ideas for later (not built — owner said don't add extra things)
 - Hindi versions of key pages (`/hi/…`) to rank for Hindi searches.
