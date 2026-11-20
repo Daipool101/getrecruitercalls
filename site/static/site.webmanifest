@@ -1,6 +1,6 @@
 {
-  "name": "GetRecruiterCalls — Naukri Profile & Resume Optimization",
-  "short_name": "GetRecruiterCalls",
+  "name": "GetShortlisted — Naukri Profile & Resume Optimization",
+  "short_name": "GetShortlisted",
   "start_url": "/",
   "display": "browser",
   "background_color": "#FBF7F1",

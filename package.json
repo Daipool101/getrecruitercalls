@@ -1,8 +1,8 @@
 {
-  "name": "getrecruitercalls",
+  "name": "getshortlisted",
   "version": "1.0.0",
   "private": true,
-  "description": "GetRecruiterCalls.com — Naukri profile & resume optimization website (Cloudflare Workers + D1).",
+  "description": "GetShortlisted.com — Naukri profile & resume optimization website (Cloudflare Workers + D1).",
   "type": "module",
   "scripts": {
     "build": "node build.mjs",

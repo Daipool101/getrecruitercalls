@@ -392,7 +392,7 @@ const index = {
     breadcrumbSchema([{ name: "Home", path: "/" }, { name: "Guides", path: "/blog/" }]),
     {
       "@type": "CollectionPage",
-      name: "GetRecruiterCalls Guides",
+      name: "GetShortlisted Guides",
       url: `${SITE.url}/blog/`,
       hasPart: posts.map((p) => ({ "@type": "Article", headline: p._card.h1, url: SITE.url + p.path })),
     },

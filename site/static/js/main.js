@@ -1,4 +1,4 @@
-// GetRecruiterCalls — tiny progressive-enhancement script (no libraries).
+// GetShortlisted — tiny progressive-enhancement script (no libraries): menu, scroll effects, lead form.
 (function () {
   "use strict";
 
@@ -10,8 +10,59 @@
       var open = nav.classList.toggle("open");
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
     });
-    nav.addEventListener("click", function (e) {
-      if (e.target.closest("a")) { nav.classList.remove("open"); toggle.setAttribute("aria-expanded", "false"); }
+    var closeNav = function () { nav.classList.remove("open"); toggle.setAttribute("aria-expanded", "false"); };
+    nav.addEventListener("click", function (e) { if (e.target.closest("a")) closeNav(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && nav.classList.contains("open")) { closeNav(); toggle.focus(); } });
+    document.addEventListener("click", function (e) {
+      if (nav.classList.contains("open") && !nav.contains(e.target) && !toggle.contains(e.target)) closeNav();
+    });
+  }
+
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Header gets a shadow once the page is scrolled; sticky mobile CTA appears after the hero
+  // and hides while a lead form is on screen (so it never covers the form).
+  var header = document.querySelector(".site-header");
+  var sticky = document.querySelector("[data-sticky-cta]");
+  var formVisible = false;
+  function onScroll() {
+    var y = window.scrollY || window.pageYOffset;
+    if (header) header.classList.toggle("scrolled", y > 8);
+    if (sticky) sticky.classList.toggle("show", y > 420 && !formVisible);
+  }
+  if ("IntersectionObserver" in window) {
+    var formIo = new IntersectionObserver(function (entries) {
+      formVisible = entries.some(function (en) { return en.isIntersecting; });
+      onScroll();
+    }, { threshold: 0.05 });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-lead-form], .site-footer"), function (f) { formIo.observe(f); });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  // Scroll-reveal: fade/slide sections in as they enter the screen (skipped for reduced motion).
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    var groups = [".section-head", ".steps > li", ".grid > *", ".svc", ".faq-item", ".included > *", ".problems > li",
+      ".chips", ".form-intro", "main .lead-form", ".cta-inner > *", ".prose > *", ".contact-grid > *", ".tldr"];
+    var targets = document.querySelectorAll(groups.join(","));
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target;
+        el.classList.add("in");
+        io.unobserve(el);
+        // Hand transitions back to the element's own hover styles after the reveal.
+        setTimeout(function () { el.removeAttribute("data-reveal"); el.classList.remove("in"); el.style.removeProperty("--d"); }, 1300);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    Array.prototype.forEach.call(targets, function (el) {
+      if (el.closest(".hero") || el.hasAttribute("data-reveal")) return;
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.9) return; // already on screen: show immediately
+      var sibs = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+      el.setAttribute("data-reveal", "");
+      el.style.setProperty("--d", Math.min(sibs, 5) * 80 + "ms");
+      io.observe(el);
     });
   }
 

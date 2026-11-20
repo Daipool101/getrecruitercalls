@@ -17,21 +17,21 @@ const hero = (crumbs, eyebrow, h1, lead) => `
 const aboutCrumbs = [{ name: "Home", path: "/" }, { name: "About", path: "/about/" }];
 const about = {
   path: "/about/",
-  title: "About GetRecruiterCalls — Naukri Profile & Resume Experts",
-  description: `GetRecruiterCalls helps job seekers across India get more recruiter calls by optimizing their Naukri profiles and resumes. Founded by ${SITE.founder}.`,
+  title: "About GetShortlisted — Naukri Profile & Resume Experts",
+  description: `GetShortlisted helps job seekers across India get more recruiter calls by optimizing their Naukri profiles and resumes. Founded by ${SITE.founder}.`,
   priority: 0.6,
   schema: [
     breadcrumbSchema(aboutCrumbs),
-    { "@type": "AboutPage", name: "About GetRecruiterCalls", url: `${SITE.url}/about/`, about: { "@id": `${SITE.url}/#organization` } },
+    { "@type": "AboutPage", name: "About GetShortlisted", url: `${SITE.url}/about/`, about: { "@id": `${SITE.url}/#organization` } },
   ],
   body: `
-${hero(aboutCrumbs, "About us", "We help good candidates get found by recruiters", "GetRecruiterCalls exists for one simple reason: too many capable people in India apply to job after job on Naukri and never get a call — not because they aren’t good enough, but because recruiters can’t find them.")}
+${hero(aboutCrumbs, "About us", "We help good candidates get found by recruiters", "GetShortlisted exists for one simple reason: too many capable people in India apply to job after job on Naukri and never get a call — not because they aren’t good enough, but because recruiters can’t find them.")}
 <section class="section">
   <div class="wrap split">
     <div class="prose">
       <h2 class="mt-0">Our story</h2>
-      <p>${esc(SITE.founder)} started GetRecruiterCalls after seeing the same pattern again and again: skilled professionals and freshers with strong backgrounds, sitting with zero recruiter calls for weeks. The fix was almost never “more experience”. It was a better resume headline, the right key skills, a sharper summary, realistic preferences and a resume that software could actually read.</p>
-      <p>After a few focused changes, those same profiles started showing up in recruiter searches — and the calls followed, often within a week. GetRecruiterCalls turns that experience into a simple, personal service for every job seeker.</p>
+      <p>${esc(SITE.founder)} started GetShortlisted after seeing the same pattern again and again: skilled professionals and freshers with strong backgrounds, sitting with zero recruiter calls for weeks. The fix was almost never “more experience”. It was a better resume headline, the right key skills, a sharper summary, realistic preferences and a resume that software could actually read.</p>
+      <p>After a few focused changes, those same profiles started showing up in recruiter searches — and the calls followed, often within a week. GetShortlisted turns that experience into a simple, personal service for every job seeker.</p>
       <h2>What we believe</h2>
       <ul class="checklist">
         <li><strong>Honesty first.</strong> We never add fake experience, fake skills or anything you can’t defend in an interview.</li>
@@ -62,11 +62,11 @@ const contactCrumbs = [{ name: "Home", path: "/" }, { name: "Contact", path: "/c
 const contact = {
   path: "/contact/",
   title: "Contact Us — Get Your Naukri Profile & Resume Optimized",
-  description: "Share your Naukri profile link or resume and get it reviewed by GetRecruiterCalls. We reply on WhatsApp or email within 24 hours.",
+  description: "Share your Naukri profile link or resume and get it reviewed by GetShortlisted. We reply on WhatsApp or email within 24 hours.",
   priority: 0.8,
   schema: [
     breadcrumbSchema(contactCrumbs),
-    { "@type": "ContactPage", name: "Contact GetRecruiterCalls", url: `${SITE.url}/contact/`, about: { "@id": `${SITE.url}/#organization` } },
+    { "@type": "ContactPage", name: "Contact GetShortlisted", url: `${SITE.url}/contact/`, about: { "@id": `${SITE.url}/#organization` } },
   ],
   body: `
 ${hero(contactCrumbs, "Get started", "Get your Naukri profile & resume optimized", "Fill in the short form. We’ll review your profile and get back to you on WhatsApp or email within 24 hours.")}
@@ -129,7 +129,7 @@ const faqCrumbs = [{ name: "Home", path: "/" }, { name: "FAQ", path: "/faq/" }];
 const faq = {
   path: "/faq/",
   title: "FAQ — Naukri Profile Optimization & Resume Writing",
-  description: "Answers to common questions about Naukri profile optimization, recruiter calls, ATS-friendly resumes, timelines and how GetRecruiterCalls works.",
+  description: "Answers to common questions about Naukri profile optimization, recruiter calls, ATS-friendly resumes, timelines and how GetShortlisted works.",
   priority: 0.7,
   schema: [breadcrumbSchema(faqCrumbs), faqSchema(ALL_FAQS)],
   body: `
@@ -146,7 +146,7 @@ const privacyCrumbs = [{ name: "Home", path: "/" }, { name: "Privacy Policy", pa
 const privacy = {
   path: "/privacy-policy/",
   title: "Privacy Policy",
-  description: "How GetRecruiterCalls collects, uses, stores and protects your personal information.",
+  description: "How GetShortlisted collects, uses, stores and protects your personal information.",
   priority: 0.3,
   changefreq: "yearly",
   schema: [breadcrumbSchema(privacyCrumbs)],
@@ -232,7 +232,7 @@ const termsCrumbs = [{ name: "Home", path: "/" }, { name: "Terms of Service", pa
 const terms = {
   path: "/terms/",
   title: "Terms of Service",
-  description: "Terms and conditions for using the GetRecruiterCalls website and Naukri profile and resume optimization services.",
+  description: "Terms and conditions for using the GetShortlisted website and Naukri profile and resume optimization services.",
   priority: 0.3,
   changefreq: "yearly",
   schema: [breadcrumbSchema(termsCrumbs)],
@@ -289,7 +289,7 @@ ${hero(termsCrumbs, "", "Terms of Service", "Last updated: 19 November 2026")}
 const thankYou = {
   path: "/thank-you/",
   title: "Thank You — We Received Your Details",
-  description: "Thank you for contacting GetRecruiterCalls. We will get back to you within 24 hours.",
+  description: "Thank you for contacting GetShortlisted. We will get back to you within 24 hours.",
   noindex: true,
   body: `
 <section class="page-hero"><div class="wrap">

@@ -1,4 +1,5 @@
 import { SITE, NAV, EXPERIENCE_OPTIONS } from "./config.mjs";
+import { logoMark, WORDMARK } from "./brand.mjs";
 
 export const esc = (s = "") =>
   String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -16,7 +17,7 @@ export function orgSchema() {
     "@type": ["Organization", "ProfessionalService"],
     "@id": ORG_ID,
     name: SITE.name,
-    alternateName: ["Get Recruiter Calls", "getrecruitercalls.com"],
+    alternateName: ["Get Shortlisted", "getshortlisted.com"],
     url: SITE.url,
     logo: abs("/img/logo.png"),
     image: abs(SITE.ogImage),
@@ -163,7 +164,7 @@ export function leadForm({ heading = "Get your profile reviewed", sub = "Share y
   <input type="hidden" name="utm_source" value="">
   <input type="hidden" name="utm_medium" value="">
   <input type="hidden" name="utm_campaign" value="">
-  <button class="btn btn-gold btn-block" type="submit">Get Recruiter Calls <span aria-hidden="true">→</span></button>
+  <button class="btn btn-gold btn-block btn-shine" type="submit">Get Shortlisted <span class="arrow" aria-hidden="true">→</span></button>
   <p class="form-status" role="status" aria-live="polite"></p>
   <p class="form-legal">By submitting, you agree to our <a href="/privacy-policy/">Privacy Policy</a>. No spam.</p>
 </form>`;
@@ -172,13 +173,12 @@ export function leadForm({ heading = "Get your profile reviewed", sub = "Share y
 export function ctaBand({ title = "Ready to start getting recruiter calls?", text = "Share your Naukri profile or resume. We’ll show you exactly what’s stopping recruiters from calling — and fix it." } = {}) {
   return `<section class="cta-band"><div class="wrap cta-inner">
   <div><h2>${esc(title)}</h2><p>${esc(text)}</p></div>
-  <a class="btn btn-gold btn-lg" href="/contact/">Get my profile optimized <span aria-hidden="true">→</span></a>
+  <a class="btn btn-gold btn-lg btn-shine" href="/contact/">Get my profile optimized <span class="arrow" aria-hidden="true">→</span></a>
 </div></section>`;
 }
 
 /* ---------------- Page shell ---------------- */
 
-const LOGO = `<svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#F4B13B"/><path d="M27.6 25.4c-1.3 0-2.6-.2-3.8-.6-.4-.1-.8 0-1.1.3l-1.7 2.1c-3-1.5-5.4-3.9-6.8-6.8l2.1-1.8c.3-.3.4-.7.3-1.1-.4-1.2-.6-2.5-.6-3.8 0-.6-.5-1.1-1.1-1.1h-3.8c-.6 0-1.1.3-1.1 1.1C10 23.5 16.5 30 26.4 30c.8 0 1.1-.6 1.1-1.1v-2.4c0-.6-.5-1.1-1.1-1.1z" fill="#0F3D3A"/><circle cx="27" cy="13" r="4.2" fill="#E0745E"/></svg>`;
 
 export function render(page) {
   const {
@@ -189,6 +189,10 @@ export function render(page) {
   const graph = { "@context": "https://schema.org", "@graph": [orgSchema(), websiteSchema(), ...schema] };
   const suffixed = `${title} | ${SITE.name}`;
   const fullTitle = title.includes(SITE.name) || suffixed.length > 65 ? title : suffixed;
+
+  // On the home page the CTA scrolls to the form; elsewhere it opens /contact/.
+  const ctaHref = path === "/" ? "#get-started" : "/contact/";
+  const showStickyCta = !noindex && path !== "/contact/";
 
   const navLinks = NAV.map(
     (l) => `<li><a href="${l.href}"${l.href === path ? ' aria-current="page"' : ""}>${esc(l.label)}</a></li>`
@@ -201,7 +205,8 @@ export function render(page) {
 <html lang="en-IN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>document.documentElement.classList.add("js")</script>
 <title>${esc(fullTitle)}</title>
 <meta name="description" content="${esc(description)}">
 ${keywords ? `<meta name="keywords" content="${esc(keywords)}">` : ""}
@@ -220,7 +225,7 @@ ${keywords ? `<meta name="keywords" content="${esc(keywords)}">` : ""}
 <meta property="og:image" content="${abs(SITE.ogImage)}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="GetRecruiterCalls — Naukri profile and resume optimization">
+<meta property="og:image:alt" content="GetShortlisted — Naukri profile and resume optimization">
 ${published ? `<meta property="article:published_time" content="${published}">\n<meta property="article:modified_time" content="${modified || published}">` : ""}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(fullTitle)}">
@@ -230,6 +235,8 @@ ${published ? `<meta property="article:published_time" content="${published}">\n
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="${esc(SITE.name)}">
+<meta name="application-name" content="${esc(SITE.name)}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
@@ -241,11 +248,11 @@ ${published ? `<meta property="article:published_time" content="${published}">\n
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="brand" href="/" aria-label="${esc(SITE.name)} home">${LOGO}<span>Get<b>Recruiter</b>Calls</span></a>
+    <a class="brand" href="/" aria-label="${esc(SITE.name)} home">${logoMark()}${WORDMARK}</a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr">Menu</span><span class="bars" aria-hidden="true"></span></button>
     <nav id="site-nav" class="site-nav" aria-label="Main">
       <ul>${navLinks}</ul>
-      <a class="btn btn-gold btn-sm" href="/contact/">Get Calls</a>
+      <a class="btn btn-gold btn-sm btn-shine" href="${ctaHref}">Get Shortlisted</a>
     </nav>
   </div>
 </header>
@@ -255,7 +262,7 @@ ${body}
 <footer class="site-footer">
   <div class="wrap footer-grid">
     <div class="footer-brand">
-      <a class="brand brand-light" href="/">${LOGO}<span>Get<b>Recruiter</b>Calls</span></a>
+      <a class="brand brand-light" href="/" aria-label="${esc(SITE.name)} home">${logoMark()}${WORDMARK}</a>
       <p>Naukri profile optimization and ATS-friendly resume writing for job seekers across India — so recruiters find you, and call you.</p>
       <a class="btn btn-gold btn-sm" href="/contact/">Get my profile optimized</a>
     </div>
@@ -291,9 +298,13 @@ ${body}
   </div>
   <div class="wrap footer-bottom">
     <p>© ${new Date().getFullYear()} ${esc(SITE.name)}. All rights reserved.</p>
-    <p class="disclaimer">GetRecruiterCalls is an independent career service. We are not affiliated with, endorsed by, or partnered with Naukri.com or Info Edge (India) Ltd. “Naukri” is a trademark of its respective owner.</p>
+    <p class="disclaimer">GetShortlisted is an independent career service. We are not affiliated with, endorsed by, or partnered with Naukri.com or Info Edge (India) Ltd. “Naukri” is a trademark of its respective owner.</p>
   </div>
 </footer>
+${showStickyCta ? `<div class="sticky-cta" data-sticky-cta>
+  <div class="sticky-cta-text"><b>Not getting calls?</b><span>Reply within 24 hours</span></div>
+  <a class="btn btn-gold btn-shine" href="${ctaHref}">Get Shortlisted <span class="arrow" aria-hidden="true">→</span></a>
+</div>` : ""}
 </body>
 </html>
 `;

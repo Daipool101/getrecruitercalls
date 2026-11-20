@@ -1,27 +1,27 @@
-# GetRecruiterCalls
+# GetShortlisted
 
-> GetRecruiterCalls (getrecruitercalls.com) is an India-focused career service that optimizes job seekers' Naukri.com profiles and resumes so they appear in recruiter searches and get more recruiter calls. Founded by Nishit Salian. Independent service — not affiliated with Naukri.com or Info Edge (India) Ltd.
+> GetShortlisted (getshortlisted.com) is an India-focused career service that optimizes job seekers' Naukri.com profiles and resumes so they appear in recruiter searches and get more recruiter calls. Founded by Nishit Salian. Independent service — not affiliated with Naukri.com or Info Edge (India) Ltd.
 
 Key facts:
 - Services: Naukri profile optimization (resume headline, key skills, profile summary, employment details, projects, desired career profile) and ATS-friendly resume optimization/writing.
 - Who it is for: freshers and experienced professionals across India, IT and non-IT roles, people on notice period, after layoffs, career switchers and those with career gaps.
 - How it works: candidate submits name, phone, email, Naukri profile link and/or resume link, experience and target role -> profile audit -> optimized profile + resume -> candidate updates profile -> recruiter calls typically start within about a week (not guaranteed).
 - No Naukri password is required. No fake experience is added.
-- Contact: hello@getrecruitercalls.com or the form at https://getrecruitercalls.com/contact/
+- Contact: hello@getshortlisted.com or the form at https://getshortlisted.com/contact/
 
 ## Services
-- [Naukri Profile Optimization](https://getrecruitercalls.com/naukri-profile-optimization/): What is optimized in a Naukri profile and why keywords decide recruiter visibility.
-- [Resume Optimization](https://getrecruitercalls.com/resume-optimization/): ATS-friendly, keyword-optimized resume writing for Indian job seekers.
+- [Naukri Profile Optimization](https://getshortlisted.com/naukri-profile-optimization/): What is optimized in a Naukri profile and why keywords decide recruiter visibility.
+- [Resume Optimization](https://getshortlisted.com/resume-optimization/): ATS-friendly, keyword-optimized resume writing for Indian job seekers.
 
 ## Guides
-- [Not getting calls from Naukri? 9 reasons and fixes](https://getrecruitercalls.com/blog/not-getting-calls-from-naukri/)
-- [Naukri profile optimization checklist](https://getrecruitercalls.com/blog/naukri-profile-optimization-tips/)
-- [30+ Naukri resume headline examples](https://getrecruitercalls.com/blog/naukri-resume-headline-examples/)
-- [ATS-friendly resume format guide](https://getrecruitercalls.com/blog/ats-friendly-resume-format/)
+- [Not getting calls from Naukri? 9 reasons and fixes](https://getshortlisted.com/blog/not-getting-calls-from-naukri/)
+- [Naukri profile optimization checklist](https://getshortlisted.com/blog/naukri-profile-optimization-tips/)
+- [30+ Naukri resume headline examples](https://getshortlisted.com/blog/naukri-resume-headline-examples/)
+- [ATS-friendly resume format guide](https://getshortlisted.com/blog/ats-friendly-resume-format/)
 
 ## Company
-- [About](https://getrecruitercalls.com/about/)
-- [FAQ](https://getrecruitercalls.com/faq/)
-- [Contact](https://getrecruitercalls.com/contact/)
-- [Privacy Policy](https://getrecruitercalls.com/privacy-policy/)
-- [Terms of Service](https://getrecruitercalls.com/terms/)
+- [About](https://getshortlisted.com/about/)
+- [FAQ](https://getshortlisted.com/faq/)
+- [Contact](https://getshortlisted.com/contact/)
+- [Privacy Policy](https://getshortlisted.com/privacy-policy/)
+- [Terms of Service](https://getshortlisted.com/terms/)

@@ -29,7 +29,7 @@ export const HOME_FAQS = [
     a: "<p>Yes. We rewrite your resume in a clean, ATS-friendly format with the right keywords and achievement-based points, matching your Naukri profile.</p>",
   },
   {
-    q: "Is GetRecruiterCalls connected to Naukri.com?",
+    q: "Is GetShortlisted connected to Naukri.com?",
     a: "<p>No. We are an independent career service, not affiliated with Naukri.com or Info Edge (India) Ltd. No fake experience, no tricks — just your real profile presented the right way.</p>",
   },
 ];
@@ -40,10 +40,10 @@ const body = `
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="eyebrow">Naukri profile & resume optimization</span>
-      <h1>Get recruiter calls from Naukri — <span class="hl">in about a week.</span></h1>
+      <h1>Get shortlisted. Get recruiter calls — <span class="hl">in about a week.</span></h1>
       <p class="lead">We fix your Naukri profile and resume with the keywords recruiters search for. You get found. Your phone rings.</p>
       <div class="hero-ctas">
-        <a class="btn btn-gold btn-lg" href="#get-started">Get Recruiter Calls <span aria-hidden="true">→</span></a>
+        <a class="btn btn-gold btn-lg btn-shine btn-pulse" href="#get-started">Get Shortlisted <span class="arrow" aria-hidden="true">→</span></a>
         <a class="btn btn-outline btn-lg" href="#how-it-works">How it works</a>
       </div>
       <ul class="pills">
@@ -127,7 +127,7 @@ const body = `
         <li>Explained in English or Hindi</li>
       </ul>
     </div>
-    ${leadForm({ heading: "Get Recruiter Calls", sub: "Share your Naukri link or resume.", compact: true })}
+    ${leadForm({ heading: "Get Shortlisted", sub: "Share your Naukri link or resume.", compact: true })}
   </div>
 </section>
 
@@ -145,7 +145,7 @@ const body = `
 
 export default {
   path: "/",
-  title: "Naukri Profile Optimization & Resume Service | GetRecruiterCalls",
+  title: "Naukri Profile Optimization & Resume Service | GetShortlisted",
   description:
     "Not getting calls from Naukri? We optimize your Naukri profile and resume with recruiter keywords, a strong headline and ATS-friendly format so recruiters call you.",
   keywords:

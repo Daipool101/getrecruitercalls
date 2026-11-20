@@ -1,5 +1,5 @@
 /**
- * GetRecruiterCalls.com — Cloudflare Worker
+ * GetShortlisted.com — Cloudflare Worker
  *
  * Static pages are served by Workers Static Assets (./public).
  * This Worker only handles /api/* (see run_worker_first in wrangler.jsonc):
@@ -220,11 +220,11 @@ async function notifyOwner(env, lead, leadId) {
   try {
     if (env.SEND_EMAIL && env.NOTIFY_TO && env.NOTIFY_FROM) {
       const raw = buildMime({
-        from: `GetRecruiterCalls Leads <${env.NOTIFY_FROM}>`,
+        from: `GetShortlisted Leads <${env.NOTIFY_FROM}>`,
         fromAddr: env.NOTIFY_FROM,
         to: env.NOTIFY_TO,
         replyTo: lead.email,
-        subject: `New lead: ${lead.name} (${lead.experience || "experience n/a"}) — GetRecruiterCalls`,
+        subject: `New lead: ${lead.name} (${lead.experience || "experience n/a"}) — GetShortlisted`,
         text: leadText(lead, leadId),
         html: leadHtml(lead, leadId),
       });
@@ -255,7 +255,7 @@ const FIELDS = [
 
 function leadText(lead, id) {
   const lines = FIELDS.filter(([, k]) => lead[k]).map(([label, k]) => `${label}: ${lead[k]}`);
-  return `New lead on GetRecruiterCalls.com${id ? ` (#${id})` : ""}\n\n${lines.join("\n")}\n\nReply to this email to respond to the candidate directly.\n`;
+  return `New lead on GetShortlisted.com${id ? ` (#${id})` : ""}\n\n${lines.join("\n")}\n\nReply to this email to respond to the candidate directly.\n`;
 }
 
 function esc(s) {
@@ -299,7 +299,7 @@ function encodeHeader(str) {
 
 function buildMime({ from, fromAddr, to, replyTo, subject, text, html }) {
   const boundary = `grc_${crypto.randomUUID()}`;
-  const domain = fromAddr.split("@")[1] || "getrecruitercalls.com";
+  const domain = fromAddr.split("@")[1] || "getshortlisted.com";
   const headers = [
     `From: ${from}`,
     `To: ${to}`,
