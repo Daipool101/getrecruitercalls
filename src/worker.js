@@ -76,7 +76,8 @@ function handleWhatsApp(url, env) {
     : `${opener} I desperately need a profile makeover. Help me turn things around!`;
   return new Response(null, {
     status: 302,
-    headers: { Location: `https://wa.me/${number}?text=${encodeURIComponent(text)}`, "Cache-Control": "no-store" },
+    // api.whatsapp.com keeps emojis intact; the wa.me short link turns them into "�" when it re-redirects.
+    headers: { Location: `https://api.whatsapp.com/send?phone=${number}&text=${encodeURIComponent(text)}`, "Cache-Control": "no-store" },
   });
 }
 

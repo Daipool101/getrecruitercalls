@@ -57,7 +57,7 @@ const getLead = await fetch(BASE + "/api/lead");
 ok(getLead.status === 405, "GET /api/lead -> 405");
 ok(!home.text.includes("wa.me/"), "WhatsApp number is not in the page HTML");
 const wa = await fetch(BASE + "/api/whatsapp?from=test&plan=makeover", { redirect: "manual" });
-ok(wa.status === 302 && /^(https:\/\/wa\.me\/\d{10,}\?text=|.*\/contact\/$)/.test(wa.headers.get("location") || ""), `GET /api/whatsapp redirects (${(wa.headers.get("location") || "").slice(0, 24)}…)`);
+ok(wa.status === 302 && /^(https:\/\/api\.whatsapp\.com\/send\?phone=\d{10,}&text=.*%F0%9F%98%AD|.*\/contact\/$)/.test(wa.headers.get("location") || ""), `GET /api/whatsapp redirects (${(wa.headers.get("location") || "").slice(0, 24)}…)`);
 ok(wa.headers.get("x-robots-tag") === "noindex, nofollow", "API responses are noindex");
 
 if (!READONLY) {
