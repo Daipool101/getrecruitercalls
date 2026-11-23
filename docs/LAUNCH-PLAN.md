@@ -53,7 +53,7 @@ Re-run any time: `node tests/load.mjs --base http://127.0.0.1:8787 --visitors 30
 | 2.1 | ☑ **Google Search Console** (done 24 Nov — sitemap Success, 22 pages) — Domain property `getshortlisted.in`, verify via Cloudflare, submit `sitemap.xml`, request indexing for 5 main pages | Steps already shared; sitemap is live with 16 URLs |
 | 2.2 | ☑ **Bing Webmaster Tools** (done 24 Nov) — *Import from Google Search Console* | Bing also powers ChatGPT search and Copilot |
 | 2.3 | ☑ **IndexNow** — key file live; run `npm run indexnow` after each deploy (done 24 Nov) | Claude |
-| 2.4 | ◐ **Analytics** — GA4 G-KSH5F3G8KW live 24 Nov (lead events carry plan value in INR); Cloudflare Web Analytics: owner to enable —: code + privacy policy ready (24 Nov). Owner: enable Cloudflare Web Analytics (1 click) and create a GA4 property → send the `G-…` ID; Claude pastes it into `site/config.mjs → ga4Id` | Owner → Claude |
+| 2.4 | ◐ **Analytics** — GA4 G-KSH5F3G8KW live 24 Nov (lead events carry plan value in INR); Cloudflare Web Analytics live (24 Nov) —: code + privacy policy ready (24 Nov). Owner: enable Cloudflare Web Analytics (1 click) and create a GA4 property → send the `G-…` ID; Claude pastes it into `site/config.mjs → ga4Id` | Owner → Claude |
 | 2.5 | ☐ **Google Business Profile** (service-area business) | Owner |
 
 ---

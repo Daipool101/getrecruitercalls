@@ -52,7 +52,10 @@ export default {
     } else if (url.pathname === "/api/whatsapp") {
       res = handleWhatsApp(url, env);
     } else if (url.pathname === "/api/health") {
-      res = json({ ok: true, time: new Date().toISOString() });
+      // Used by the uptime monitor: "ok":true only if the Worker AND the lead database respond.
+      let db = false;
+      try { db = !!(await env.DB.prepare("SELECT 1 AS up").first()); } catch {}
+      res = json({ ok: db, db, time: new Date().toISOString() }, db ? 200 : 503);
     } else if (url.pathname.startsWith("/api/")) {
       res = json({ ok: false, error: "Not found" }, 404);
     } else {
