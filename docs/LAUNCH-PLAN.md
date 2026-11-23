@@ -161,6 +161,16 @@ Real suggestions Google shows — this is how our audience types:
 - ☑ Copy: home H1 now says "on Naukri"; pricing H1 = "Naukri Profile Optimization Price & Plans"; /naukri-profile-optimization/ expanded (why profiles get ignored, before/after, how it works).
 - ☑ New guides: /blog/how-to-get-shortlisted-on-naukri/, /blog/chatgpt-prompts-for-naukri-profile/, /blog/naukri-paid-services-worth-it/ (share the *what* and *why*, never our *how*).
 
+## ⏸ PENDING — owner will do later (24 Nov 2026)
+- ⏸ **Uptime alert** — UptimeRobot (free): keyword monitor on https://getshortlisted.in/api/health for "ok":true + HTTP monitor on the home page, email + app alerts. (/api/health already checks the database.)
+- ⏸ **Cloudflare Workers Paid (/month)** — before the first influencer video.
+- ⏸ **WhatsApp Business** — separate business SIM + quick-reply templates.
+- ⏸ **Razorpay + customer emails (Phase 3)**.
+- ⏸ **Google Analytics key event** — after the first real lead: Admin → Events → mark generate_lead as key event.
+- ⏸ **Resume checker** — maybe later, no AI.
+
+**Current focus (owner, 24 Nov): SEO + GEO + AI search — page 1 on Google, Bing and AI answers.** See docs/SEO-GEO-STRATEGY.md.
+
 ## Later / to-do (owner decisions, 23–24 Nov 2026)
 - ⏸ **Uptime alert (1.9)** — free UptimeRobot email/app alert; owner sets up when ready (no SMS, no cost).
 - ⏸ **WhatsApp Business** — owner is buying a separate business SIM.
