@@ -24,7 +24,7 @@ export const SITE = {
   turnstileSiteKey: "",
   // Google Analytics 4 Measurement ID (looks like "G-XXXXXXXXXX"). Empty = GA4 off.
   // Cloudflare Web Analytics needs no code: enable it in the Cloudflare dashboard.
-  ga4Id: "",
+  ga4Id: "G-KSH5F3G8KW",
   // Used for "dateModified" in schema + sitemap lastmod. Update when you change content.
   updated: "2026-11-23",
 };

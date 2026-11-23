@@ -163,7 +163,13 @@
         .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
         .then(function (res) {
           if (res && res.ok) {
-            try { if (window.gtag) window.gtag("event", "generate_lead"); } catch (x) {}
+            try {
+              if (window.gtag) {
+                var planSel = el.plan && el.plan.value;
+                var price = planSel === "done-for-you" ? 8999 : 5999;
+                window.gtag("event", "generate_lead", { currency: "INR", value: price, plan: planSel || "makeover", lead_source: res.source || "organic", form_page: location.pathname });
+              }
+            } catch (x) {}
             form.innerHTML =
               '<div class="form-success"><div class="big"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6L20.1 8.4 18.7 7z" fill="#0F3D3A"/></svg></div>' +
               '<h2 class="form-title">Done! We’ve got your details.</h2>' +
@@ -341,7 +347,7 @@
       .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
       .then(function (res) {
         button.disabled = false; button.innerHTML = label;
-        if (res && res.ok && res.code) showDone(res);
+        if (res && res.ok && res.code) { showDone(res); try { if (window.gtag && !res.existing) window.gtag("event", "sign_up", { method: "referral_partner" }); } catch (x) {} }
         else { if (window.turnstile) try { window.turnstile.reset(); } catch (x) {} setError((res && res.error) || "Something went wrong. Please try again."); }
       })
       .catch(function () { button.disabled = false; button.innerHTML = label; setError("Network error. Please check your internet and try again."); });
