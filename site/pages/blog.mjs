@@ -3,7 +3,8 @@ import { SITE } from "../config.mjs";
 
 const PUBLISHED = "2026-11-19";
 
-function article({ path, title, h1, description, keywords, tag, readMins, intro, tldr, content, faqs = [] }) {
+function article({ path, title, h1, description, keywords, tag, readMins, intro, tldr, content, faqs = [], published = PUBLISHED, shown = "19 Nov 2026" }) {
+  const PUBLISHED_AT = published;
   const crumbs = [{ name: "Home", path: "/" }, { name: "Guides", path: "/blog/" }, { name: h1, path }];
   const body = `
 <section class="page-hero">
@@ -12,7 +13,7 @@ function article({ path, title, h1, description, keywords, tag, readMins, intro,
     <span class="eyebrow">${esc(tag)}</span>
     <h1>${esc(h1)}</h1>
     <p class="lead">${intro}</p>
-    <p class="article-meta">By <a href="/about/" style="color:inherit">the ${esc(SITE.name)} team</a> · Updated <time datetime="${PUBLISHED}">19 Nov 2026</time> · ${readMins} min read</p>
+    <p class="article-meta">By <a href="/about/" style="color:inherit">the ${esc(SITE.name)} team</a> · Updated <time datetime="${PUBLISHED_AT}">${shown}</time> · ${readMins} min read</p>
   </div>
 </section>
 <section class="section">
@@ -29,10 +30,10 @@ function article({ path, title, h1, description, keywords, tag, readMins, intro,
 </section>
 ${ctaBand()}`;
   return {
-    path, title, description, keywords, body, ogType: "article", published: PUBLISHED, modified: PUBLISHED, priority: 0.8,
+    path, title, description, keywords, body, ogType: "article", published: PUBLISHED_AT, modified: PUBLISHED_AT, priority: 0.8,
     _card: { tag, h1, description, readMins },
     schema: [
-      articleSchema({ title: h1, description, path, published: PUBLISHED, modified: PUBLISHED }),
+      articleSchema({ title: h1, description, path, published: PUBLISHED_AT, modified: PUBLISHED_AT }),
       breadcrumbSchema(crumbs),
       ...(faqs.length ? [faqSchema(faqs)] : []),
     ],
@@ -360,7 +361,181 @@ const atsResume = article({
   ],
 });
 
-const posts = [notGettingCalls, profileTips, headlineExamples, atsResume];
+
+/* ---------------- New guides (23 Nov 2026) ---------------- */
+const NEW_DATE = { published: "2026-11-23", shown: "23 Nov 2026" };
+
+const getShortlisted = article({
+  ...NEW_DATE,
+  path: "/blog/how-to-get-shortlisted-on-naukri/",
+  title: "How to Get Shortlisted on Naukri: 9 Steps That Work (2026)",
+  h1: "How to Get Shortlisted on Naukri (2026): 9 Steps That Actually Work",
+  description:
+    "How to get shortlisted on Naukri: match your headline to the role, mirror job keywords, apply early and stay active so recruiters call you first.",
+  keywords: "how to get shortlisted in naukri, how to get shortlisted on naukri, how to get shortlisted for interview, how to get shortlisted for a job, naukri shortlisting tips",
+  tag: "Naukri guide",
+  readMins: 7,
+  intro: "Getting shortlisted on Naukri happens in two ways — a recruiter picks your application, or a recruiter finds you in a search and calls. Most job seekers only work on the first. Here’s how to win both.",
+  tldr: `<p>To get shortlisted on Naukri: make your <strong>resume headline match the exact job title</strong> recruiters hire for, use the <strong>same key skills the job descriptions use</strong>, apply in the <strong>first few days</strong> of a posting, keep your profile <strong>active and complete</strong>, set <strong>realistic salary and notice period</strong>, and keep your resume and profile saying the same thing.</p>`,
+  content: `
+<h2>The two ways you get shortlisted</h2>
+<p><b>1. Through your applications.</b> You apply, the recruiter (or their software) compares your profile and resume with the job, and the closest matches are shortlisted.</p>
+<p><b>2. Through recruiter search.</b> Recruiters also search Naukri’s candidate database themselves — by job title, skills, experience, city and notice period — and call the profiles that rank at the top. These candidates get calls <em>without applying at all</em>.</p>
+<p>Every step below helps with both.</p>
+
+<h2>1. Make your headline the job title you want</h2>
+<p>Your resume headline is the first line a recruiter sees in search results. A headline like “Seeking a challenging role in a reputed organisation” tells them nothing. Lead with your <b>target role, years of experience and two or three core skills</b>. See our <a href="/blog/naukri-resume-headline-examples/">30+ headline examples</a>.</p>
+
+<h2>2. Use the words recruiters use</h2>
+<p>Open five job posts for the role you want and note the skills that keep repeating. If your key skills and summary don’t contain those words, you’re invisible to the searches that use them — even if you have the experience.</p>
+
+<h2>3. Apply early</h2>
+<p>Recruiters often shortlist from the first wave of applicants. Applying in the first two or three days of a posting gives you far better odds than applying after it has hundreds of applications.</p>
+
+<h2>4. Keep your profile active</h2>
+<p>Recruiters can filter candidates by how recently they were active. A profile untouched for months slips down. Log in regularly and keep details current.</p>
+
+<h2>5. Fill every section</h2>
+<p>Incomplete profiles rank lower and look less serious. Employment details, education, projects, IT skills and career preferences should all be filled in properly.</p>
+
+<h2>6. Set realistic salary, location and notice period</h2>
+<p>Recruiters filter by these. An unrealistic expected salary, a single narrow city or a long notice period with no “negotiable” option quietly removes you from many searches.</p>
+
+<h2>7. Make your resume match your profile</h2>
+<p>When the resume says one title and the profile another, recruiters hesitate. Use one consistent story, and an <a href="/blog/ats-friendly-resume-format/">ATS-friendly resume format</a> that software can read.</p>
+
+<h2>8. Show results, not duties</h2>
+<p>“Handled client accounts” is a duty. “Managed 40 client accounts and grew renewals by 18%” is a result. Numbers make recruiters stop scrolling.</p>
+
+<h2>9. Respond fast</h2>
+<p>When a recruiter calls or messages, reply the same day. Shortlists move quickly — the candidate who answers first often gets the interview.</p>
+
+<h2>Why most people still don’t get shortlisted</h2>
+<p>None of these steps is secret — but doing all of them well, for your exact role and city, takes hours of research and rewriting, and most people stop at step one. That’s the part we do for you: our <a href="/naukri-profile-optimization/">Naukri profile makeover</a> rewrites your headline, skills, summary and resume around what recruiters search for, and our <a href="/naukri-job-application-service/">Done-For-You plan</a> also applies to relevant jobs for you for a month.</p>
+`,
+  faqs: [
+    { q: "How do I know if I’ve been shortlisted on Naukri?", a: "<p>Usually a recruiter calls, emails or messages you to schedule a conversation or interview. Keep your phone reachable and check your Naukri inbox and email daily.</p>" },
+    { q: "How long does Naukri shortlisting take?", a: "<p>It varies by company. Many recruiters shortlist within the first week of a posting, which is why applying early matters.</p>" },
+    { q: "Can I get shortlisted without applying?", a: "<p>Yes. Recruiters search Naukri’s database and call matching profiles directly. A well-optimised profile can bring calls even on days you don’t apply.</p>" },
+  ],
+});
+
+const aiPrompts = article({
+  ...NEW_DATE,
+  path: "/blog/chatgpt-prompts-for-naukri-profile/",
+  title: "ChatGPT & Claude Prompts for Naukri Profile Optimization",
+  h1: "ChatGPT & Claude Prompts for Naukri Profile Optimization (Copy-Paste, 2026)",
+  description:
+    "Free ChatGPT & Claude prompts for your Naukri headline, summary and key skills — plus what AI can’t do for your profile and how to avoid generic results.",
+  keywords: "naukri profile optimization prompt, chatgpt prompt for naukri profile optimization, claude prompt for naukri profile, chatgpt naukri resume headline, ai for naukri profile",
+  tag: "AI & Naukri",
+  readMins: 6,
+  intro: "AI tools can help you get a first draft of your Naukri profile in minutes. Here are prompts that give better results than “improve my profile” — and the important limits you should know before you paste anything into Naukri.",
+  tldr: `<p>Give the AI <strong>your real role, experience, skills, city and target job</strong>, ask for <strong>one section at a time</strong> (headline, summary, key skills), and always <strong>check every line is true</strong>. AI drafts are a starting point — they don’t know what recruiters in your city search this week, they often sound the same for everyone, and they can add skills you don’t have.</p>`,
+  content: `
+<h2>Before you start: give the AI the right facts</h2>
+<p>Most bad AI output comes from vague input. Keep this ready: your current title, total years of experience, top 6–8 skills, two or three achievements with numbers, your target role and preferred cities.</p>
+
+<h2>Prompt 1 — Resume headline</h2>
+<div class="example">I’m a <b>[current role]</b> with <b>[X] years</b> of experience in <b>[industry]</b>. My strongest skills are <b>[skill 1, skill 2, skill 3]</b>. I want roles as <b>[target role]</b> in <b>[city]</b>. Write 5 Naukri resume headlines under 250 characters that start with the target job title and include experience and core skills. No buzzwords like “dynamic” or “passionate”.</div>
+
+<h2>Prompt 2 — Profile summary</h2>
+<div class="example">Using these facts only — <b>[paste your experience, skills and 2–3 achievements]</b> — write a Naukri profile summary of 4–5 short sentences for a <b>[target role]</b>. Start with role and years of experience, mention measurable results, and end with the kind of role I want next. Do not invent anything.</div>
+
+<h2>Prompt 3 — Key skills</h2>
+<div class="example">Here are 5 job descriptions for <b>[target role]</b>: <b>[paste them]</b>. List the skills and tools that appear most often, then compare them with my skills: <b>[your skills]</b>. Show which ones I genuinely have but haven’t listed.</div>
+
+<h2>Prompt 4 — Experience bullet points</h2>
+<div class="example">Rewrite these job duties as achievement-based bullet points for my resume. Use action verbs and keep any numbers I give. If a point has no result, ask me a question instead of making one up: <b>[paste duties]</b></div>
+
+<h2>Prompt 5 — Resume check</h2>
+<div class="example">Act as a recruiter hiring a <b>[target role]</b> in India. Read my resume <b>[paste text]</b> and list the 5 biggest reasons you might not shortlist it, in order of importance.</div>
+
+<h2>What AI can’t do for your Naukri profile</h2>
+<table>
+<thead><tr><th>Limit</th><th>Why it matters</th></tr></thead>
+<tbody>
+<tr><td>It doesn’t know what recruiters search today</td><td>AI guesses keywords from general text, not from how recruiters for your role and city actually search right now.</td></tr>
+<tr><td>Everyone gets similar wording</td><td>Thousands of profiles now use the same AI phrases. Recruiters notice, and they blend together in search results.</td></tr>
+<tr><td>It can invent things</td><td>AI sometimes adds skills or results you don’t have. A recruiter will ask about them in the interview.</td></tr>
+<tr><td>It can’t update your profile</td><td>Headline, skills, summary, employment, projects and preferences all need to be entered correctly and kept consistent with your resume.</td></tr>
+<tr><td>It can’t apply for you</td><td>Finding and applying to relevant jobs every day still takes hours.</td></tr>
+</tbody>
+</table>
+
+<h2>When to let a person do it</h2>
+<p>If you’ve tried AI drafts and calls still aren’t coming, the issue is usually the parts AI can’t see — how your profile ranks against others for your role and city. Our <a href="/naukri-profile-optimization/">Naukri profile makeover</a> is written by a person, built for your real experience, and updated in your Naukri account for you. Want applications handled too? See <a href="/naukri-job-application-service/">Done-For-You Job Search</a>.</p>
+`,
+  faqs: [
+    { q: "Is it okay to use ChatGPT for my Naukri profile?", a: "<p>Yes, as a first draft — as long as every line is true and you edit it into your own words. Never paste skills or results you don’t have.</p>" },
+    { q: "Which is better for Naukri profiles, ChatGPT or Claude?", a: "<p>Both write good drafts when you give them clear facts. The quality depends far more on the information you provide than on the tool.</p>" },
+    { q: "Will recruiters know my profile was written by AI?", a: "<p>Often, yes — generic AI phrases are now very common. Specific numbers, real projects and your own wording make a profile stand out.</p>" },
+  ],
+});
+
+const paidServices = article({
+  ...NEW_DATE,
+  path: "/blog/naukri-paid-services-worth-it/",
+  title: "Are Naukri Paid Services Worth It? Honest Guide (2026)",
+  h1: "Are Naukri Paid Services Worth It? An Honest Guide (2026)",
+  description:
+    "Thinking of buying Naukri paid services or FastForward? What visibility boosts can and can’t do, when they’re worth it, and why to fix your profile first.",
+  keywords: "naukri paid services, naukri paid services worth it, is naukri fastforward worth it, naukri premium worth it, naukri paid services review, naukri paid services cost",
+  tag: "Buying guide",
+  readMins: 6,
+  intro: "Naukri sells paid plans that promise more recruiter attention. They can help — but only in one situation. Here’s how to decide before you spend money.",
+  tldr: `<p>Naukri’s paid plans mainly <strong>increase how often recruiters see your profile or applications</strong>. That helps when your profile is already strong. If your headline, skills and summary don’t match what recruiters search, a visibility boost shows a weak profile to more people. <strong>Fix the profile first; then decide if you need a boost.</strong></p>`,
+  content: `
+<h2>What Naukri’s paid plans generally offer</h2>
+<p>Naukri sells paid plans for job seekers (sold under names such as FastForward and other premium plans). Features and prices change over time, so always check <a href="https://www.naukri.com" rel="nofollow noopener" target="_blank">Naukri’s official website</a> for current details. In general, these plans focus on <b>visibility</b> — for example highlighting your profile or applications to recruiters — and some include resume-writing add-ons.</p>
+
+<h2>The question to ask first</h2>
+<p>A visibility boost puts your profile in front of more recruiters. So ask: <b>when a recruiter sees my profile today, does it make them want to call?</b> If your headline is generic, your skills don’t match the role, or your summary lists duties instead of results, more visibility mostly means more recruiters skipping you.</p>
+
+<h2>When a paid boost can be worth it</h2>
+<ul>
+  <li>Your profile already matches your target role and you get some calls — you just want more.</li>
+  <li>You’re in a competitive role or city and need to stand out among many similar profiles.</li>
+  <li>You’re actively looking right now and can respond to calls quickly.</li>
+</ul>
+
+<h2>When it usually isn’t</h2>
+<ul>
+  <li>You get almost no profile views or calls today — the profile itself is the problem.</li>
+  <li>Your resume and Naukri profile tell different stories.</li>
+  <li>You’re targeting a different role than your current job title suggests.</li>
+</ul>
+
+<h2>What you’re actually paying for — compared</h2>
+<table>
+<thead><tr><th>Option</th><th>What it changes</th><th>Best for</th></tr></thead>
+<tbody>
+<tr><td>Naukri paid visibility plans</td><td>How often your profile/applications are shown</td><td>Profiles that are already strong</td></tr>
+<tr><td><a href="/naukri-profile-optimization/">GetShortlisted Profile Makeover</a> (₹5,999)</td><td>What recruiters see: headline, key skills, summary, preferences + ATS resume, updated for you</td><td>Profiles getting few views or calls</td></tr>
+<tr><td><a href="/naukri-job-application-service/">GetShortlisted Done-For-You</a> (₹8,999)</td><td>Everything in the makeover + we apply to relevant jobs for you for 1 month</td><td>Busy professionals, people on notice period</td></tr>
+</tbody>
+</table>
+<p>You can also combine them: fix the profile first, then add a visibility boost once you know the profile converts.</p>
+
+<h2>A quick self-check before you buy anything</h2>
+<ol>
+  <li>Does your headline start with the job title you want?</li>
+  <li>Do your key skills match the words in job posts for that role?</li>
+  <li>Does your summary include at least two results with numbers?</li>
+  <li>Are salary, city and notice period realistic?</li>
+  <li>Does your resume say the same thing as your profile?</li>
+</ol>
+<p>If you answered “no” to two or more, start with the profile — see <a href="/blog/not-getting-calls-from-naukri/">why you’re not getting calls from Naukri</a>.</p>
+<p class="note-small">GetShortlisted is an independent service and is not affiliated with Naukri.com or Info Edge (India) Ltd. Product names belong to their owners. This guide is general information, not a review of any specific plan.</p>
+`,
+  faqs: [
+    { q: "Is Naukri FastForward worth it?", a: "<p>It can be if your profile already matches your target role and you want more visibility. If you’re getting very few views or calls, fix your headline, skills and summary first — otherwise the boost shows a weak profile to more recruiters.</p>" },
+    { q: "How much do Naukri paid services cost?", a: "<p>Prices depend on the plan and duration and change over time. Check Naukri’s official website for current pricing.</p>" },
+    { q: "What’s the difference between GetShortlisted and Naukri paid services?", a: "<p>Naukri’s plans mainly increase visibility. We change what recruiters see — your headline, key skills, summary, preferences and resume — and on Done-For-You we also apply to relevant jobs for you for a month.</p>" },
+  ],
+});
+
+const posts = [getShortlisted, notGettingCalls, paidServices, profileTips, aiPrompts, headlineExamples, atsResume];
 
 /* ------------------------------------------------------------------ */
 /* Blog index                                                          */

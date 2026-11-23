@@ -4,7 +4,7 @@ import { PLANS, inr, SITE } from "../config.mjs";
 const [MAKEOVER, DFY] = PLANS;
 
 // One template for the service pages: hero (with price) → what's included + form → FAQ → CTA.
-function servicePage({ path, name, title, description, keywords, h1, lead, serviceType, schemaDesc, included, formHeading, faqs, cta, plan }) {
+function servicePage({ path, name, title, description, keywords, h1, lead, serviceType, schemaDesc, included, formHeading, faqs, cta, plan, extra = "" }) {
   const crumbs = [{ name: "Home", path: "/" }, { name, path }];
   const body = `
 <section class="page-hero">
@@ -32,6 +32,7 @@ function servicePage({ path, name, title, description, keywords, h1, lead, servi
   </div>
 </section>
 
+${extra}
 <section class="section section-sand">
   <div class="wrap">
     <div class="section-head center"><span class="kicker">FAQ</span><h2>Common questions</h2></div>
@@ -84,6 +85,44 @@ const naukri = servicePage({
     { q: "Will this guarantee a job?", a: "<p>No honest service can. We remove the reasons recruiters aren’t finding you. Interviews and offers still depend on your skills and the market.</p>" },
   ],
   cta: { title: "Let recruiters find your profile", text: "Upload your resume and pick a plan — we’ll take it from there." },
+  extra: `
+<section class="section">
+  <div class="wrap prose-wide">
+    <div class="section-head"><span class="kicker">Why profiles get ignored</span><h2>Recruiters can’t call you if they can’t find you</h2></div>
+    <div class="two-col">
+      <div>
+        <p>Every day, recruiters search Naukri’s candidate database with a handful of words — a job title, two or three skills, a city and a notice period. Naukri then ranks thousands of matching profiles. Most recruiters only look at the first page or two.</p>
+        <p>If your <b>resume headline, key skills and summary</b> don’t use the words recruiters actually type for your role, your profile drops below people with weaker experience but better wording. That’s why good candidates apply to 100+ jobs and still get no calls.</p>
+      </div>
+      <div class="mistakes">
+        <h3>The 5 most common reasons we see</h3>
+        <ol>
+          <li>A headline that describes you, not the job recruiters are hiring for</li>
+          <li>Key skills that don’t match the role’s search words</li>
+          <li>A summary with duties, but no results or numbers</li>
+          <li>Wrong or outdated preferences — city, salary, notice period</li>
+          <li>A resume that says something different from the profile</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:44px"><span class="kicker">The difference</span><h2>Same experience. Very different first impression.</h2></div>
+    <div class="ba">
+      <div class="ba-card ba-before"><span>Before</span><p>“Looking for a good opportunity in a reputed company where I can use my skills.”</p><small>Says nothing a recruiter searches for.</small></div>
+      <div class="ba-card ba-after"><span>After</span><p>“Data Analyst | 3 yrs | SQL, Power BI, Python | Sales & Ops Dashboards | Pune | Immediate Joiner”</p><small>Role, experience, skills, city and availability — in one line.</small></div>
+    </div>
+    <p class="note-small">An illustrative headline. Every profile we write is built for your real experience, role and city.</p>
+
+    <div class="section-head" style="margin-top:44px"><span class="kicker">How it works</span><h2>You share. We fix. Recruiters call.</h2></div>
+    <ol class="ref-steps">
+      <li><b>Share your details</b><span>Upload your resume, add your Naukri login email and pick a plan. Takes 60 seconds.</span></li>
+      <li><b>We confirm on WhatsApp</b><span>Within 24 hours we confirm your target role, cities and plan, and share payment details.</span></li>
+      <li><b>We rewrite and update</b><span>Your headline, key skills, summary, employment details, preferences and resume — written by a person, not a template.</span></li>
+      <li><b>You start getting noticed</b><span>Many candidates see more profile views and recruiter calls within about a week.</span></li>
+    </ol>
+  </div>
+</section>
+`,
 });
 
 const apply = servicePage({
@@ -174,7 +213,7 @@ const pricing = {
   <div class="wrap">
     ${breadcrumbs(pricingCrumbs)}
     <span class="eyebrow">Plans & pricing</span>
-    <h1>Simple, transparent pricing.</h1>
+    <h1>Naukri Profile Optimization Price & Plans</h1>
     <p class="lead">Fix your Naukri profile and resume once — or hand over your whole job search to us.</p>
   </div>
 </section>

@@ -6,6 +6,7 @@
  *   POST /api/lead      -> validate (+ optional Turnstile), save lead + resume to D1, email the owner (resume attached)
  *   GET  /api/whatsapp  -> 302 to wa.me/<WHATSAPP_NUMBER> (number lives only in a Cloudflare secret, never in HTML)
  *   POST /api/referrer  -> referral partner signup → returns their code (first name, e.g. AKASH / AKASH2)
+ *   POST /api/referrer/stats -> partner dashboard (mobile + email must match) → counts, earnings, recent referrals
  *   GET  /api/ref       -> ?code=AKASH → { ok, code, first_name } (pre-fills "Referred by" on the form)
  *   GET  /api/health    -> simple health check
  *
@@ -22,7 +23,7 @@ import {
 
 const MAX = { name: 80, phone: 20, email: 120, login: 120, experience: 40, plan: 40, target_role: 120, message: 1500, utm: 100, page: 200 };
 const EXPERIENCE_OPTIONS = ["Fresher (0-1 yr)", "1-3 yrs", "3-6 yrs", "6-10 yrs", "10-15 yrs", "15+ yrs"];
-const PLANS = { makeover: "Profile Makeover (₹6,000)", "done-for-you": "Done-For-You Job Search (₹9,000)" };
+const PLANS = { makeover: "Profile Makeover (₹5,999)", "done-for-you": "Done-For-You Job Search (₹8,999)" };
 // Abuse ceilings, not real-user limits. Indian mobile networks (Jio/Airtel CGNAT) put thousands of phones
 // behind one public IP, so these must stay HIGH. Bots are stopped by Turnstile + honeypot + per-phone dedupe.
 const LEADS_PER_IP_PER_HOUR = 300;
@@ -42,6 +43,8 @@ export default {
     let res;
     if (url.pathname === "/api/lead") {
       res = request.method === "POST" ? await handleLead(request, env, ctx) : json({ ok: false, error: "Method not allowed" }, 405, { Allow: "POST" });
+    } else if (url.pathname === "/api/referrer/stats") {
+      res = request.method === "POST" ? await handlePartnerStats(request, env) : json({ ok: false, error: "Method not allowed" }, 405, { Allow: "POST" });
     } else if (url.pathname === "/api/referrer") {
       res = request.method === "POST" ? await handleReferrer(request, env, ctx) : json({ ok: false, error: "Method not allowed" }, 405, { Allow: "POST" });
     } else if (url.pathname === "/api/ref") {
@@ -75,7 +78,7 @@ function handleWhatsApp(url, env) {
   const plan = url.searchParams.get("plan") || "";
   const opener = "Hi team! My Naukri profile has been around forever, but recruiter calls are still a rare sight. 😭";
   const text = plan === "done-for-you"
-    ? `${opener} I want the Done-For-You Job Search (₹9,000) — please take over my Naukri job search and help me turn things around!`
+    ? `${opener} I want the Done-For-You Job Search (₹8,999) — please take over my Naukri job search and help me turn things around!`
     : `${opener} I desperately need a profile makeover. Help me turn things around!`;
   return new Response(null, {
     status: 302,
@@ -306,8 +309,12 @@ async function handleReferrer(request, env, ctx) {
   await ensureSchema(env);
 
   // Already a partner with this mobile → give the same code back (also works as "forgot my code").
-  const existing = await env.DB.prepare("SELECT code, name FROM referrers WHERE phone = ?1").bind(p.phone).first();
-  if (existing) return reply(200, { ok: true, existing: true, code: existing.code, name: existing.name, link: shareLink(env, existing.code) });
+  const existing = await env.DB.prepare("SELECT id, code, name, email FROM referrers WHERE phone = ?1").bind(p.phone).first();
+  if (existing) {
+    // Stats only when the email matches too (a phone number alone shouldn't reveal someone's earnings).
+    const stats = String(existing.email).toLowerCase() === p.email ? await partnerStats(env, existing.id) : null;
+    return reply(200, { ok: true, existing: true, code: existing.code, name: existing.name, link: shareLink(env, existing.code), ...(stats ? { stats } : {}) });
+  }
 
   const ipHash = await sha256(`${ip}|getrecruitercalls`);
   try {
@@ -341,6 +348,69 @@ async function handleReferrer(request, env, ctx) {
 
   ctx.waitUntil(notifyNewPartner(env, { ...p, code }));
   return reply(200, { ok: true, existing: false, code, name: p.name, link: shareLink(env, code) });
+}
+
+// Commission lifecycle on leads.commission_status:
+//   pending   = friend filled the form, hasn't paid yet
+//   earned    = friend paid us → we owe the partner
+//   paid      = we sent the partner their money
+//   cancelled = friend didn't buy
+const FRIEND_STATUS = { pending: "Form filled", earned: "Paid — you’ve earned", paid: "Paid to you", cancelled: "Didn’t join" };
+
+async function partnerStats(env, referrerId) {
+  const [tot, recent] = await env.DB.batch([
+    env.DB.prepare(
+      `SELECT COUNT(*) AS referred,
+              SUM(CASE WHEN commission_status IN ('earned','paid') THEN 1 ELSE 0 END) AS paid_clients,
+              SUM(CASE WHEN commission_status IN ('earned','paid') THEN commission_inr ELSE 0 END) AS earned_inr,
+              SUM(CASE WHEN commission_status = 'paid' THEN commission_inr ELSE 0 END) AS paid_out_inr,
+              SUM(CASE WHEN commission_status = 'pending' THEN commission_inr ELSE 0 END) AS potential_inr
+         FROM leads WHERE referrer_id = ?1 AND lead_source = 'referral'`
+    ).bind(referrerId),
+    env.DB.prepare(
+      `SELECT created_at, name, commission_status, commission_inr FROM leads
+        WHERE referrer_id = ?1 AND lead_source = 'referral' ORDER BY id DESC LIMIT 20`
+    ).bind(referrerId),
+  ]);
+  const t = (tot.results && tot.results[0]) || {};
+  return {
+    referred: t.referred || 0,
+    paid_clients: t.paid_clients || 0,
+    earned_inr: t.earned_inr || 0,
+    paid_out_inr: t.paid_out_inr || 0,
+    due_inr: (t.earned_inr || 0) - (t.paid_out_inr || 0),
+    potential_inr: t.potential_inr || 0,
+    recent: (recent.results || []).map((r) => ({
+      date: String(r.created_at).slice(0, 10),
+      friend: String(r.name || "").trim().split(/\s+/)[0] || "Friend", // first name only
+      status: FRIEND_STATUS[r.commission_status] || "Form filled",
+      amount_inr: r.commission_inr || 0,
+    })),
+  };
+}
+
+async function handlePartnerStats(request, env) {
+  const origin = request.headers.get("Origin");
+  if (origin) {
+    let host = "";
+    try { host = new URL(origin).host; } catch {}
+    if (host !== new URL(request.url).host) return json({ ok: false, error: "Invalid origin." }, 403);
+  }
+  let data;
+  try {
+    ({ data } = await readBody(request));
+  } catch {
+    return json({ ok: false, error: "Could not read the form." }, 400);
+  }
+  const phone = localMobile(data.phone);
+  const email = clean(data.email, MAX.email).toLowerCase();
+  if (!phone || !EMAIL_RE.test(email)) return json({ ok: false, error: "Enter the mobile number and email you joined with." }, 422);
+  await ensureSchema(env);
+  const r = await env.DB.prepare("SELECT id, code, name, email FROM referrers WHERE phone = ?1").bind(phone).first();
+  if (!r || String(r.email).toLowerCase() !== email) {
+    return json({ ok: false, error: "No partner found with this mobile and email. Check both, or join below." }, 404);
+  }
+  return json({ ok: true, code: r.code, name: r.name, link: shareLink(env, r.code), stats: await partnerStats(env, r.id) });
 }
 
 const shareLink = (env, code) => `${(env.SITE_URL || "https://getshortlisted.in").replace(/\/$/, "")}/?ref=${encodeURIComponent(code)}`;

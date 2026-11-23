@@ -22,8 +22,11 @@ export const SITE = {
   // The matching secret goes in Cloudflare → Worker → Settings → Variables as TURNSTILE_SECRET (encrypted).
   // Leave empty to switch the check off.
   turnstileSiteKey: "",
+  // Google Analytics 4 Measurement ID (looks like "G-XXXXXXXXXX"). Empty = GA4 off.
+  // Cloudflare Web Analytics needs no code: enable it in the Cloudflare dashboard.
+  ga4Id: "",
   // Used for "dateModified" in schema + sitemap lastmod. Update when you change content.
-  updated: "2026-11-21",
+  updated: "2026-11-23",
 };
 
 // Plans shown on the home page, /pricing/ and in the form. `id` is what the form submits.
@@ -32,7 +35,7 @@ export const PLANS = [
   {
     id: "makeover",
     name: "Profile Makeover",
-    price: 6000,
+    price: 5999,
     tag: "We fix it. You apply.",
     pitch: "We optimize your Naukri profile and resume so recruiters find you — then hand everything over to you.",
     url: "/naukri-profile-optimization/",
@@ -47,7 +50,7 @@ export const PLANS = [
   {
     id: "done-for-you",
     name: "Done-For-You Job Search",
-    price: 9000,
+    price: 8999,
     tag: "Hands-free",
     featured: true,
     pitch: "We take over your Naukri job search for 1 month — profile, resume and applications. You just pick up recruiter calls.",

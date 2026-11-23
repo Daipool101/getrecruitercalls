@@ -898,3 +898,33 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
 /* The hidden attribute must always win over display:grid/flex on components. */
 [hidden] { display: none !important; }
 .ref-code { font-size: clamp(1.4rem, 7.5vw, 2.6rem); letter-spacing: .04em; overflow-wrap: anywhere; word-break: break-all; line-height: 1.15; }
+
+/* ---------- Partner dashboard ---------- */
+.link-btn { background: none; border: 0; padding: 4px 0; font: inherit; font-weight: 700; color: var(--m-blue-2); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.ref-check-toggle { text-align: center; margin-bottom: 14px; }
+.ref-dash { text-align: left; border-top: 1px solid var(--line); padding-top: 16px; display: grid; gap: 12px; }
+.ref-dash h3 { margin: 0; font-size: 1.1rem; color: var(--m-navy); }
+.ref-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ref-stats div { background: var(--m-soft); border-radius: 14px; padding: 12px 14px; display: grid; gap: 2px; }
+.ref-stats b { font-size: 1.5rem; color: var(--m-navy); line-height: 1.1; }
+.ref-stats span { font-size: .8rem; color: var(--muted); font-weight: 600; }
+.ref-due { margin: 0; font-weight: 700; color: #1A7F4B; }
+.ref-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--line); border-radius: 12px; }
+.ref-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+.ref-table th, .ref-table td { padding: 9px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.ref-table th { background: #F4F7FC; color: var(--m-navy); font-size: .76rem; text-transform: uppercase; letter-spacing: .04em; }
+.ref-table tr:last-child td { border-bottom: 0; }
+
+/* ---------- Service page depth sections ---------- */
+.two-col { display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: start; }
+.mistakes { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--m-blue); border-radius: 16px; padding: 18px 20px; }
+.mistakes h3 { margin: 0 0 8px; font-size: 1.05rem; color: var(--m-navy); }
+.mistakes ol { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; color: var(--ink); }
+.ba { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ba-card { border-radius: 18px; padding: 18px 20px; display: grid; gap: 6px; }
+.ba-card span { font-size: .74rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.ba-card p { margin: 0; font-size: 1.05rem; font-weight: 600; }
+.ba-card small { opacity: .85; }
+.ba-before { background: #FFF1EE; color: #7A2E1F; border: 1px solid #F6D3CB; }
+.ba-after { background: linear-gradient(160deg, #2A5BF0, #1F48D1); color: #fff; }
+@media (max-width: 760px) { .two-col, .ba { grid-template-columns: 1fr; gap: 14px; } }

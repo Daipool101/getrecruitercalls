@@ -69,6 +69,8 @@ Owner's instruction: *clean, simple, professional, call-to-action focused; don't
 
 - **2026-11-23 (Phase 1 capacity)** — Per-IP lead limit 20/hr → abuse ceiling 300/hr (CGNAT: Jio/Airtel share IPs — never lower it); partner signups 100/hr/IP. 10-min duplicate guard on normalised mobile (leads.phone_local). ensureSchema fast path (1 batch check). Base64 attachment encoder 6x faster. Load test script tests/load.mjs: local 3,000 visitors/150 concurrent/750 leads → 0 failures; live pages 5,000 req → 0 failures. Owner: Workers Paid later; Razorpay, WhatsApp Business, resume checker (no AI) later; content pages need owner approval with rationale. Plan: docs/LAUNCH-PLAN.md.
 
+- **2026-11-24** — Prices ₹5,999 / ₹8,999 (commission still ₹1,200 / ₹1,800). Partner dashboard (/api/referrer/stats, mobile+email). commission_status lifecycle pending→earned→paid/cancelled (owner sets 'earned' when a referred client pays, until Razorpay). IndexNow key f76646b5… (npm run indexnow after deploys). GA4 slot in config (ga4Id empty = off). 3 new guides. Content rule from owner: publish the what/why, never our process/templates ("don't expose how we make resumes"). Razorpay on hold.
+
 ## Ideas for later (not built — owner said don't add extra things)
 - Hindi versions of key pages (`/hi/…`) to rank for Hindi searches.
 - More guides: "Naukri profile summary examples", "How to update Naukri profile daily", "Key skills for <role>", city pages.

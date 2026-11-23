@@ -1,6 +1,6 @@
 # Refer & Earn — how it works and how to pay partners
 
-**Partners earn 20%** of the plan their friend buys: **₹1,200** on Profile Makeover (₹6,000), **₹1,800** on Done-For-You Job Search (₹9,000). Pay only **after the referred client has paid you**.
+**Partners earn 20%** of the plan their friend buys: **₹1,200** on Profile Makeover (₹5,999), **₹1,800** on Done-For-You Job Search (₹8,999). Pay only **after the referred client has paid you**.
 
 ## The flow
 
@@ -24,12 +24,27 @@ If a client types just "Akash" and there are both AKASH and AKASH2, it's credite
 
 ## Track and pay commissions (Cloudflare → D1 → getrecruitercalls-db → Console)
 
+### Status of each referral (`leads.commission_status`)
+| Status | Meaning | Partner sees |
+|---|---|---|
+| `pending` | Friend filled the form, hasn't paid yet | "Form filled" |
+| `earned` | **Friend paid us** → we owe the partner | "Paid — you've earned ₹…" |
+| `paid` | We sent the partner their money | "Paid to you" |
+| `cancelled` | Friend didn't buy | "Didn't join" |
+
+Until Razorpay is connected, mark it yourself when a referred client pays:
+```sql
+UPDATE leads SET commission_status = 'earned' WHERE id = 123;
+```
+
+Partners see their own dashboard at /refer/ → **"Check my referrals"** (mobile + email must both match).
+
 **Commissions to pay** (client has paid you → pay the partner):
 ```sql
 SELECT l.id, l.created_at, l.name AS client, l.plan, l.commission_inr, l.commission_status,
        r.name AS partner, r.code, r.upi_phone AS gpay
 FROM leads l JOIN referrers r ON r.id = l.referrer_id
-WHERE l.lead_source = 'referral' AND l.commission_status = 'pending'
+WHERE l.lead_source = 'referral' AND l.commission_status = 'earned'
 ORDER BY l.id DESC;
 ```
 
@@ -57,7 +72,7 @@ WHERE id = 123;
 ```sql
 SELECT r.code, r.name, r.upi_phone AS gpay,
        COUNT(l.id) AS referred,
-       SUM(CASE WHEN l.commission_status = 'pending' THEN l.commission_inr ELSE 0 END) AS to_pay,
+       SUM(CASE WHEN l.commission_status = 'earned' THEN l.commission_inr ELSE 0 END) AS to_pay,
        SUM(CASE WHEN l.commission_status = 'paid'    THEN l.commission_inr ELSE 0 END) AS paid
 FROM referrers r LEFT JOIN leads l ON l.referrer_id = r.id AND l.lead_source = 'referral'
 GROUP BY r.id ORDER BY referred DESC;

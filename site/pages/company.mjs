@@ -212,7 +212,7 @@ ${hero(privacyCrumbs, "", "Privacy Policy", `Last updated: 21 November 2026`)}
 <p>To exercise any right, email <a href="mailto:${SITE.email}">${SITE.email}</a>. We aim to respond within 30 days.</p>
 
 <h2>8. Cookies and analytics</h2>
-<p>Our website does not use advertising cookies. We may use privacy-friendly, cookie-less analytics (such as Cloudflare Web Analytics) to understand overall traffic. Your browser’s session storage is used only to remember campaign tags (UTM) during your visit.</p>
+<p>Our website does not use advertising cookies. We use privacy-friendly analytics (Cloudflare Web Analytics, which sets no cookies) and may use Google Analytics with IP anonymisation to understand overall traffic and which pages help visitors. You can opt out of Google Analytics with Google’s browser add-on. Your browser’s session storage is used only to remember campaign tags (UTM) during your visit.</p>
 
 <h2>9. Third-party links</h2>
 <p>Our website links to third-party websites such as Naukri.com. We are not responsible for their privacy practices; please read their policies.</p>

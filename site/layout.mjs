@@ -316,6 +316,8 @@ ${published ? `<meta property="article:published_time" content="${published}">\n
 <link rel="stylesheet" href="/css/styles.css?v=${globalThis.ASSET_VER || SITE.updated}">
 <script type="application/ld+json">${JSON.stringify(graph).replace(/</g, "\\u003c")}</script>
 <script src="/js/main.js?v=${globalThis.ASSET_VER || SITE.updated}" defer></script>
+${SITE.ga4Id ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${esc(SITE.ga4Id)}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","${esc(SITE.ga4Id)}",{anonymize_ip:true});</script>` : ""}
 ${SITE.turnstileSiteKey && /data-lead-form/.test(body) ? `<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>` : ""}
 </head>
 <body>
@@ -353,6 +355,7 @@ ${body}
     <div>
       <h3>Free guides</h3>
       <ul>
+        <li><a href="/blog/how-to-get-shortlisted-on-naukri/">How to get shortlisted on Naukri</a></li>
         <li><a href="/blog/not-getting-calls-from-naukri/">Not getting calls from Naukri?</a></li>
         <li><a href="/blog/naukri-profile-optimization-tips/">Naukri profile tips</a></li>
         <li><a href="/blog/naukri-resume-headline-examples/">Resume headline examples</a></li>

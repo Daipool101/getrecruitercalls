@@ -258,7 +258,59 @@
     var msg = "Not getting calls from Naukri? GetShortlisted fixes your Naukri profile & resume so recruiters call you. Use my referral code " + res.code + ": " + link;
     done.querySelector("[data-ref-share]").href = "https://wa.me/?text=" + encodeURIComponent(msg);
     done.querySelector("[data-ref-existing]").hidden = !res.existing;
+    renderStats(res.stats);
     try { done.scrollIntoView({ behavior: "smooth", block: "center" }); } catch (x) {}
+  }
+
+  function inr(n) { return "₹" + Number(n || 0).toLocaleString("en-IN"); }
+  function renderStats(st) {
+    var dash = done.querySelector("[data-ref-dash]");
+    if (!st) { dash.hidden = true; return; }
+    dash.hidden = false;
+    ["referred", "paid_clients"].forEach(function (k) { dash.querySelector('[data-stat="' + k + '"]').textContent = st[k] || 0; });
+    ["earned_inr", "paid_out_inr"].forEach(function (k) { dash.querySelector('[data-stat="' + k + '"]').textContent = inr(st[k]); });
+    var due = dash.querySelector("[data-stat-due]");
+    due.hidden = !(st.due_inr > 0);
+    due.textContent = st.due_inr > 0 ? inr(st.due_inr) + " is on its way to your Google Pay." : "";
+    var rows = dash.querySelector("[data-ref-rows]");
+    rows.textContent = "";
+    (st.recent || []).forEach(function (r) {
+      var tr = document.createElement("tr");
+      [r.date, r.friend, r.status, inr(r.amount_inr)].forEach(function (v) { var td = document.createElement("td"); td.textContent = v; tr.appendChild(td); });
+      rows.appendChild(tr);
+    });
+    var has = (st.recent || []).length > 0;
+    dash.querySelector("[data-ref-table-wrap]").hidden = !has;
+    dash.querySelector("[data-ref-empty]").hidden = has;
+  }
+
+  // "Already a partner? Check my referrals"
+  var check = document.querySelector("[data-ref-check]");
+  var openBtn = document.querySelector("[data-ref-check-open]");
+  if (check && openBtn) {
+    var toggle = function (showCheck) {
+      check.hidden = !showCheck; form.hidden = showCheck; openBtn.parentNode.hidden = showCheck;
+      if (showCheck) check.elements.phone.focus();
+    };
+    openBtn.addEventListener("click", function () { toggle(true); });
+    check.querySelector("[data-ref-check-close]").addEventListener("click", function () { toggle(false); });
+    check.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var st = check.querySelector(".form-status");
+      if (!mobile(check.elements.phone.value) || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(check.elements.email.value.trim())) {
+        st.textContent = "Enter the mobile number and email you joined with."; st.className = "form-status err"; return;
+      }
+      var b = check.querySelector('button[type="submit"]'); b.disabled = true;
+      st.textContent = "Loading…"; st.className = "form-status";
+      fetch(check.action, { method: "POST", headers: { Accept: "application/json" }, body: new FormData(check) })
+        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+        .then(function (res) {
+          b.disabled = false;
+          if (res && res.ok) { check.hidden = true; st.textContent = ""; showDone({ code: res.code, name: res.name, link: res.link, stats: res.stats }); }
+          else { st.textContent = (res && res.error) || "Something went wrong. Please try again."; st.className = "form-status err"; }
+        })
+        .catch(function () { b.disabled = false; st.textContent = "Network error. Please try again."; st.className = "form-status err"; });
+    });
   }
 
   var copyBtn = done.querySelector("[data-ref-copy]");

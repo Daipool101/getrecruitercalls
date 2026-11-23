@@ -12,7 +12,9 @@
     "db:migrate:remote": "wrangler d1 migrations apply getrecruitercalls-db --remote",
     "leads:remote": "wrangler d1 execute getrecruitercalls-db --remote --command \"SELECT id, created_at, name, phone, email, experience, target_role, email_status FROM leads ORDER BY id DESC LIMIT 50\"",
     "test": "node tests/smoke.mjs",
-    "test:unit": "node --test tests/unit.mjs"
+    "test:unit": "node --test tests/unit.mjs",
+    "indexnow": "node tools/indexnow.mjs",
+    "loadtest": "node tests/load.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.165.0"

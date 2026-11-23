@@ -52,8 +52,8 @@ Re-run any time: `node tests/load.mjs --base http://127.0.0.1:8787 --visitors 30
 |---|---|---|
 | 2.1 | ☐ **Google Search Console** — Domain property `getshortlisted.in`, verify via Cloudflare, submit `sitemap.xml`, request indexing for 5 main pages | Steps already shared; sitemap is live with 16 URLs |
 | 2.2 | ☐ **Bing Webmaster Tools** — *Import from Google Search Console* | Bing also powers ChatGPT search and Copilot |
-| 2.3 | ☐ **IndexNow** (Bing/Yandex instant indexing) — key file on the site + auto-ping when pages change | Claude |
-| 2.4 | ☐ **Analytics**: Cloudflare Web Analytics (free, no cookie banner) **+** Google Analytics 4 with a `generate_lead` and `purchase` event | Owner creates GA4 property → sends Measurement ID → Claude adds it + updates Privacy Policy |
+| 2.3 | ☑ **IndexNow** — key file live; run `npm run indexnow` after each deploy (done 24 Nov) | Claude |
+| 2.4 | ◐ **Analytics**: code + privacy policy ready (24 Nov). Owner: enable Cloudflare Web Analytics (1 click) and create a GA4 property → send the `G-…` ID; Claude pastes it into `site/config.mjs → ga4Id` | Owner → Claude |
 | 2.5 | ☐ **Google Business Profile** (service-area business) | Owner |
 
 ---
@@ -155,7 +155,15 @@ Real suggestions Google shows — this is how our audience types:
 
 ---
 
-## Later / to-do (owner decisions, 23 Nov 2026)
+## Done 24 Nov 2026
+- ☑ Prices → **₹5,999** (Profile Makeover) and **₹8,999** (Done-For-You). Referral commission stays ₹1,200 / ₹1,800.
+- ☑ Partner dashboard on /refer/ ("Check my referrals", mobile + email): friends referred, paying clients, earned, paid out, recent list. Statuses: pending → earned (client paid) → paid (partner paid). See docs/REFERRALS.md.
+- ☑ Copy: home H1 now says "on Naukri"; pricing H1 = "Naukri Profile Optimization Price & Plans"; /naukri-profile-optimization/ expanded (why profiles get ignored, before/after, how it works).
+- ☑ New guides: /blog/how-to-get-shortlisted-on-naukri/, /blog/chatgpt-prompts-for-naukri-profile/, /blog/naukri-paid-services-worth-it/ (share the *what* and *why*, never our *how*).
+
+## Later / to-do (owner decisions, 23–24 Nov 2026)
+- ⏸ **Uptime alert (1.9)** — free UptimeRobot email/app alert; owner sets up when ready (no SMS, no cost).
+- ⏸ **WhatsApp Business** — owner is buying a separate business SIM.
 - ⏸ **Razorpay + customer emails (Phase 3)** — review later, then build.
 - ⏸ **WhatsApp Business app + quick-reply templates** — later.
 - ⏸ **Resume checker** — maybe later, **no AI scoring**.

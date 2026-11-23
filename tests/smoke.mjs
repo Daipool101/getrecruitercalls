@@ -179,6 +179,23 @@ if (!READONLY) {
   r = await lead({ referral: CODE, phone: phoneA }); j = await r.json();
   ok(j.ok && j.source === "self-referral", "partner using own code -> self-referral");
 
+  // Partner dashboard: 2 verified referrals so far (by code + by full name); self-referral & unverified don't count.
+  const stats = (fields) => {
+    const fd = new FormData();
+    for (const [k, v] of Object.entries(fields)) fd.append(k, v);
+    return fetch(BASE + "/api/referrer/stats", { method: "POST", headers: { Accept: "application/json" }, body: fd });
+  };
+  r = await stats({ phone: phoneA, email: "partner.a@example.com" }); j = await r.json();
+  ok(r.status === 200 && j.ok && j.code === CODE && j.stats.referred === 2 && j.stats.paid_clients === 0 && j.stats.earned_inr === 0
+     && j.stats.potential_inr === 3000 && j.stats.recent.length === 2 && j.stats.recent.every((x) => x.status === "Form filled" && !/\s/.test(x.friend)),
+     `partner dashboard: 2 referred, 0 paid, first names only (potential ₹${j.stats && j.stats.potential_inr})`);
+  r = await stats({ phone: phoneA, email: "someone.else@example.com" });
+  ok(r.status === 404, "dashboard needs the matching email (phone alone shows nothing)");
+  r = await partner({ name: `${first} Tester`, phone: phoneA, upi_same: "1", email: "partner.a@example.com" }); j = await r.json();
+  ok(j.ok && j.existing && j.stats && j.stats.referred === 2, "re-joining with same mobile + email shows the dashboard");
+  r = await partner({ name: `${first} Tester`, phone: phoneA, upi_same: "1", email: "other@example.com" }); j = await r.json();
+  ok(j.ok && j.existing && !j.stats, "re-joining with a different email returns the code but no stats");
+
   // Duplicate guard: same mobile twice within 10 minutes -> one lead (no second email).
   const dupPhone = uniqPhone();
   r = await post({ ...valid, phone: dupPhone }); j = await r.json();

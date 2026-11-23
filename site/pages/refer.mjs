@@ -51,6 +51,20 @@ export default {
     </div>
 
     <div id="join">
+      <div class="ref-check-toggle"><button type="button" class="link-btn" data-ref-check-open>Already a partner? Check my referrals</button></div>
+      <form class="lead-form ref-check" action="/api/referrer/stats" method="post" novalidate data-ref-check hidden>
+        <div class="form-head">
+          <h2 class="form-title">Check my referrals</h2>
+          <p class="form-sub">Use the mobile number and email you joined with.</p>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="rc-phone">Mobile</label><input id="rc-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="98XXXXXXXX"></div>
+          <div class="field"><label for="rc-email">Email</label><input id="rc-email" name="email" type="email" autocomplete="email" maxlength="120" placeholder="you@email.com"></div>
+        </div>
+        <button class="btn btn-dark btn-block" type="submit">Show my dashboard</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <button type="button" class="link-btn" data-ref-check-close>New here? Get a referral code instead</button>
+      </form>
       <form class="lead-form ref-form" action="/api/referrer" method="post" novalidate data-ref-form>
         <div class="form-head">
           <h2 class="form-title">Get my referral code</h2>
@@ -90,6 +104,24 @@ export default {
         <div class="ref-link"><input type="text" readonly data-ref-link aria-label="Your share link"><button class="btn btn-dark btn-sm" type="button" data-ref-copy>Copy</button></div>
         <a class="btn btn-wa btn-block" href="#" target="_blank" rel="noopener" data-ref-share>Share on WhatsApp</a>
         <p class="form-sub" data-ref-existing hidden>This mobile number already has a code — here it is.</p>
+        <div class="ref-dash" data-ref-dash hidden>
+          <h3>Your referrals</h3>
+          <div class="ref-stats">
+            <div><b data-stat="referred">0</b><span>Friends referred</span></div>
+            <div><b data-stat="paid_clients">0</b><span>Became paying clients</span></div>
+            <div><b data-stat="earned_inr">₹0</b><span>You’ve earned</span></div>
+            <div><b data-stat="paid_out_inr">₹0</b><span>Paid to you</span></div>
+          </div>
+          <p class="ref-due" data-stat-due hidden></p>
+          <div class="ref-table-wrap" data-ref-table-wrap hidden>
+            <table class="ref-table">
+              <thead><tr><th>Date</th><th>Friend</th><th>Status</th><th>You earn</th></tr></thead>
+              <tbody data-ref-rows></tbody>
+            </table>
+          </div>
+          <p class="form-sub" data-ref-empty>No referrals yet — share your link to get started.</p>
+          <p class="hint">You earn when your friend pays for a plan. Updated as we confirm payments.</p>
+        </div>
       </div>
     </div>
   </div>

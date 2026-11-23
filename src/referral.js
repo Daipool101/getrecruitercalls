@@ -10,7 +10,7 @@
 
 export const REFERRAL_RATE = 0.2;
 // Keep in sync with site/config.mjs → PLANS.
-export const PLAN_PRICES = { makeover: 6000, "done-for-you": 9000 };
+export const PLAN_PRICES = { makeover: 5999, "done-for-you": 8999 };
 
 export const SOURCE = {
   ORGANIC: "organic",

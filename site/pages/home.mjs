@@ -55,7 +55,7 @@ const body = `
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="eyebrow">Naukri profile & resume experts · All India</span>
-      <h1>Get shortlisted. Get recruiter calls — <span class="hl">in about a week.</span></h1>
+      <h1>Get shortlisted on Naukri. Get recruiter calls — <span class="hl">in about a week.</span></h1>
       <p class="lead">Recruiters search Naukri by keywords. If your profile doesn’t match, they never see you. We rewrite your Naukri profile and resume around what recruiters search — or run your whole job search for you.</p>
       <div class="hero-ctas">
         <a class="btn btn-gold btn-lg btn-shine btn-pulse" href="#get-started">Get Shortlisted</a>
