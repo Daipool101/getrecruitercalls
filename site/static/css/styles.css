@@ -928,3 +928,13 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
 .ba-before { background: #FFF1EE; color: #7A2E1F; border: 1px solid #F6D3CB; }
 .ba-after { background: linear-gradient(160deg, #2A5BF0, #1F48D1); color: #fff; }
 @media (max-width: 760px) { .two-col, .ba { grid-template-columns: 1fr; gap: 14px; } }
+
+/* ---------- Mobile WhatsApp bubble (always visible, bottom-right) ---------- */
+@media (max-width: 760px) {
+  .wa-float { display: grid; place-items: center; width: 54px; height: 54px; padding: 0; gap: 0; right: 14px; bottom: calc(16px + env(safe-area-inset-bottom)); border-radius: 50%; z-index: 61; box-shadow: 0 10px 24px rgba(7,94,84,.35); transition: bottom .45s cubic-bezier(.2,.8,.2,1), transform .25s ease; }
+  .wa-float span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .wa-float svg { width: 30px; height: 30px; }
+  .wa-float:active { transform: scale(.92); }
+  html.sticky-on .wa-float { bottom: calc(86px + env(safe-area-inset-bottom)); }
+  .sticky-cta .sticky-wa { display: none; }
+}

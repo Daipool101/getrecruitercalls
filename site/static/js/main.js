@@ -46,6 +46,7 @@
     var stickyIo = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) visible.add(en.target); else visible.delete(en.target); });
       sticky.classList.toggle("show", visible.size === 0);
+      document.documentElement.classList.toggle("sticky-on", visible.size === 0); // lifts the WhatsApp bubble above the bar
     }, { rootMargin: "0px 0px -15% 0px" });
     Array.prototype.forEach.call(watched, function (el) { stickyIo.observe(el); });
   }
