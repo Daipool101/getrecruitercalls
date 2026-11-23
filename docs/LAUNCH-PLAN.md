@@ -138,9 +138,9 @@ Real suggestions Google shows — this is how our audience types:
 | 1 | ChatGPT & Claude prompts for Naukri profile optimization | naukri profile optimization prompt |
 | 1 | Naukri paid services: FastForward vs Premium vs GetShortlisted — worth it? | naukri paid services cost, is fastforward worth it |
 | 2 | How to get interview calls from Naukri (freshers & experienced) | how to get calls from naukri for experienced/freshers |
-| 2 | Naukri profile summary examples (freshers, experienced, 10 roles) | naukri profile summary for … |
-| 2 | Naukri key skills: examples, limit, not matching, key vs IT skills | naukri key skills … |
-| 2 | Best time to update Naukri profile + daily routine | naukri profile update time / refresh / auto updater |
+| 2 | ☑ Naukri profile summary examples (freshers, experienced, 10 roles) — live 24 Nov | naukri profile summary for … |
+| 2 | ☑ Naukri key skills: examples, limit, not matching, key vs IT skills — live 24 Nov | naukri key skills … |
+| 2 | ☑ Best time to update Naukri profile + daily routine — live 24 Nov | naukri profile update time / refresh / auto updater |
 | 3 | LinkedIn vs Naukri: which gets you more calls? | linkedin vs naukri which is better |
 | 3 | Resume writing services in Mumbai / Pune / Bengaluru / Delhi NCR | resume writing services in {city} |
 

@@ -71,6 +71,8 @@ Owner's instruction: *clean, simple, professional, call-to-action focused; don't
 
 - **2026-11-24** — Prices ₹5,999 / ₹8,999 (commission still ₹1,200 / ₹1,800). Partner dashboard (/api/referrer/stats, mobile+email). commission_status lifecycle pending→earned→paid/cancelled (owner sets 'earned' when a referred client pays, until Razorpay). IndexNow key f76646b5… (npm run indexnow after deploys). GA4 slot in config (ga4Id empty = off). 3 new guides. Content rule from owner: publish the what/why, never our process/templates ("don't expose how we make resumes"). Razorpay on hold.
 
+- **2026-11-24 (guides batch 2)** — Added /blog/naukri-profile-summary-examples/, /blog/naukri-key-skills/, /blog/best-time-to-update-naukri-profile/ (10 guides total, 22 sitemap URLs). Next content candidates: how to get interview calls (freshers/experienced), LinkedIn vs Naukri, city pages.
+
 ## Ideas for later (not built — owner said don't add extra things)
 - Hindi versions of key pages (`/hi/…`) to rank for Hindi searches.
 - More guides: "Naukri profile summary examples", "How to update Naukri profile daily", "Key skills for <role>", city pages.

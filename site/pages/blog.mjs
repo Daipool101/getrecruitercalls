@@ -535,7 +535,204 @@ const paidServices = article({
   ],
 });
 
-const posts = [getShortlisted, notGettingCalls, paidServices, profileTips, aiPrompts, headlineExamples, atsResume];
+/* ---------------- Guides batch 2 (24 Nov 2026) ---------------- */
+const DATE2 = { published: "2026-11-24", shown: "24 Nov 2026" };
+const S = (role, text) => `<div class="example"><b>${role}</b><br>${text}</div>`;
+
+const summaryExamples = article({
+  ...DATE2,
+  path: "/blog/naukri-profile-summary-examples/",
+  title: "Naukri Profile Summary Examples for Freshers & Experienced",
+  h1: "Naukri Profile Summary Examples (2026): Freshers, Experienced & 10 Roles",
+  description:
+    "Naukri profile summary examples for freshers and experienced — software developer, data engineer, sales, HR, accounts and more — plus a simple formula.",
+  keywords: "naukri profile summary, naukri profile summary for freshers, naukri profile summary examples for experienced, naukri profile summary for software developer, naukri profile summary for data engineer, profile summary for naukri",
+  tag: "Examples",
+  readMins: 8,
+  intro: "Your profile summary is where a recruiter decides whether to call or keep scrolling. Most summaries say “hardworking and passionate” and nothing else. Here’s a simple formula and examples for freshers and experienced professionals.",
+  tldr: `<p>A strong Naukri profile summary is <strong>3–5 short sentences</strong>: your <strong>target role and years of experience</strong>, your <strong>core skills</strong>, <strong>1–2 results with numbers</strong>, and <strong>the role you want next</strong>. Skip “hardworking, dynamic, passionate” — recruiters ignore them.</p>`,
+  content: `
+<h2>The 4-part formula</h2>
+<ol>
+  <li><b>Who you are:</b> role + years of experience (or degree, for freshers).</li>
+  <li><b>What you’re good at:</b> 3–5 core skills or tools for the role you want.</li>
+  <li><b>Proof:</b> one or two results with numbers — time saved, revenue, accuracy, team size, projects.</li>
+  <li><b>What’s next:</b> the role you’re targeting, and city or notice period if it helps.</li>
+</ol>
+<p>Keep it short. Recruiters skim; four tight sentences beat a long paragraph.</p>
+
+<h2>Profile summary examples for freshers</h2>
+${S("B.Tech (Computer Science) fresher", "Computer Science graduate (2026) with hands-on projects in Java, Spring Boot and MySQL. Built a college placement portal used by 300+ students and completed a 3-month backend internship. Looking for a Software Engineer / Java Developer role in Pune or Bengaluru; available to join immediately.")}
+${S("B.Com fresher", "B.Com graduate (2026) with working knowledge of Tally, GST basics and advanced Excel (VLOOKUP, pivot tables). Completed a 2-month internship handling invoices and reconciliations for 40+ vendors. Seeking an Accounts Executive or Finance Associate role in Mumbai.")}
+${S("MBA (Marketing) fresher", "MBA in Marketing with internships in digital campaigns and market research. Ran Instagram and Google Ads campaigns for a D2C brand that improved click-through rate by 22%. Looking for a Marketing Executive or Brand Associate role.")}
+${S("Fresher with no internship", "BCA graduate (2026) skilled in HTML, CSS, JavaScript and React through self-built projects, including a responsive e-commerce demo site. Certified in Google Analytics. Seeking a Junior Front-End Developer role; open to relocation.")}
+
+<h2>Profile summary examples for experienced professionals</h2>
+${S("Software Developer (4 years)", "Software Developer with 4 years of experience building REST APIs and microservices in Java, Spring Boot and AWS. Reduced API response time by 35% and led the migration of 3 services to Kubernetes. Looking for a Senior Software Engineer role; 30-day notice period.")}
+${S("Data Engineer (5 years)", "Data Engineer with 5 years of experience in Python, SQL, Spark and Azure Data Factory. Built pipelines processing 2 TB of data daily and cut reporting delays from 24 hours to 2. Targeting Senior Data Engineer roles in Bengaluru or Hyderabad.")}
+${S("Production Engineer (6 years)", "Production Engineer with 6 years in automotive manufacturing, skilled in lean manufacturing, Kaizen, 5S and SAP PP. Improved line efficiency by 18% and reduced rejection rate from 3.2% to 1.1%. Seeking a Production Manager role in Pune or Chennai.")}
+${S("Sales Executive / Manager (7 years)", "B2B Sales professional with 7 years of experience in SaaS and industrial products. Consistently achieved 110–130% of annual targets and built a ₹4 Cr client portfolio. Looking for an Area Sales Manager or Key Account Manager role.")}
+${S("HR Executive (3 years)", "HR Executive with 3 years of experience in end-to-end recruitment, onboarding and HR operations. Closed 150+ positions across IT and non-IT roles and reduced average time-to-hire by 20%. Seeking an HR Generalist or Talent Acquisition role.")}
+${S("Accountant (5 years)", "Accountant with 5 years of experience in GST, TDS, reconciliations and month-end closing using Tally and SAP FICO. Managed books for 3 entities and cleared 2 statutory audits with zero major observations. Looking for a Senior Accountant role.")}
+${S("Customer Support (3 years)", "Customer Support Executive with 3 years of experience in voice and chat support for fintech customers. Maintained a 94% CSAT score and handled 80+ queries a day. Seeking a Team Lead or Senior Support role.")}
+${S("Digital Marketing (4 years)", "Digital Marketing Specialist with 4 years in performance marketing — Google Ads, Meta Ads, SEO and GA4. Managed ₹15 lakh monthly ad spend at a 4.2x ROAS. Looking for a Performance Marketing Manager role.")}
+${S("Business Analyst (5 years)", "Business Analyst with 5 years in BFSI projects, skilled in requirement gathering, SQL, Power BI and JIRA. Delivered 12 releases with stakeholders across 3 countries. Seeking a Senior Business Analyst or Product Analyst role.")}
+${S("QA / Software Tester (4 years)", "QA Engineer with 4 years of manual and automation testing using Selenium, Java, TestNG and Postman. Automated 600+ regression cases and cut release testing time by 40%. Looking for a Senior QA Automation role.")}
+
+<h2>Mistakes that make recruiters skip your summary</h2>
+<ul>
+  <li><b>Buzzwords only:</b> “hardworking, dynamic, passionate” — every profile says it.</li>
+  <li><b>No target role:</b> recruiters don’t know which job you want.</li>
+  <li><b>Duties, not results:</b> “responsible for reports” tells them nothing; “built 20 weekly reports used by 4 teams” does.</li>
+  <li><b>Different from your headline and resume:</b> one consistent story builds trust.</li>
+  <li><b>Too long:</b> anything over 5–6 sentences rarely gets read.</li>
+</ul>
+
+<h2>Examples are the easy part</h2>
+<p>A good summary still has to match your headline, key skills, employment details and resume — and use the words recruiters search for <em>your</em> role and city. That’s what our <a href="/naukri-profile-optimization/">Naukri profile makeover</a> does, written by a person for your real experience. See also <a href="/blog/naukri-resume-headline-examples/">resume headline examples</a> and <a href="/blog/naukri-key-skills/">how to choose key skills</a>.</p>
+`,
+  faqs: [
+    { q: "How long should a Naukri profile summary be?", a: "<p>3–5 short sentences is ideal. Naukri allows more, but recruiters skim — the first two lines matter most.</p>" },
+    { q: "What should a fresher write in the Naukri profile summary?", a: "<p>Your degree and year, 3–5 skills you can prove, your best project or internship with a result, and the role you want. Skip generic words like “hardworking”.</p>" },
+    { q: "Can I copy these examples?", a: "<p>Use them as a pattern, not word-for-word. Copied summaries look identical to thousands of others — use your own facts and numbers.</p>" },
+  ],
+});
+
+const keySkills = article({
+  ...DATE2,
+  path: "/blog/naukri-key-skills/",
+  title: "Naukri Key Skills: Examples, Limits & Why They Don’t Match",
+  h1: "Naukri Key Skills: Examples, How Many to Add & Why They Don’t Match (2026)",
+  description:
+    "How to choose Naukri key skills recruiters search for: examples by role, how many to add, key skills vs IT skills, and what to do when your skills don’t match.",
+  keywords: "naukri key skills, naukri key skills examples, naukri key skills limit, naukri key skills not matching, difference between key skills and it skills in naukri, key skills for naukri profile",
+  tag: "Naukri guide",
+  readMins: 7,
+  intro: "Key skills are one of the main ways recruiters filter candidates on Naukri. Add the wrong ones — or too many — and you quietly disappear from searches. Here’s how to get them right.",
+  tldr: `<p>Add <strong>10–15 focused key skills</strong> that match the <strong>job title you want</strong>, using the <strong>same words job posts use</strong> (and Naukri’s suggested spellings). Put your strongest, most-searched skills first. <strong>Key skills</strong> are search tags; <strong>IT skills</strong> are a separate section for software and tools with version and years of use.</p>`,
+  content: `
+<h2>Why key skills matter so much</h2>
+<p>When recruiters search Naukri’s database, they type a job title and a few skills. Profiles whose key skills match those words rank higher. If your key skills say “MS Office, communication, teamwork” while recruiters search “Power BI, SQL, DAX”, you won’t appear — even if you use Power BI every day.</p>
+
+<h2>How to choose the right key skills</h2>
+<ol>
+  <li>Open 5–10 job posts for the exact role you want, in your city.</li>
+  <li>Note the skills and tools that repeat across most of them.</li>
+  <li>Keep only the ones you genuinely have — you’ll be asked about them.</li>
+  <li>Use the standard spelling job posts use (for example “Power BI”, not “PowerBI dashboards”).</li>
+  <li>Order them by importance: the role’s core skills first, soft skills last (or not at all).</li>
+</ol>
+
+<h2>How many key skills should you add?</h2>
+<p>Naukri limits how many key skills you can add (the counter in the Key Skills section shows how many are left). More isn’t better: <b>10–15 focused skills</b> that match one target role work far better than 40 unrelated ones, which blur what you actually do.</p>
+
+<h2>Key skills vs IT skills — what’s the difference?</h2>
+<table>
+<thead><tr><th></th><th>Key skills</th><th>IT skills</th></tr></thead>
+<tbody>
+<tr><td>What it is</td><td>Short search tags for your profile</td><td>Software and tools you’ve used</td></tr>
+<tr><td>Details</td><td>Just the skill name</td><td>Version, last used year, years of experience</td></tr>
+<tr><td>Used for</td><td>Matching recruiter searches</td><td>Showing depth with specific tools</td></tr>
+<tr><td>Example</td><td>Data Analysis, SQL, Power BI</td><td>SQL Server 2019 — 4 years; Power BI — 3 years</td></tr>
+</tbody>
+</table>
+<p>Fill both. Keep the tools consistent between them and your resume.</p>
+
+<h2>“My key skills are not matching” — why it happens</h2>
+<ul>
+  <li><b>Different wording:</b> you wrote “Customer handling”, recruiters search “Customer Service”. Prefer Naukri’s suggested terms as you type.</li>
+  <li><b>Wrong role focus:</b> your skills describe your current job, not the job you want next.</li>
+  <li><b>Too many unrelated skills:</b> your profile matches nothing strongly.</li>
+  <li><b>Profile and resume disagree:</b> the resume parsed into your profile may add or overwrite skills — check after every resume upload.</li>
+</ul>
+
+<h2>Key skills examples by role</h2>
+<table>
+<thead><tr><th>Role</th><th>Example key skills</th></tr></thead>
+<tbody>
+<tr><td>Software Developer (Java)</td><td>Java, Spring Boot, Microservices, REST API, Hibernate, MySQL, AWS, Git</td></tr>
+<tr><td>Data Analyst</td><td>SQL, Power BI, Excel, Python, Data Visualization, DAX, Tableau</td></tr>
+<tr><td>Data Engineer</td><td>Python, SQL, Apache Spark, Azure Data Factory, Databricks, ETL, Airflow</td></tr>
+<tr><td>QA Engineer</td><td>Selenium, Java, TestNG, API Testing, Postman, Manual Testing, JIRA</td></tr>
+<tr><td>Sales Executive</td><td>B2B Sales, Lead Generation, Client Acquisition, Negotiation, CRM, Key Account Management</td></tr>
+<tr><td>HR Executive</td><td>Recruitment, Talent Acquisition, Onboarding, HR Operations, Payroll, Employee Engagement</td></tr>
+<tr><td>Accountant</td><td>Tally, GST, TDS, Accounts Payable, Bank Reconciliation, SAP FICO, MIS Reporting</td></tr>
+<tr><td>Customer Support</td><td>Customer Service, Voice Process, Chat Support, CRM, Escalation Handling, CSAT</td></tr>
+<tr><td>Digital Marketing</td><td>Google Ads, Meta Ads, SEO, GA4, Performance Marketing, Content Marketing</td></tr>
+<tr><td>Production Engineer</td><td>Lean Manufacturing, Kaizen, 5S, SAP PP, Root Cause Analysis, Quality Control</td></tr>
+</tbody>
+</table>
+<p class="note-small">Examples only — your list should come from real job posts for your role and city, and only include skills you can talk about in an interview.</p>
+
+<h2>Skills are one piece of the puzzle</h2>
+<p>Key skills work together with your <a href="/blog/naukri-resume-headline-examples/">resume headline</a>, <a href="/blog/naukri-profile-summary-examples/">profile summary</a> and resume. If you’d rather have it all done for your role and city — and updated in your account — see our <a href="/naukri-profile-optimization/">Naukri profile makeover</a>.</p>
+`,
+  faqs: [
+    { q: "How many key skills should I add on Naukri?", a: "<p>Around 10–15 focused skills for one target role. Naukri shows a counter of how many you can add; using all of them with unrelated skills usually hurts more than it helps.</p>" },
+    { q: "What is the difference between key skills and IT skills in Naukri?", a: "<p>Key skills are short search tags that help recruiters find you. IT skills list software and tools with version, last used year and years of experience. Fill both and keep them consistent.</p>" },
+    { q: "Should I add soft skills like communication?", a: "<p>Only a few, at the end. Recruiters mostly search for role-specific skills and tools, so those should take the top spots.</p>" },
+  ],
+});
+
+const updateTime = article({
+  ...DATE2,
+  path: "/blog/best-time-to-update-naukri-profile/",
+  title: "Best Time to Update Your Naukri Profile (Daily Routine)",
+  h1: "Best Time to Update Your Naukri Profile — and a 10-Minute Daily Routine (2026)",
+  description:
+    "When to update your Naukri profile, how often, what to change, whether auto-updater extensions are safe, and a simple 10-minute daily routine to stay visible.",
+  keywords: "best time to update naukri profile, naukri profile update time, naukri profile refresh, naukri profile auto updater, how often to update naukri profile, naukri daily routine",
+  tag: "Naukri guide",
+  readMins: 6,
+  intro: "Recruiters prefer candidates who are actively looking. Keeping your Naukri profile fresh is simple — if you know when to update it, what to change, and what to avoid.",
+  tldr: `<p>Log in and make a <strong>small, genuine update on weekday mornings (around 9–11 am)</strong>, ideally <strong>daily while you’re actively looking</strong>. Recruiters can filter by how recently candidates were active. <strong>Avoid auto-updater extensions</strong> — they use your login, can break Naukri’s terms and put your account at risk.</p>`,
+  content: `
+<h2>Why updating your profile matters</h2>
+<p>Recruiters searching Naukri’s database can filter candidates by how recently they were active, and recently active candidates are seen as serious about a move. A profile that hasn’t changed in months quietly slips below people who are active this week.</p>
+
+<h2>What’s the best time to update?</h2>
+<p><b>Weekday mornings, roughly 9–11 am</b>, when many recruiters start their day and run new searches. Updating just before that window keeps you near the top of “recently active” candidates when they look.</p>
+
+<h2>How often should you update?</h2>
+<ul>
+  <li><b>Actively looking:</b> a small update every working day.</li>
+  <li><b>Casually looking:</b> two or three times a week.</li>
+  <li><b>Not looking:</b> once a month, so your details stay accurate.</li>
+</ul>
+
+<h2>What counts as a useful update?</h2>
+<p>Make small, real changes — not random edits:</p>
+<ul>
+  <li>Re-upload your latest resume after a genuine improvement.</li>
+  <li>Refine one line of your summary or a project description.</li>
+  <li>Add a new skill, certification or tool you’ve actually learned.</li>
+  <li>Update notice period, salary or preferred cities when they change.</li>
+</ul>
+<p>Never change your headline or key skills away from your target role just to “refresh” — that can push you out of the searches that matter.</p>
+
+<h2>Are Naukri auto-updater extensions safe?</h2>
+<p>Browser extensions and scripts that “auto-refresh” your profile usually need your Naukri login and act on your account automatically. That can go against Naukri’s terms of use, may get your account restricted, and gives a third party access to your login. Recruiters also care about real activity — replying to messages and applying to relevant jobs — not just a timestamp. A two-minute manual update is safer.</p>
+
+<h2>A 10-minute daily routine</h2>
+<ol>
+  <li><b>2 min:</b> log in and make one small, genuine profile update.</li>
+  <li><b>3 min:</b> reply to every recruiter message and missed call.</li>
+  <li><b>4 min:</b> apply to 2–3 newly posted jobs that truly match your role.</li>
+  <li><b>1 min:</b> note interview calls and follow-ups in one place.</li>
+</ol>
+<p>Done consistently for two weeks, this routine alone often brings more profile views — provided the profile itself matches what recruiters search.</p>
+
+<h2>If updating isn’t bringing calls</h2>
+<p>Freshness only helps a profile that already matches your target role. If you update daily and still get no calls, the headline, key skills or summary are usually the problem — see <a href="/blog/not-getting-calls-from-naukri/">why you’re not getting calls from Naukri</a>, or let us handle it with a <a href="/naukri-profile-optimization/">profile makeover</a>. Our <a href="/naukri-job-application-service/">Done-For-You plan</a> also keeps your profile active and applies to relevant jobs for you for a month.</p>
+`,
+  faqs: [
+    { q: "What is the best time to update a Naukri profile?", a: "<p>Weekday mornings, around 9–11 am, when many recruiters start new searches. While you’re actively looking, a small genuine update every working day works best.</p>" },
+    { q: "Does updating my Naukri profile daily really help?", a: "<p>It helps recruiters see you as actively looking, as long as your headline, key skills and summary already match the roles you want. It won’t fix a profile that doesn’t match.</p>" },
+    { q: "Should I use a Naukri profile auto updater?", a: "<p>We don’t recommend it. Auto-updaters use your login, may break Naukri’s terms and risk your account. A short manual update is safer and counts as real activity.</p>" },
+  ],
+});
+
+const posts = [getShortlisted, notGettingCalls, summaryExamples, keySkills, updateTime, paidServices, profileTips, aiPrompts, headlineExamples, atsResume];
 
 /* ------------------------------------------------------------------ */
 /* Blog index                                                          */
