@@ -23,8 +23,11 @@ import {
 const MAX = { name: 80, phone: 20, email: 120, login: 120, experience: 40, plan: 40, target_role: 120, message: 1500, utm: 100, page: 200 };
 const EXPERIENCE_OPTIONS = ["Fresher (0-1 yr)", "1-3 yrs", "3-6 yrs", "6-10 yrs", "10-15 yrs", "15+ yrs"];
 const PLANS = { makeover: "Profile Makeover (₹6,000)", "done-for-you": "Done-For-You Job Search (₹9,000)" };
-const RATE_LIMIT_PER_HOUR = 20;
-const PARTNER_SIGNUPS_PER_HOUR = 10;
+// Abuse ceilings, not real-user limits. Indian mobile networks (Jio/Airtel CGNAT) put thousands of phones
+// behind one public IP, so these must stay HIGH. Bots are stopped by Turnstile + honeypot + per-phone dedupe.
+const LEADS_PER_IP_PER_HOUR = 300;
+const PARTNER_SIGNUPS_PER_IP_PER_HOUR = 100;
+const DUPLICATE_WINDOW_MIN = 10; // same mobile again within 10 min = same lead (double taps on slow networks)
 const MAX_FILE = 1_900_000; // D1 rows are limited to 2 MB
 const MAX_BODY = 2_500_000; // whole request (file + fields)
 const FILE_TYPES = {
@@ -154,16 +157,28 @@ async function handleLead(request, env, ctx) {
   const ipHash = await sha256(`${ip}|getrecruitercalls`);
   const userAgent = clean(request.headers.get("User-Agent"), 300);
 
-  // Rate limit: max N leads per IP per hour (stops form bombing; DDoS itself is absorbed by Cloudflare).
+  const phoneLocal = localMobile(lead.phone);
+  const ipLimit = Number(env.LEADS_PER_IP_PER_HOUR) || LEADS_PER_IP_PER_HOUR;
+
+  // One round-trip: duplicate check (same mobile, last 10 min) + abuse ceiling per IP (last hour).
   try {
-    const row = await env.DB.prepare(
-      "SELECT COUNT(*) AS n FROM leads WHERE ip_hash = ?1 AND created_at > strftime('%Y-%m-%dT%H:%M:%SZ', 'now', '-1 hour')"
-    ).bind(ipHash).first();
-    if (row && row.n >= RATE_LIMIT_PER_HOUR) {
-      return reply(429, { ok: false, error: "Too many requests. Please try again after some time, or message us on WhatsApp." });
+    const [dup, ipRow] = await env.DB.batch([
+      env.DB.prepare(
+        `SELECT id, lead_source FROM leads WHERE phone_local = ?1
+           AND created_at > strftime('%Y-%m-%dT%H:%M:%SZ', 'now', '-${DUPLICATE_WINDOW_MIN} minutes') ORDER BY id DESC LIMIT 1`
+      ).bind(phoneLocal),
+      env.DB.prepare(
+        "SELECT COUNT(*) AS n FROM leads WHERE ip_hash = ?1 AND created_at > strftime('%Y-%m-%dT%H:%M:%SZ', 'now', '-1 hour')"
+      ).bind(ipHash),
+    ]);
+    const existing = dup && dup.results && dup.results[0];
+    if (existing) return reply(200, { ok: true, id: existing.id, source: existing.lead_source || "organic", duplicate: true });
+    const n = ipRow && ipRow.results && ipRow.results[0] ? ipRow.results[0].n : 0;
+    if (n >= ipLimit) {
+      return reply(429, { ok: false, error: "We’re getting a lot of requests from your network. Please try again in a few minutes, or message us on WhatsApp." });
     }
   } catch (err) {
-    console.error("rate-limit check failed", err);
+    console.error("dedupe/limit check failed", err); // never block a real lead because a check failed
   }
 
   // Referral: organic / referral / referral-unverified / self-referral (+ 20% commission when verified).
@@ -174,15 +189,15 @@ async function handleLead(request, env, ctx) {
     const res = await env.DB.prepare(
       `INSERT INTO leads (name, phone, email, naukri_login, plan, resume_name, experience, target_role, message,
                           source_page, utm_source, utm_medium, utm_campaign, ip_hash, user_agent,
-                          lead_source, referral_input, referral_code, referrer_id, referral_note, commission_inr, commission_status)
-       VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18, ?19, ?20, ?21, ?22)`
+                          lead_source, referral_input, referral_code, referrer_id, referral_note, commission_inr, commission_status, phone_local)
+       VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13, ?14, ?15, ?16, ?17, ?18, ?19, ?20, ?21, ?22, ?23)`
     ).bind(
       lead.name, lead.phone, lead.email, lead.naukri_login || null, lead.plan || null, lead.resume_name || null,
       lead.experience || null, lead.target_role || null, lead.message || null,
       lead.source_page || null, lead.utm_source || null, lead.utm_medium || null, lead.utm_campaign || null,
       ipHash, userAgent,
       lead.lead_source, lead.referral_input || null, lead.referral_code || null, lead.referrer_id || null,
-      lead.referral_note || null, lead.commission_inr || 0, lead.commission_inr ? "pending" : null
+      lead.referral_note || null, lead.commission_inr || 0, lead.commission_inr ? "pending" : null, phoneLocal || null
     ).run();
     leadId = res.meta && res.meta.last_row_id;
     if (leadId && resume) {
@@ -299,7 +314,7 @@ async function handleReferrer(request, env, ctx) {
     const row = await env.DB.prepare(
       "SELECT COUNT(*) AS n FROM referrers WHERE ip_hash = ?1 AND created_at > strftime('%Y-%m-%dT%H:%M:%SZ', 'now', '-1 hour')"
     ).bind(ipHash).first();
-    if (row && row.n >= PARTNER_SIGNUPS_PER_HOUR) return reply(429, { ok: false, error: "Too many sign-ups from this network. Please try again later." });
+    if (row && row.n >= (Number(env.PARTNER_SIGNUPS_PER_IP_PER_HOUR) || PARTNER_SIGNUPS_PER_IP_PER_HOUR)) return reply(429, { ok: false, error: "Too many sign-ups from this network. Please try again later." });
   } catch (err) {
     console.error("partner rate-limit check failed", err);
   }
@@ -391,6 +406,15 @@ async function checkFile(file) {
 let schemaReady = false;
 async function ensureSchema(env) {
   if (schemaReady) return;
+  // Fast path: one round-trip proves the newest columns/tables exist (normal case after the first deploy).
+  try {
+    await env.DB.batch([
+      env.DB.prepare("SELECT phone_local, commission_status FROM leads LIMIT 1"),
+      env.DB.prepare("SELECT id FROM referrers LIMIT 1"),
+    ]);
+    schemaReady = true;
+    return;
+  } catch {}
   try {
     await env.DB.batch([
       env.DB.prepare(`CREATE TABLE IF NOT EXISTS leads (
@@ -418,9 +442,10 @@ async function ensureSchema(env) {
     ]);
     // v2 columns (migrations/0002). ALTER fails harmlessly if the column already exists.
     for (const col of ["naukri_login TEXT", "plan TEXT", "resume_name TEXT", "lead_source TEXT", "referral_input TEXT", "referral_code TEXT",
-                       "referrer_id INTEGER", "referral_note TEXT", "commission_inr INTEGER", "commission_status TEXT"]) {
+                       "referrer_id INTEGER", "referral_note TEXT", "commission_inr INTEGER", "commission_status TEXT", "phone_local TEXT"]) {
       try { await env.DB.prepare(`ALTER TABLE leads ADD COLUMN ${col}`).run(); } catch {}
     }
+    await env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_leads_phone ON leads (phone_local, created_at)").run();
     schemaReady = true;
   } catch (err) {
     console.error("schema setup failed", err);
@@ -621,10 +646,19 @@ ${body}${btns}
 </table></td></tr></table></body></html>`;
 }
 
+// Base64 with 76-char lines (RFC 2045). Encodes 57-byte multiples per chunk so lines never straddle chunks —
+// ~6x faster than one big btoa + regex (a 300 KB resume: ~3 ms instead of ~17 ms CPU), identical output.
 function b64bytes(bytes) {
-  let bin = "";
-  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
-  return btoa(bin).replace(/.{1,76}/g, "$&\r\n").trimEnd();
+  const CHUNK = 57 * 512;
+  const lines = [];
+  for (let i = 0; i < bytes.length; i += CHUNK) {
+    const sub = bytes.subarray(i, Math.min(i + CHUNK, bytes.length));
+    let bin = "";
+    for (let j = 0; j < sub.length; j += 0x2000) bin += String.fromCharCode.apply(null, sub.subarray(j, j + 0x2000));
+    const b = btoa(bin);
+    for (let k = 0; k < b.length; k += 76) lines.push(b.slice(k, k + 76));
+  }
+  return lines.join("\r\n");
 }
 const b64utf8 = (str) => b64bytes(new TextEncoder().encode(str));
 

@@ -23,14 +23,26 @@ The website pages are pre-built files on Cloudflare's global network — they ha
 | # | Item | Why | Who |
 |---|---|---|---|
 | 1.1 | ☐ **Upgrade to Cloudflare Workers Paid ($5/month)** | Free plan = 100k backend requests/day and a tiny CPU budget per request. Resume uploads + email building can exceed it under load → failed form submits. Paid = 10M requests/month, 30s CPU. | Owner (Cloudflare → Workers & Pages → Plans) |
-| 1.2 | ☐ **Fix the per-IP limit** | Jio/Airtel put thousands of phones behind one IP. 20/hour per IP would block real people during a spike. Replace with: Turnstile bot check + per-phone duplicate check + a high IP ceiling (~300/hour). | Claude |
+| 1.2 | ☑ **Fix the per-IP limit** (done 23 Nov — ceiling now 300/hour per network; 292 people on one shared IP accepted in tests) | Jio/Airtel put thousands of phones behind one IP. 20/hour per IP would block real people during a spike. Replace with: Turnstile bot check + per-phone duplicate check + a high IP ceiling (~300/hour). | Claude |
 | 1.3 | ☐ **Turn on Turnstile** (free, invisible) | Stops bots and spam floods once the site is famous. | Owner creates the widget (2 min), Claude wires it |
-| 1.4 | ☐ **Faster database start-up** | Today every new server instance runs ~15 schema checks before its first lead. Move to proper migrations + a one-line version check. | Claude |
-| 1.5 | ☐ **Duplicate-lead guard** | Same phone submitting twice in 10 min → one lead, one email (people double-tap on slow networks). | Claude |
-| 1.6 | ☐ **Load test** | Simulate ~200 form submits/minute on a preview copy; confirm no errors and emails keep flowing. | Claude |
+| 1.4 | ☑ **Faster database start-up** (done — 1 quick check instead of ~15) | Today every new server instance runs ~15 schema checks before its first lead. Move to proper migrations + a one-line version check. | Claude |
+| 1.5 | ☑ **Duplicate-lead guard** (done — same mobile within 10 min = one lead, one email) | Same phone submitting twice in 10 min → one lead, one email (people double-tap on slow networks). | Claude |
+| 1.6 | ☑ **Load test** (done — see results below) | Simulate ~200 form submits/minute on a preview copy; confirm no errors and emails keep flowing. | Claude |
 | 1.7 | ☐ **Per-influencer tracking links** | Give each influencer their own link, e.g. `getshortlisted.in/?utm_source=instagram&utm_campaign=riya` — or make each influencer a **referral partner** so their leads and payouts are tracked automatically. | Owner + Claude |
-| 1.8 | ☐ **WhatsApp readiness** | Use the WhatsApp **Business** app with quick replies (price, process, payment link) and labels (New / Paid / In progress). Hundreds of chats/day need templates. | Owner |
+| 1.8 | ☐ **WhatsApp readiness** — *later (owner)* | Use the WhatsApp **Business** app with quick replies (price, process, payment link) and labels (New / Paid / In progress). Hundreds of chats/day need templates. | Owner |
 | 1.9 | ☐ **Uptime alert** | Free monitor (e.g. UptimeRobot) on `/api/health` → SMS/email if the form backend fails. | Owner (Claude gives steps) |
+
+### Phase 1 results (23 Nov 2026)
+| Test | Result |
+|---|---|
+| Local full system: 3,000 visitors, 150 at once, 11,200 requests, 750 form fills (375 with 300 KB resumes) | **0 failures** — every lead, resume and notification email saved |
+| Live site pages (Cloudflare network): 1,500 visitors, 150 at once, 5,000 requests | **0 failures**, ~200 req/s (limited by the tester's internet, not Cloudflare) |
+| Shared mobile network (one IP, many people) | 292 accepted (old rule allowed only 20) |
+| Resume email encoding | 6× faster (300 KB resume: 17 ms → 3 ms CPU), attachments byte-identical |
+| 1M visitors in 12 hours ≈ 23 visitors/s average, ~200–400/s at peaks | Pages: no limit on Cloudflare. Backend: ~1–10 form submits/s at peak — well within tested capacity |
+
+**Still recommended before the first video:** Workers Paid ($5/month) — removes the 100k/day backend cap and the 10 ms CPU limit per request (largest resumes need ~17 ms even after the speed-up). Owner decides when.
+Re-run any time: `node tests/load.mjs --base http://127.0.0.1:8787 --visitors 3000 --concurrency 150` (local) or `--base https://getshortlisted.in --pages-only` (live, safe).
 
 ---
 
@@ -100,7 +112,7 @@ Real suggestions Google shows — this is how our audience types:
 | **Get calls** | how to get calls from naukri for experienced / for freshers, how to get interview calls from naukri, how to get recruiter calls from naukri | ⚠️ Covered only inside other pages → new guide |
 | **Brand match** | **how to get shortlisted in naukri com**, how to get shortlisted for interview | ❌ Missing — must own this (it's our name) |
 | **AI prompts** 🔥 | naukri profile optimization prompt, chatgpt prompt for naukri profile optimization, claude prompt for naukri profile | ❌ Missing — new, fast-growing; free prompts page → "or let experts do it" |
-| **Score / checker** 🔥 | naukri resume score, naukri resume checker, naukri resume analyzer, ats resume score checker | ❌ Missing — build a free **Naukri Profile Score** tool (lead magnet, great for influencer traffic) |
+| **Score / checker** | naukri resume score, naukri resume checker, naukri resume analyzer, ats resume score checker | ⏸ Owner decision: no AI scoring. A simple resume checker may come later — not now |
 | **Paid services** | naukri paid services cost / review / for 3 months, is naukri fastforward worth it, naukri premium worth it | ❌ Missing — honest comparison guide; we're the alternative |
 | **Hire someone** | hire / pay someone to apply for jobs (+reddit), job application services india | ⚠️ Service page exists — add these phrases + trust FAQ |
 | **Summary** | naukri profile summary for freshers / experienced / software developer / data engineer / production engineer | ❌ Missing — examples guide |
@@ -123,7 +135,6 @@ Real suggestions Google shows — this is how our audience types:
 | P | Page | Main searches |
 |---|---|---|
 | 1 | How to get shortlisted on Naukri (2026) | how to get shortlisted in naukri com |
-| 1 | Free Naukri Profile Score checker (tool) | naukri resume score / checker / analyzer |
 | 1 | ChatGPT & Claude prompts for Naukri profile optimization | naukri profile optimization prompt |
 | 1 | Naukri paid services: FastForward vs Premium vs GetShortlisted — worth it? | naukri paid services cost, is fastforward worth it |
 | 2 | How to get interview calls from Naukri (freshers & experienced) | how to get calls from naukri for experienced/freshers |
@@ -143,6 +154,13 @@ Real suggestions Google shows — this is how our audience types:
 **Honest expectation:** page 1 for high-volume terms takes 3–6 months for a new domain. Influencer traffic + brand searches ("getshortlisted") + reviews will speed this up a lot — Google notices when people search for you by name.
 
 ---
+
+## Later / to-do (owner decisions, 23 Nov 2026)
+- ⏸ **Razorpay + customer emails (Phase 3)** — review later, then build.
+- ⏸ **WhatsApp Business app + quick-reply templates** — later.
+- ⏸ **Resume checker** — maybe later, **no AI scoring**.
+- ⏸ **Cloudflare Workers Paid ($5/month)** — owner upgrades when ready (recommended before the first video).
+- ☐ **Copywriting upgrade across the site + 2–3 new pages** — Claude proposes each page with *why* and *expected impact* first; owner approves before building.
 
 ## Suggested order
 1. **Phase 1** (1.1, 1.2, 1.3, 1.5 first) — before any influencer video is published.

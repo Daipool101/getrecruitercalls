@@ -67,6 +67,8 @@ Owner's instruction: *clean, simple, professional, call-to-action focused; don't
 
 - **2026-11-21 (Refer & Earn)** — Referral programme: partners sign up at /refer/ (name, WhatsApp, Google Pay/UPI number, email) → code = first name in caps (AKASH, AKASH2…); same phone returns existing code. Every lead form has an optional "Referred by" (code or full name), auto-filled from ?ref= links (localStorage 30 days). Leads are tagged organic / referral / referral-unverified / self-referral; verified referrals store 20% commission (₹1,200 / ₹1,800) with commission_status pending→paid/cancelled. Emails show the source in the subject. Logic in src/referral.js (unit-tested: npm run test:unit). Owner guide + SQL: docs/REFERRALS.md. Nav: "Guides" replaced by "Refer & Earn 20%" (guides still in footer).
 
+- **2026-11-23 (Phase 1 capacity)** — Per-IP lead limit 20/hr → abuse ceiling 300/hr (CGNAT: Jio/Airtel share IPs — never lower it); partner signups 100/hr/IP. 10-min duplicate guard on normalised mobile (leads.phone_local). ensureSchema fast path (1 batch check). Base64 attachment encoder 6x faster. Load test script tests/load.mjs: local 3,000 visitors/150 concurrent/750 leads → 0 failures; live pages 5,000 req → 0 failures. Owner: Workers Paid later; Razorpay, WhatsApp Business, resume checker (no AI) later; content pages need owner approval with rationale. Plan: docs/LAUNCH-PLAN.md.
+
 ## Ideas for later (not built — owner said don't add extra things)
 - Hindi versions of key pages (`/hi/…`) to rank for Hindi searches.
 - More guides: "Naukri profile summary examples", "How to update Naukri profile daily", "Key skills for <role>", city pages.

@@ -82,7 +82,7 @@ Each page is a plain object rendered by `layout.mjs → render(page)`:
 ## Lead flow (POST /api/lead)
 1. Browser JS validates (name, 10-digit Indian mobile, email, at least one of Naukri/resume link, experience) and posts `application/x-www-form-urlencoded` with `Accept: application/json`.
    Without JS, the form still posts normally and the Worker answers with a 303 redirect to `/thank-you/` (or `/contact/?error=1`).
-2. Worker checks: same-origin `Origin` header, honeypot field `company_website` (bots get fake success, nothing saved), server-side validation (same rules), max **20 leads per IP per hour** (IP stored only as salted SHA-256 hash).
+2. Worker checks: same-origin `Origin` header, honeypot field `company_website` (bots get fake success, nothing saved), server-side validation (same rules), 10-minute duplicate guard per mobile number, abuse ceiling of **300 leads per IP per hour** (high on purpose: Indian mobile networks share IPs) (IP stored only as salted SHA-256 hash).
 3. Lead inserted into D1 `leads` table.
 4. `ctx.waitUntil` sends the notification email (HTML + text, Reply-To = candidate, WhatsApp button) and then sets `email_status` = `sent` / `failed` / `skipped`.
    If the email fails, the lead is still safe in D1.

@@ -62,8 +62,12 @@ ok(wa.headers.get("x-robots-tag") === "noindex, nofollow", "API responses are no
 
 if (!READONLY) {
   const PDF = new Uint8Array([...new TextEncoder().encode("%PDF-1.4\n"), ...new Uint8Array(400).fill(32), ...new TextEncoder().encode("\n%%EOF")]);
+  // Every test lead gets its own mobile number (the 10-minute duplicate guard would otherwise merge them).
+  let seq = 0;
+  const uniqPhone = () => "9" + String(Date.now() % 1e6).padStart(6, "0") + String(seq++ % 1000).padStart(3, "0");
   const post = (fields, { file, headers = {} } = {}) => {
     const fd = new FormData();
+    if (fields.phone === "+91 98765 43210") fields = { ...fields, phone: uniqPhone() };
     for (const [k, v] of Object.entries(fields)) fd.append(k, v);
     if (file) fd.append("resume", new Blob([file.bytes], { type: file.type || "application/pdf" }), file.name);
     return fetch(BASE + "/api/lead", { method: "POST", redirect: "manual", headers: { Accept: "application/json", ...headers }, body: fd });
@@ -175,13 +179,22 @@ if (!READONLY) {
   r = await lead({ referral: CODE, phone: phoneA }); j = await r.json();
   ok(j.ok && j.source === "self-referral", "partner using own code -> self-referral");
 
-  // Rate limit: 20 per IP per hour (2 already saved above) -> eventually 429
-  let saw429 = false;
-  for (let i = 0; i < 25; i++) {
-    const rr = await post({ ...valid, name: `Rate ${i}` });
+  // Duplicate guard: same mobile twice within 10 minutes -> one lead (no second email).
+  const dupPhone = uniqPhone();
+  r = await post({ ...valid, phone: dupPhone }); j = await r.json();
+  const r2 = await post({ ...valid, phone: dupPhone, name: "Double Tap" }); const j2 = await r2.json();
+  ok(j.ok && j2.ok && j2.duplicate === true && j2.id === j.id, "double submit (same mobile) -> same lead, no duplicate");
+
+  // Abuse ceiling: real users are never blocked at normal volumes; ~300/hour from ONE network address -> 429.
+  const ceiling = Number(process.env.IP_CEILING || 300);
+  let accepted = 0, saw429 = false;
+  for (let i = 0; i < ceiling + 10; i++) {
+    const rr = await post({ ...valid, name: `Spike ${i}` });
     if (rr.status === 429) { saw429 = true; break; }
+    if (rr.status === 200) accepted++;
   }
-  ok(saw429, "rate limit kicks in (429)");
+  ok(accepted >= 25, `25+ different people on one shared mobile-network IP are all accepted (${accepted} accepted)`);
+  ok(saw429, `abuse ceiling still kicks in after ~${ceiling}/hour from one IP (429)`);
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);
