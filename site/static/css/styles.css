@@ -970,3 +970,10 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
 
 .btn-wa:hover { background: #0C6A37; }
 .inc-1 span { opacity: 1; }
+
+/* ---------- Performance: cheaper decorative animations ----------
+   Button shine moves with transform (GPU) instead of `left` (which re-laid out the page every frame),
+   and the text colour shimmers play twice then stop instead of running forever. */
+.btn-shine::after { left: 0; transform: translateX(-140%) skewX(-20deg); animation: btnShineX 4.2s 1.5s ease-in-out 3; will-change: transform; }
+@keyframes btnShineX { 0% { transform: translateX(-140%) skewX(-20deg); } 30%, 100% { transform: translateX(330%) skewX(-20deg); } }
+.wordmark b, .hero h1 .hl { animation-iteration-count: 2; }
