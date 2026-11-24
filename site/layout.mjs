@@ -314,7 +314,7 @@ ${published ? `<meta property="article:published_time" content="${published}">\n
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"></noscript>
-<link rel="stylesheet" href="/css/styles.css?v=${globalThis.ASSET_VER || SITE.updated}">
+${globalThis.INLINE_CSS ? `<style>${globalThis.INLINE_CSS}</style>` : `<link rel="stylesheet" href="/css/styles.css?v=${globalThis.ASSET_VER || SITE.updated}">`}
 <script type="application/ld+json">${JSON.stringify(graph).replace(/</g, "\\u003c")}</script>
 <script src="/js/main.js?v=${globalThis.ASSET_VER || SITE.updated}" defer></script>
 ${SITE.ga4Id ? `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","${esc(SITE.ga4Id)}",{anonymize_ip:true});

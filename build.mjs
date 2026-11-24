@@ -26,6 +26,7 @@ await cp(join(root, "site", "static"), out, { recursive: true });
     .replace(/;}/g, "}")
     .trim();
   await writeFile(cssFile, css, "utf8");
+  globalThis.INLINE_CSS = css; // layout.mjs inlines it into <head> (first visits render without waiting for a CSS download)
 }
 
 // Cache-busting version = hash of CSS + JS, so long-cached assets refresh whenever they change.

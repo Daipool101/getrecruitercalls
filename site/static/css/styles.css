@@ -573,7 +573,7 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
 /* =====================================================================
    v4 — smoother mobile scrolling, resume upload, plans, WhatsApp
    ===================================================================== */
-:root { --wa: #25D366; --wa-ink: #075E54; }
+:root { --wa: #0F7B40; --wa-ink: #075E54; } /* deeper WhatsApp green: white text passes WCAG AA (≈5.3:1) */
 
 /* ---------- Smooth scrolling on phones (fixes the "glitchy" hero → form transition) ---------- */
 .site-header.scrolled .header-inner { min-height: 68px; } /* header never changes height while scrolling */
@@ -967,3 +967,6 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
 .mt-44 { margin-top: 44px; }
 .mt-28 { margin-top: 28px; }
 .inherit { color: inherit; }
+
+.btn-wa:hover { background: #0C6A37; }
+.inc-1 span { opacity: 1; }
