@@ -10,8 +10,8 @@ export const SITE = {
   email: "hello@getshortlisted.in",
   country: "India",
   locale: "en_IN",
-  themeColor: "#0F3D3A",
-  ogImage: "/img/og-image.png",
+  themeColor: "#1F48D1",
+  ogImage: "/img/share-blue.png",
   // Add real profile URLs when you have them (used in schema "sameAs" + footer). Leave empty to hide.
   social: {
     linkedin: "",

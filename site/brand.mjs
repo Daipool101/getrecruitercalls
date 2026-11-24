@@ -21,8 +21,8 @@ export function logoMark() {
 </defs>
 <rect width="48" height="48" rx="14" fill="url(#${u}a)"/>
 <g clip-path="url(#${u}c)"><g transform="rotate(22 24 24)"><rect class="lm-shine" x="-14" y="-12" width="12" height="72" fill="url(#${u}s)"/></g></g>
-<path class="lm-check" pathLength="1" d="${MARK_PATHS.check}" fill="none" stroke="#0F3D3A" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path class="lm-arrow" pathLength="1" d="${MARK_PATHS.arrow}" fill="none" stroke="#0F3D3A" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path class="lm-check" pathLength="1" d="${MARK_PATHS.check}" fill="none" stroke="#0B1F4B" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path class="lm-arrow" pathLength="1" d="${MARK_PATHS.arrow}" fill="none" stroke="#0B1F4B" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path class="lm-spark" d="${MARK_PATHS.spark}" fill="#FFFFFF"/>
 </svg>`;
 }
@@ -32,8 +32,8 @@ export function staticMark({ size = 48, rounded = 14, bg = null } = {}) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="${size}" height="${size}">
 <defs><linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD27A"/><stop offset=".5" stop-color="#F4B13B"/><stop offset="1" stop-color="#E0745E"/></linearGradient></defs>
 ${bg ? `<rect width="48" height="48" fill="${bg}"/>` : ""}<rect width="48" height="48" rx="${rounded}" fill="url(#a)"/>
-<path d="${MARK_PATHS.check}" fill="none" stroke="#0F3D3A" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="${MARK_PATHS.arrow}" fill="none" stroke="#0F3D3A" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="${MARK_PATHS.check}" fill="none" stroke="#0B1F4B" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="${MARK_PATHS.arrow}" fill="none" stroke="#0B1F4B" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="${MARK_PATHS.spark}" fill="#FFFFFF"/>
 </svg>`;
 }

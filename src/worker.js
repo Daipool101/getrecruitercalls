@@ -686,7 +686,7 @@ function leadHtml(lead, id) {
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#F3F4F6">
 <tr><td align="center" style="padding:16px 10px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;background:#FFFFFF;border:1px solid #E5E7EB;border-radius:14px;border-collapse:separate;overflow:hidden">
-<tr><td style="${F}background:#0F3D3A;padding:20px">
+<tr><td style="${F}background:#1F48D1;padding:20px">
   <div style="font-size:12px;line-height:18px;letter-spacing:.06em;text-transform:uppercase;color:#F4B13B;font-weight:700">New lead${id ? ` #${id}` : ""} · ${esc(l.plan_label)} · ${esc(l.source_label)}</div>
   <div style="font-size:21px;line-height:28px;font-weight:700;color:#FFFFFF;margin-top:6px">${esc(lead.name)} wants to get shortlisted</div>
 </td></tr>

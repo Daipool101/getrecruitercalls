@@ -42,15 +42,16 @@ for (const s of [16, 32, 48]) await shot(`ico-${s}.png`, s, s, mark(s));
 
 // Social share image (1200×630)
 const font = `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;800&display=block">`;
-await shot("img/og-image.png", 1200, 630, `${font}
-<div style="position:relative;width:1200px;height:630px;overflow:hidden;font-family:'Plus Jakarta Sans',sans-serif;background:radial-gradient(900px 520px at 88% -10%,#1C5550 0%,#0F3D3A 60%);color:#F2E6D6">
-  <div style="position:absolute;width:560px;height:560px;right:-150px;top:-170px;border-radius:50%;background:radial-gradient(circle,rgba(244,177,59,.28),transparent 65%)"></div>
-  <div style="position:absolute;width:480px;height:480px;left:-200px;bottom:-260px;border-radius:50%;background:radial-gradient(circle,rgba(224,116,94,.3),transparent 65%)"></div>
-  <div style="position:absolute;right:86px;top:150px;transform:rotate(-8deg);filter:drop-shadow(0 30px 50px rgba(0,0,0,.35))">${mark(300)}</div>
-  <div style="position:absolute;left:80px;top:70px;display:flex;align-items:center;gap:18px">${mark(76)}<span style="font-size:42px;font-weight:600;letter-spacing:-1px">Get<b style="font-weight:800;color:#F4B13B">Shortlisted</b></span></div>
-  <div style="position:absolute;left:80px;top:212px;font-size:76px;line-height:1.05;font-weight:800;letter-spacing:-2.5px;color:#fff">Get shortlisted.<br><span style="color:#F4B13B">Get recruiter calls.</span></div>
-  <div style="position:absolute;left:80px;top:420px;font-size:30px;font-weight:500;color:rgba(242,230,214,.9);width:640px;line-height:1.35">Naukri profile &amp; ATS resume optimization for job seekers across India.</div>
-  <div style="position:absolute;left:80px;top:522px;padding:14px 26px;border-radius:14px;background:linear-gradient(135deg,#FFC85A,#F4B13B 45%,#EE9640);color:#0A2B29;font-size:28px;font-weight:800">getshortlisted.in</div>
+// File name carries a version: WhatsApp/LinkedIn cache share images by URL, so a new look needs a new name.
+await shot("img/share-blue.png", 1200, 630, `${font}
+<div style="position:relative;width:1200px;height:630px;overflow:hidden;font-family:'Plus Jakarta Sans',sans-serif;background:linear-gradient(160deg,#2A5BF0 0%,#1F48D1 45%,#0B1F4B 100%);color:#fff">
+  <div style="position:absolute;width:620px;height:620px;right:-170px;top:-200px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 65%)"></div>
+  <div style="position:absolute;width:520px;height:520px;left:-220px;bottom:-280px;border-radius:50%;background:radial-gradient(circle,rgba(91,140,255,.45),transparent 65%)"></div>
+  <div style="position:absolute;right:86px;top:150px;transform:rotate(-8deg);filter:drop-shadow(0 30px 50px rgba(8,22,52,.45))">${mark(300)}</div>
+  <div style="position:absolute;left:80px;top:70px;display:flex;align-items:center;gap:18px">${mark(76)}<span style="font-size:42px;font-weight:600;letter-spacing:-1px">Get<b style="font-weight:800;color:#FFD27A">Shortlisted</b></span></div>
+  <div style="position:absolute;left:80px;top:212px;font-size:76px;line-height:1.05;font-weight:800;letter-spacing:-2.5px;color:#fff">Get shortlisted.<br><span style="color:#FFD27A">Get recruiter calls.</span></div>
+  <div style="position:absolute;left:80px;top:420px;font-size:30px;font-weight:500;color:rgba(255,255,255,.92);width:640px;line-height:1.35">Naukri profile &amp; ATS resume experts for job seekers across India.</div>
+  <div style="position:absolute;left:80px;top:522px;padding:14px 26px;border-radius:14px;background:#fff;color:#1F48D1;font-size:28px;font-weight:800">getshortlisted.in</div>
 </div>`);
 
 await rm(tmp, { recursive: true, force: true });
