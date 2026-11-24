@@ -31,6 +31,21 @@
 | A7 | **About page is thin** (~280 words), no proof of expertise | Weak E-E-A-T (trust) — matters a lot for "paid service" searches | Rewrite with how we work (high level), who we help, guarantees we don't make, real numbers once available | Claude + owner facts |
 | A8 | **Zero backlinks / reviews / mentions** | The #1 thing missing for page 1 | Section 5 | Owner + Claude |
 
+## 2b. Speed / accessibility / on-page audit (25 Nov 2026)
+Input: marketing manager's Seobility (on-page 84%, 74 problems — crawled 24 Nov 22:07 IST, before the www/http fix) and PageSpeed mobile 91 / a11y 97 / best 100 / SEO 100.
+Measured with Lighthouse 12.8 (mobile, simulated slow 4G) on a slower laptop than Google's — compare before/after, not absolute numbers.
+
+| Fix | Result |
+|---|---|
+| Google Fonts no longer render-blocking; stylesheet minified and inlined into each page (~22 KB gzipped HTML) | No render-blocking requests left |
+| No fade-in on the hero headline (it's the LCP element); Analytics loads 1.2 s after page load | Home LCP 4.5 s → 2.9 s, guide 4.2 s → 2.7–2.9 s (lab, slow laptop) |
+| WhatsApp green #0F7B40, link green #0E7A3F, no empty table headers, invalid ARIA removed | **Accessibility 100** on all pages tested (was 95–97) |
+| Titles ≤ 60 chars, descriptions ≤ 158, heading order fixed (/blog/, /pricing/), no inline styles, unique link texts, Contact FAQ | Our Seobility-style checker: 0 issues left (Contact 421 words is fine) |
+| Button shine via transform, colour shimmers stop after 2 loops | Less style/layout work on phones |
+
+Lab performance on this laptop: 76 → 85–91 (6 pages). Re-check on https://pagespeed.web.dev (Google's machines) — expected mid/high 90s.
+Real-user speed (Cloudflare Web Analytics): page load ~450 ms, 97% "Good" LCP — this field data is what Google ranks on.
+
 ## 3. Competition — who ranks today
 - **Freelancers on Topmate** (₹149–₹599 per session), small career blogs (resumevera, stylingcv, unboxcareer, jobrise, goodspace), **Naukri's own blog and paid services**.
 - Naukri's paid services have **many negative reviews** ("paid, still no calls") on Trustpilot and consumer-complaint sites → people actively search for alternatives.
