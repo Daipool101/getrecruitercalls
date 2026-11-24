@@ -37,7 +37,7 @@ for (const p of paths) {
 
 // 2. Static files
 console.log("\nStatic files:");
-for (const f of ["/robots.txt", "/llms.txt", "/favicon.svg", "/favicon.ico", "/site.webmanifest", "/img/share-blue.png", "/css/styles.css", "/js/main.js"]) {
+for (const f of ["/robots.txt", "/llms.txt", "/favicon.svg", "/favicon.ico", "/site.webmanifest", "/img/share-blue.jpg", "/css/styles.css", "/js/main.js"]) {
   ok((await get(f)).status === 200, `${f} 200`);
 }
 const robots = await get("/robots.txt");

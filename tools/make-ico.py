@@ -9,3 +9,9 @@ imgs[-1].save(static / "favicon.ico", sizes=[(s, s) for s in sizes], append_imag
 for s in sizes:
     (static / f"ico-{s}.png").unlink()
 print("wrote favicon.ico")
+
+# Share image as a small JPEG (WhatsApp skips preview images that are too heavy); config uses share-blue.jpg.
+share = static / "img" / "share-blue.png"
+if share.exists():
+    Image.open(share).convert("RGB").save(static / "img" / "share-blue.jpg", "JPEG", quality=86, optimize=True, progressive=True)
+    print("wrote img/share-blue.jpg")

@@ -11,7 +11,7 @@ export const SITE = {
   country: "India",
   locale: "en_IN",
   themeColor: "#1F48D1",
-  ogImage: "/img/share-blue.png",
+  ogImage: "/img/share-blue.jpg",
   // Add real profile URLs when you have them (used in schema "sameAs" + footer). Leave empty to hide.
   social: {
     linkedin: "",
