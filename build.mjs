@@ -16,6 +16,18 @@ await rm(out, { recursive: true, force: true });
 await mkdir(out, { recursive: true });
 await cp(join(root, "site", "static"), out, { recursive: true });
 
+// Minify CSS: strip comments and collapse whitespace (safe for our stylesheet: strings contain no "{};" or double spaces).
+{
+  const cssFile = join(out, "css", "styles.css");
+  const css = (await readFile(cssFile, "utf8"))
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/\s+/g, " ")
+    .replace(/\s*([{};])\s*/g, "$1")
+    .replace(/;}/g, "}")
+    .trim();
+  await writeFile(cssFile, css, "utf8");
+}
+
 // Cache-busting version = hash of CSS + JS, so long-cached assets refresh whenever they change.
 const hash = createHash("sha256");
 for (const f of ["css/styles.css", "js/main.js"]) hash.update(await readFile(join(out, f)));

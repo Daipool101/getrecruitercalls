@@ -131,24 +131,24 @@ const body = `
       <div class="why-card"><span class="why-num">2</span><h3>Made for every Indian job seeker</h3><p>Freshers to 15+ years, IT and non-IT, metros and tier-2 cities. Most other platforms work best for a narrow slice of roles.</p></div>
       <div class="why-card"><span class="why-num">3</span><h3>Small fixes, fast calls</h3><p>Naukri ranks you on keywords, headline and how fresh your profile is — all fixable in days. Networking-led sites take months of posting.</p></div>
     </div>
-    <div class="compare-cards" role="table" aria-label="Where recruiter calls come from">
-      <div class="cc cc-win" role="rowgroup">
-        <h3 role="row"><span role="columnheader">Naukri</span></h3>
-        <p role="row"><b role="rowheader">How recruiters reach you</b><span role="cell">They search and call you directly</span></p>
-        <p role="row"><b role="rowheader">Who it works for</b><span role="cell">All roles, freshers to senior, IT & non-IT</span></p>
-        <p role="row"><b role="rowheader">What decides visibility</b><span role="cell">Keywords & profile freshness — fixable in days</span></p>
+    <div class="compare-cards" aria-label="Where recruiter calls come from">
+      <div class="cc cc-win">
+        <h3><span>Naukri</span></h3>
+        <p><b>How recruiters reach you</b><span>They search and call you directly</span></p>
+        <p><b>Who it works for</b><span>All roles, freshers to senior, IT & non-IT</span></p>
+        <p><b>What decides visibility</b><span>Keywords & profile freshness — fixable in days</span></p>
       </div>
-      <div class="cc" role="rowgroup">
-        <h3 role="row"><span role="columnheader">LinkedIn</span></h3>
-        <p role="row"><b role="rowheader">How recruiters reach you</b><span role="cell">Mostly messages, after networking</span></p>
-        <p role="row"><b role="rowheader">Who it works for</b><span role="cell">Strongest for corporate & senior roles</span></p>
-        <p role="row"><b role="rowheader">What decides visibility</b><span role="cell">Connections, activity & posting — slow</span></p>
+      <div class="cc">
+        <h3><span>LinkedIn</span></h3>
+        <p><b>How recruiters reach you</b><span>Mostly messages, after networking</span></p>
+        <p><b>Who it works for</b><span>Strongest for corporate & senior roles</span></p>
+        <p><b>What decides visibility</b><span>Connections, activity & posting — slow</span></p>
       </div>
-      <div class="cc" role="rowgroup">
-        <h3 role="row"><span role="columnheader">Other job sites</span></h3>
-        <p role="row"><b role="rowheader">How recruiters reach you</b><span role="cell">You apply and wait</span></p>
-        <p role="row"><b role="rowheader">Who it works for</b><span role="cell">Varies a lot by site and role</span></p>
-        <p role="row"><b role="rowheader">What decides visibility</b><span role="cell">How many applications you send</span></p>
+      <div class="cc">
+        <h3><span>Other job sites</span></h3>
+        <p><b>How recruiters reach you</b><span>You apply and wait</span></p>
+        <p><b>Who it works for</b><span>Varies a lot by site and role</span></p>
+        <p><b>What decides visibility</b><span>How many applications you send</span></p>
       </div>
     </div>
     <p class="why-note">We still make your headline and summary ready to reuse on LinkedIn — but our work goes where the calls come from.</p>
@@ -203,9 +203,9 @@ const body = `
 
 export default {
   path: "/",
-  title: "Naukri Profile Optimization & Resume Service | GetShortlisted",
+  title: "Naukri Profile & Resume Optimization | GetShortlisted",
   description:
-    `Not getting calls from Naukri? We optimize your Naukri profile & ATS resume (${inr(MAKEOVER.price)}) or run your job search and apply for you (${inr(DFY.price)}). Reply on WhatsApp in 24h.`,
+    `Not getting calls from Naukri? We optimize your Naukri profile & ATS resume (${inr(MAKEOVER.price)}) or apply to jobs for you (${inr(DFY.price)}). Reply in 24h.`,
   keywords:
     "naukri profile optimization, naukri profile optimization service, not getting calls from naukri, how to get calls from naukri, resume writing service india, ATS friendly resume, naukri resume headline, apply jobs on my behalf, job application service india, how to get shortlisted",
   priority: 1.0,

@@ -470,9 +470,7 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
 @keyframes blobB { to { transform: translate(90px, -50px) scale(1.2); } }
 .hero-grid::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(242,230,214,.09) 1px, transparent 1px); background-size: 26px 26px; -webkit-mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 70%); mask-image: radial-gradient(ellipse at 70% 40%, #000 0%, transparent 70%); pointer-events: none; z-index: -1; }
 .hero h1 .hl { background: linear-gradient(90deg, #FFD27A, #F4B13B 35%, #F08A6E 65%, #FFD27A); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: gradShift 6s linear infinite; }
-.hero-copy > * { animation: heroIn .8s cubic-bezier(.2,.8,.2,1) both; }
-.hero-copy > :nth-child(2) { animation-delay: .08s; } .hero-copy > :nth-child(3) { animation-delay: .16s; }
-.hero-copy > :nth-child(4) { animation-delay: .24s; } .hero-copy > :nth-child(5) { animation-delay: .32s; }
+/* Hero copy is NOT animated: the headline is the Largest Contentful Paint element, so it must paint immediately. */
 @keyframes heroIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 .pcard { animation: cardIn .9s cubic-bezier(.2,.8,.2,1) both, floaty 6s ease-in-out infinite; animation-delay: .25s, 1.1s; }
 .pcard:nth-child(2) { animation-delay: .4s, -.5s; }
@@ -962,3 +960,10 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
 @media (max-width: 560px) { .who-grid { grid-template-columns: 1fr; } }
 
 @media (min-width: 901px) { .about-card { position: sticky; top: 92px; } }
+
+/* ---------- Accessibility + no inline styles ---------- */
+.wa-link, .section-forest .wa-link, .cta-band .wa-link { color: #0E7A3F; }
+.wa-link:hover { color: #075E54; }
+.mt-44 { margin-top: 44px; }
+.mt-28 { margin-top: 28px; }
+.inherit { color: inherit; }

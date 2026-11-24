@@ -87,6 +87,13 @@ ${ctaBand()}`,
 /* ---------------- Contact ---------------- */
 
 const contactCrumbs = [{ name: "Home", path: "/" }, { name: "Contact", path: "/contact/" }];
+const CONTACT_FAQS = [
+  { q: "How quickly will you reply?", a: "<p>Within 24 hours on WhatsApp — usually much sooner during working hours. Keep your phone handy after you submit the form.</p>" },
+  { q: "Do I pay now?", a: "<p>No. Filling the form doesn’t charge anything. We first confirm your plan, target role and cities on WhatsApp, then share the payment details. Work starts once payment is received.</p>" },
+  { q: "What if I don’t have my resume handy?", a: "<p>You can send just your Naukri login email or mobile now, and share the resume later on WhatsApp.</p>" },
+  { q: "Is my information safe?", a: "<p>Yes. We use your details only to provide the service, never sell them, and never ask for your password on this website. See our <a href=\"/privacy-policy/\">Privacy Policy</a>.</p>" },
+];
+
 const contact = {
   path: "/contact/",
   title: "Contact Us — Get Your Naukri Profile & Resume Optimized",
@@ -95,6 +102,7 @@ const contact = {
   schema: [
     breadcrumbSchema(contactCrumbs),
     { "@type": "ContactPage", name: "Contact GetShortlisted", url: `${SITE.url}/contact/`, about: { "@id": `${SITE.url}/#organization` } },
+    faqSchema(CONTACT_FAQS),
   ],
   body: `
 ${hero(contactCrumbs, "Get started", "Get your Naukri profile & resume optimized", "Upload your resume in the short form. We’ll review your profile and message you on WhatsApp within 24 hours.")}
@@ -117,6 +125,12 @@ ${hero(contactCrumbs, "Get started", "Get your Naukri profile & resume optimized
     <div id="get-started">
       ${leadForm({ heading: "Get shortlisted on Naukri", sub: "Takes 60 seconds. We reply on WhatsApp within 24 hours." })}
     </div>
+  </div>
+</section>
+<section class="section section-sand">
+  <div class="wrap">
+    <div class="section-head center"><span class="kicker">Before you send</span><h2>Quick answers</h2></div>
+    ${faqList(CONTACT_FAQS)}
   </div>
 </section>`,
 };
@@ -175,7 +189,7 @@ const privacyCrumbs = [{ name: "Home", path: "/" }, { name: "Privacy Policy", pa
 const privacy = {
   path: "/privacy-policy/",
   title: "Privacy Policy",
-  description: "How GetShortlisted collects, uses, stores and protects your personal information.",
+  description: "How GetShortlisted collects, uses, stores and protects your personal information — form details, resumes, referral data — and your rights under Indian law.",
   priority: 0.3,
   changefreq: "yearly",
   schema: [breadcrumbSchema(privacyCrumbs)],

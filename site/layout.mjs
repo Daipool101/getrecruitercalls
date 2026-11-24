@@ -233,7 +233,7 @@ export function pricingCards({ formPath = "", from = "pricing" } = {}) {
     <div class="plan-ctas">
       <a class="btn ${p.featured ? "btn-gold btn-shine" : "btn-dark"} btn-block" href="${formPath ? `${formPath}?plan=${p.id}#get-started` : "#get-started"}" data-plan="${p.id}">Choose ${esc(p.name)}</a>
       ${waButton({ from, plan: p.id, label: "Ask on WhatsApp", cls: "wa-link" })}
-      <a class="plan-more" href="${p.url}">What’s included</a>
+      <a class="plan-more" href="${p.url}">What’s in ${esc(p.name)}</a>
     </div>
   </article>`).join("")}
 </div>
@@ -261,7 +261,7 @@ export function render(page) {
   const canonical = abs(path);
   const graph = { "@context": "https://schema.org", "@graph": [orgSchema(), websiteSchema(), ...schema] };
   const suffixed = `${title} | ${SITE.name}`;
-  const fullTitle = title.includes(SITE.name) || suffixed.length > 65 ? title : suffixed;
+  const fullTitle = title.includes(SITE.name) || suffixed.length > 60 ? title : suffixed; // Google shows ~60 chars
 
   // On the home page the CTA scrolls to the form; elsewhere it opens /contact/.
   const ctaHref = path === "/" ? "#get-started" : "/contact/";
@@ -312,12 +312,13 @@ ${published ? `<meta property="article:published_time" content="${published}">\n
 <meta name="application-name" content="${esc(SITE.name)}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"></noscript>
 <link rel="stylesheet" href="/css/styles.css?v=${globalThis.ASSET_VER || SITE.updated}">
 <script type="application/ld+json">${JSON.stringify(graph).replace(/</g, "\\u003c")}</script>
 <script src="/js/main.js?v=${globalThis.ASSET_VER || SITE.updated}" defer></script>
-${SITE.ga4Id ? `<script async src="https://www.googletagmanager.com/gtag/js?id=${esc(SITE.ga4Id)}"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","${esc(SITE.ga4Id)}",{anonymize_ip:true});</script>` : ""}
+${SITE.ga4Id ? `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","${esc(SITE.ga4Id)}",{anonymize_ip:true});
+addEventListener("load",function(){setTimeout(function(){var s=document.createElement("script");s.async=true;s.src="https://www.googletagmanager.com/gtag/js?id=${esc(SITE.ga4Id)}";document.head.appendChild(s)},1200)});</script>` : ""}
 ${SITE.turnstileSiteKey && /data-lead-form/.test(body) ? `<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>` : ""}
 </head>
 <body>

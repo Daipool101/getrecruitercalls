@@ -14,7 +14,7 @@ function article({ path, title, h1, description, keywords, tag, readMins, intro,
     <span class="eyebrow">${esc(tag)}</span>
     <h1>${esc(h1)}</h1>
     <p class="lead">${intro}</p>
-    <p class="article-meta">By <a href="/about/" style="color:inherit">the ${esc(SITE.name)} team</a> · Updated <time datetime="${PUBLISHED_AT}">${shown}</time> · ${readMins} min read</p>
+    <p class="article-meta">By <a href="/about/" class="inherit">the ${esc(SITE.name)} team</a> · Updated <time datetime="${PUBLISHED_AT}">${shown}</time> · ${readMins} min read</p>
   </div>
 </section>
 <section class="section">
@@ -49,7 +49,7 @@ const notGettingCalls = article({
   title: "Not Getting Calls from Naukri? 9 Reasons & Fixes (2026)",
   h1: "Not Getting Calls from Naukri? 9 Reasons and How to Fix Each One",
   description:
-    "Applied to 100+ jobs on Naukri but no recruiter calls? The 9 most common reasons — wrong keywords, weak headline, inactive profile, bad resume — and how to fix each.",
+    "Applied to 100+ jobs on Naukri but no recruiter calls? The 9 most common reasons — keywords, headline, inactive profile, resume — and how to fix each.",
   keywords: "not getting calls from naukri, no calls from naukri, naukri profile not getting views, how to get calls from recruiters, naukri tips",
   tag: "Naukri guide",
   readMins: 8,
@@ -124,7 +124,7 @@ const profileTips = article({
   title: "Naukri Profile Optimization Tips: 2026 Checklist",
   h1: "Naukri Profile Optimization: A Step-by-Step Checklist (2026)",
   description:
-    "A section-by-section checklist to optimize your Naukri profile — headline, key skills, summary, employment, projects and preferences — to get more recruiter calls.",
+    "A section-by-section checklist to optimize your Naukri profile — headline, key skills, summary, employment and preferences — for more recruiter calls.",
   keywords: "naukri profile optimization tips, how to optimize naukri profile, naukri profile tips, naukri profile summary, naukri key skills, how to improve naukri profile",
   tag: "Checklist",
   readMins: 9,
@@ -206,7 +206,7 @@ const headlineExamples = article({
   title: "30+ Naukri Resume Headline Examples (Freshers & Experienced)",
   h1: "30+ Naukri Resume Headline Examples (Freshers & Experienced)",
   description:
-    "31 copy-ready Naukri resume headline examples for freshers and experienced professionals in IT, sales, finance, HR and more — plus the formula recruiters respond to.",
+    "31 Naukri resume headline examples for freshers and experienced professionals in IT, sales, finance, HR and more — plus the formula that works.",
   keywords: "naukri resume headline, resume headline for naukri, naukri resume headline examples, resume headline for fresher, resume headline for experienced, best resume headline",
   tag: "Examples",
   readMins: 7,
@@ -291,7 +291,7 @@ const atsResume = article({
   title: "ATS-Friendly Resume Format for India (2026 Guide)",
   h1: "ATS-Friendly Resume Format: The Complete Guide for Indian Job Seekers",
   description:
-    "What an ATS-friendly resume is, the best format, sections, fonts and file type, and the mistakes that get Indian job seekers rejected — with a simple structure.",
+    "What an ATS-friendly resume is, the best format, sections, fonts and file type, and the mistakes that get Indian job seekers rejected.",
   keywords: "ats friendly resume, ats friendly resume format, ats resume india, resume format for naukri, best resume format 2026, resume for freshers",
   tag: "Resume guide",
   readMins: 8,
@@ -606,7 +606,7 @@ const keySkills = article({
   title: "Naukri Key Skills: Examples, Limits & Why They Don’t Match",
   h1: "Naukri Key Skills: Examples, How Many to Add & Why They Don’t Match (2026)",
   description:
-    "How to choose Naukri key skills recruiters search for: examples by role, how many to add, key skills vs IT skills, and what to do when your skills don’t match.",
+    "Choose Naukri key skills recruiters search for: examples by role, how many to add, key skills vs IT skills, and what to do when they don’t match.",
   keywords: "naukri key skills, naukri key skills examples, naukri key skills limit, naukri key skills not matching, difference between key skills and it skills in naukri, key skills for naukri profile",
   tag: "Naukri guide",
   readMins: 7,
@@ -630,7 +630,7 @@ const keySkills = article({
 
 <h2>Key skills vs IT skills — what’s the difference?</h2>
 <table>
-<thead><tr><th></th><th>Key skills</th><th>IT skills</th></tr></thead>
+<thead><tr><th>Compare</th><th>Key skills</th><th>IT skills</th></tr></thead>
 <tbody>
 <tr><td>What it is</td><td>Short search tags for your profile</td><td>Software and tools you’ve used</td></tr>
 <tr><td>Details</td><td>Just the skill name</td><td>Version, last used year, years of experience</td></tr>
@@ -750,6 +750,7 @@ const indexBody = `
   </div>
 </section>
 <section class="section">
+  <div class="wrap"><h2 class="mt-0">All guides</h2></div>
   <div class="wrap grid grid-2">
     ${posts.map((p) => `<a class="card post-card" href="${p.path}"><span class="tag">${esc(p._card.tag)}</span><h3>${esc(p._card.h1)}</h3><p>${esc(p._card.description)}</p><span class="more">Read guide (${p._card.readMins} min)</span></a>`).join("")}
   </div>

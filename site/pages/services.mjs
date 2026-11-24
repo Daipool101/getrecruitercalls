@@ -109,14 +109,14 @@ const naukri = servicePage({
       </div>
     </div>
 
-    <div class="section-head" style="margin-top:44px"><span class="kicker">The difference</span><h2>Same experience. Very different first impression.</h2></div>
+    <div class="section-head mt-44"><span class="kicker">The difference</span><h2>Same experience. Very different first impression.</h2></div>
     <div class="ba">
       <div class="ba-card ba-before"><span>Before</span><p>“Looking for a good opportunity in a reputed company where I can use my skills.”</p><small>Says nothing a recruiter searches for.</small></div>
       <div class="ba-card ba-after"><span>After</span><p>“Data Analyst | 3 yrs | SQL, Power BI, Python | Sales & Ops Dashboards | Pune | Immediate Joiner”</p><small>Role, experience, skills, city and availability — in one line.</small></div>
     </div>
     <p class="note-small">An illustrative headline. Every profile we write is built for your real experience, role and city.</p>
 
-    <div class="section-head" style="margin-top:44px"><span class="kicker">How it works</span><h2>You share. We fix. Recruiters call.</h2></div>
+    <div class="section-head mt-44"><span class="kicker">How it works</span><h2>You share. We fix. Recruiters call.</h2></div>
     <ol class="ref-steps">
       <li><b>Share your details</b><span>Upload your resume, add your Naukri login email and pick a plan. Takes 60 seconds.</span></li>
       <li><b>We confirm on WhatsApp</b><span>Within 24 hours we confirm your target role, cities and plan, and share payment details.</span></li>
@@ -134,7 +134,7 @@ const apply = servicePage({
   plan: DFY,
   title: "Naukri Job Application Service – We Apply For You",
   description:
-    `Done-for-you job search in India: we optimize your Naukri profile & resume, and apply to relevant jobs for you for 1 month. You just take recruiter calls. ${inr(DFY.price)}.`,
+    `Done-for-you Naukri job search: we fix your profile & resume and apply to relevant jobs for you for 1 month. You just take recruiter calls. ${inr(DFY.price)}.`,
   keywords: "job application service india, apply jobs on my behalf, naukri profile management service, done for you job search, job search assistance service india, someone to apply for jobs for me, naukri job apply service",
   h1: "We apply to jobs for you",
   lead: "Busy, on notice, or tired of applying? We take over your Naukri job search for 1 month — profile, resume and applications — so you only spend time on recruiter calls and interviews.",
@@ -170,7 +170,7 @@ const apply = servicePage({
       <div class="who"><b>Tired of zero replies</b><span>You’ve applied to 100+ jobs and want someone to do it properly.</span></div>
     </div>
 
-    <div class="section-head" style="margin-top:44px"><span class="kicker">Your month with us</span><h2>How the Done-For-You month works</h2></div>
+    <div class="section-head mt-44"><span class="kicker">Your month with us</span><h2>How the Done-For-You month works</h2></div>
     <ol class="ref-steps">
       <li><b>We agree your targets</b><span>On WhatsApp we confirm your target roles, cities, salary range and notice period. We only apply within these.</span></li>
       <li><b>We rebuild your profile first</b><span>Headline, key skills, summary, preferences and an ATS-friendly resume — so every application starts strong.</span></li>
@@ -178,9 +178,9 @@ const apply = servicePage({
       <li><b>You take the calls</b><span>Recruiters contact you directly. You attend the calls and interviews; the decisions stay with you.</span></li>
     </ol>
 
-    <div class="section-head" style="margin-top:44px"><span class="kicker">Compare</span><h2>Done-For-You vs the alternatives</h2></div>
+    <div class="section-head mt-44"><span class="kicker">Compare</span><h2>Done-For-You vs the alternatives</h2></div>
     <div class="table-scroll"><table class="compare">
-      <thead><tr><th></th><th>Doing it yourself</th><th>Auto-apply tools</th><th>GetShortlisted Done-For-You</th></tr></thead>
+      <thead><tr><th>Compare</th><th>Doing it yourself</th><th>Auto-apply tools</th><th>GetShortlisted Done-For-You</th></tr></thead>
       <tbody>
         <tr><td>Your time</td><td>Hours every day</td><td>Low</td><td>Low — you just take calls</td></tr>
         <tr><td>Profile & resume</td><td>As it is today</td><td>Usually as it is today</td><td>Rewritten first, by a person</td></tr>
@@ -189,7 +189,7 @@ const apply = servicePage({
       </tbody>
     </table></div>
 
-    <div class="mistakes" style="margin-top:28px">
+    <div class="mistakes mt-28">
       <h3>What we never do</h3>
       <ol>
         <li>Add fake experience, skills or certificates</li>
@@ -207,9 +207,9 @@ const resume = servicePage({
   path: "/resume-optimization/",
   name: "Resume Optimization",
   plan: MAKEOVER,
-  title: "ATS-Friendly Resume Writing Service in India",
+  title: "ATS Resume Writing Service in India",
   description:
-    `ATS-friendly resume writing for Indian job seekers: role keywords, achievement-focused points and a clean format that gets you shortlisted. Included in ${MAKEOVER.name} (${inr(MAKEOVER.price)}).`,
+    `ATS-friendly resume writing for Indian job seekers: role keywords, results-focused points and a clean format that gets you shortlisted. From ${inr(MAKEOVER.price)}.`,
   keywords: "resume writing service india, ATS friendly resume, resume optimization, ATS resume format, resume for naukri, professional resume writer india, cv writing service",
   h1: "ATS-Friendly Resume Writing",
   lead: "Software reads your resume before a recruiter does. We make it clean, ATS-friendly and full of the right keywords — and match it to your Naukri profile — so you get shortlisted.",
@@ -253,14 +253,14 @@ const resume = servicePage({
       </div>
     </div>
 
-    <div class="section-head" style="margin-top:44px"><span class="kicker">The difference</span><h2>Duties vs results</h2></div>
+    <div class="section-head mt-44"><span class="kicker">The difference</span><h2>Duties vs results</h2></div>
     <div class="ba">
       <div class="ba-card ba-before"><span>Before</span><p>“Responsible for handling customer queries and preparing reports.”</p><small>Says what the job was, not what you achieved.</small></div>
       <div class="ba-card ba-after"><span>After</span><p>“Resolved 80+ customer queries a day at 94% CSAT; built 6 weekly reports used by 3 teams.”</p><small>Specific, measurable and easy to scan.</small></div>
     </div>
     <p class="note-small">An illustrative example. Your resume is written from your real experience — nothing invented.</p>
 
-    <div class="section-head" style="margin-top:44px"><span class="kicker">What you get</span><h2>A resume you can send anywhere</h2></div>
+    <div class="section-head mt-44"><span class="kicker">What you get</span><h2>A resume you can send anywhere</h2></div>
     <ul class="checklist">
       <li><strong>ATS-friendly format</strong> — clean, single-column, standard headings</li>
       <li><strong>PDF + editable Word file</strong> — so you can tailor it for specific jobs</li>
@@ -304,7 +304,7 @@ const pricing = {
   </div>
 </section>
 <section class="section section-sand">
-  <div class="wrap">${pricingCards({ formPath: "/contact/", from: "pricing-page" })}</div>
+  <div class="wrap"><div class="section-head center"><span class="kicker">Two plans</span><h2>Choose how much you want us to do</h2></div>${pricingCards({ formPath: "/contact/", from: "pricing-page" })}</div>
 </section>
 <section class="section">
   <div class="wrap">
@@ -320,7 +320,7 @@ const pricing = {
       </tbody>
     </table></div>
 
-    <div class="section-head center" style="margin-top:48px"><span class="kicker">After you fill the form</span><h2>What happens next</h2></div>
+    <div class="section-head center mt-44"><span class="kicker">After you fill the form</span><h2>What happens next</h2></div>
     <ol class="ref-steps">
       <li><b>We message you on WhatsApp within 24 hours</b><span>We confirm your plan, target role and cities, and answer your questions.</span></li>
       <li><b>You pay</b><span>We share the payment details on WhatsApp. Work starts once payment is received.</span></li>
