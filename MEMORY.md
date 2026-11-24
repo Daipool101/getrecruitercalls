@@ -73,6 +73,8 @@ Owner's instruction: *clean, simple, professional, call-to-action focused; don't
 
 - **2026-11-24 (guides batch 2)** — Added /blog/naukri-profile-summary-examples/, /blog/naukri-key-skills/, /blog/best-time-to-update-naukri-profile/ (10 guides total, 22 sitemap URLs). Next content candidates: how to get interview calls (freshers/experienced), LinkedIn vs Naukri, city pages.
 
+- **2026-11-24 (P0 SEO)** — www→root 301 (Cloudflare Redirect Rule) + Always Use HTTPS on. workers_dev and preview_urls set to false in wrangler.jsonc (getrecruitercalls.tsupport76.workers.dev no longer serves the site — use https://getshortlisted.in for live tests).
+
 ## Ideas for later (not built — owner said don't add extra things)
 - Hindi versions of key pages (`/hi/…`) to rank for Hindi searches.
 - More guides: "Naukri profile summary examples", "How to update Naukri profile daily", "Key skills for <role>", city pages.

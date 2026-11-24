@@ -51,7 +51,7 @@
 
 ### P0 — Technical fixes (this week, ~1 hour total)
 - ☑ A1 www → root redirect (301, query kept) · ☑ A2 Always Use HTTPS — done & tested 24 Nov
-- ☐ Turn off the old workers.dev URL (Production + Preview toggles) — owner, removes the last duplicate copy
+- ☑ Old workers.dev URL + preview URLs turned off in wrangler.jsonc (24 Nov) — no duplicate copies left
 - ☐ A4 home title
 - ☐ Submit new/changed URLs to IndexNow + "Request indexing" in Search Console after each batch
 
