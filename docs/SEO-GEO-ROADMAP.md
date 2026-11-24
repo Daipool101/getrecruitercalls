@@ -52,15 +52,15 @@
 ### P0 — Technical fixes (this week, ~1 hour total)
 - ☑ A1 www → root redirect (301, query kept) · ☑ A2 Always Use HTTPS — done & tested 24 Nov
 - ☑ Old workers.dev URL + preview URLs turned off in wrangler.jsonc (24 Nov) — no duplicate copies left
-- ☐ A4 home title
+- ☑ A4 home title (61 chars, 25 Nov)
 - ☐ Submit new/changed URLs to IndexNow + "Request indexing" in Search Console after each batch
 
 ### P1 — Internal linking & money pages (Claude, ~1 day)
-- ☐ Home: "Popular guides" section (6 guides)
-- ☐ Every guide: "Related guides" (3 links) + clear plan box
-- ☐ Service pages: "Learn more" links to the 2–3 most relevant guides
-- ☐ Expand `/naukri-job-application-service/`, `/resume-optimization/`, `/pricing/` to 1,000+ words (comparison with alternatives, process, who it's for, honest limits, more FAQs)
-- ☐ Rewrite About for trust (A7)
+- ☑ Home: "Popular guides" section (6 guides) — 25 Nov
+- ☑ Every guide: "Related guides" (3 links) — 25 Nov (guides went from 1 internal link to 2–10)
+- ☑ Service pages: "Helpful guides" (3 each) + resume page linked from 4 guides — 25 Nov
+- ☑ Expanded DFY (537→845 words of main content: who it's for, how the month works, comparison, what we never do), Resume (367→632: ATS explainer, before/after, deliverables), Pricing (447→665: options comparison, what happens next) — 25 Nov
+- ☑ About rewritten for trust (283→565 words: what we do, how we work, promises, who we help, why Naukri) — 25 Nov
 
 ### P2 — Content batch 3 (Claude, 2–3 pages per session, owner approves)
 1. ☐ Naukri Neo & Naukri360 Pro vs a human service — honest comparison

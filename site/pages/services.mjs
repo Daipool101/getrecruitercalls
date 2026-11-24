@@ -1,10 +1,11 @@
 import { leadForm, faqList, faqSchema, ctaBand, serviceSchema, breadcrumbSchema, breadcrumbs, esc, pricingCards, waButton } from "../layout.mjs";
 import { PLANS, inr, SITE } from "../config.mjs";
+import { guideLinks } from "../guides.mjs";
 
 const [MAKEOVER, DFY] = PLANS;
 
 // One template for the service pages: hero (with price) → what's included + form → FAQ → CTA.
-function servicePage({ path, name, title, description, keywords, h1, lead, serviceType, schemaDesc, included, formHeading, faqs, cta, plan, extra = "" }) {
+function servicePage({ path, name, title, description, keywords, h1, lead, serviceType, schemaDesc, included, formHeading, faqs, cta, plan, extra = "", guides = [] }) {
   const crumbs = [{ name: "Home", path: "/" }, { name, path }];
   const body = `
 <section class="page-hero">
@@ -33,6 +34,7 @@ function servicePage({ path, name, title, description, keywords, h1, lead, servi
 </section>
 
 ${extra}
+${guides.length ? `<section class="section"><div class="wrap">${guideLinks(guides, { heading: "Helpful guides" })}</div></section>` : ""}
 <section class="section section-sand">
   <div class="wrap">
     <div class="section-head center"><span class="kicker">FAQ</span><h2>Common questions</h2></div>
@@ -85,6 +87,7 @@ const naukri = servicePage({
     { q: "Will this guarantee a job?", a: "<p>No honest service can. We remove the reasons recruiters aren’t finding you. Interviews and offers still depend on your skills and the market.</p>" },
   ],
   cta: { title: "Let recruiters find your profile", text: "Upload your resume and pick a plan — we’ll take it from there." },
+  guides: ["/blog/not-getting-calls-from-naukri/", "/blog/naukri-resume-headline-examples/", "/blog/naukri-key-skills/"],
   extra: `
 <section class="section">
   <div class="wrap prose-wide">
@@ -155,6 +158,49 @@ const apply = servicePage({
     { q: "Do you guarantee a job?", a: "<p>No — and be careful of anyone who does. We maximise how often recruiters see and contact you. Offers depend on your interviews, skills and the market.</p>" },
   ],
   cta: { title: "Stop applying. Start getting calls.", text: "Upload your resume — we’ll take it from there." },
+  guides: ["/blog/how-to-get-shortlisted-on-naukri/", "/blog/best-time-to-update-naukri-profile/", "/blog/naukri-paid-services-worth-it/"],
+  extra: `
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><span class="kicker">Who it’s for</span><h2>For people who don’t have hours to apply every day</h2></div>
+    <div class="who-grid">
+      <div class="who"><b>Working full-time</b><span>You want a switch but can’t spend evenings scrolling job posts.</span></div>
+      <div class="who"><b>Serving notice period</b><span>The clock is ticking and you need interviews lined up fast.</span></div>
+      <div class="who"><b>After a layoff</b><span>You need momentum and a steady flow of relevant applications.</span></div>
+      <div class="who"><b>Tired of zero replies</b><span>You’ve applied to 100+ jobs and want someone to do it properly.</span></div>
+    </div>
+
+    <div class="section-head" style="margin-top:44px"><span class="kicker">Your month with us</span><h2>How the Done-For-You month works</h2></div>
+    <ol class="ref-steps">
+      <li><b>We agree your targets</b><span>On WhatsApp we confirm your target roles, cities, salary range and notice period. We only apply within these.</span></li>
+      <li><b>We rebuild your profile first</b><span>Headline, key skills, summary, preferences and an ATS-friendly resume — so every application starts strong.</span></li>
+      <li><b>We apply to relevant jobs for 1 month</b><span>A person checks each job against your profile and targets before applying — no mass spraying.</span></li>
+      <li><b>You take the calls</b><span>Recruiters contact you directly. You attend the calls and interviews; the decisions stay with you.</span></li>
+    </ol>
+
+    <div class="section-head" style="margin-top:44px"><span class="kicker">Compare</span><h2>Done-For-You vs the alternatives</h2></div>
+    <div class="table-scroll"><table class="compare">
+      <thead><tr><th></th><th>Doing it yourself</th><th>Auto-apply tools</th><th>GetShortlisted Done-For-You</th></tr></thead>
+      <tbody>
+        <tr><td>Your time</td><td>Hours every day</td><td>Low</td><td>Low — you just take calls</td></tr>
+        <tr><td>Profile & resume</td><td>As it is today</td><td>Usually as it is today</td><td>Rewritten first, by a person</td></tr>
+        <tr><td>Which jobs</td><td>Whatever you find</td><td>Chosen by rules / AI</td><td>Checked by a person against your targets</td></tr>
+        <tr><td>Best when</td><td>You have time and a strong profile</td><td>Your profile already gets calls</td><td>You’re busy or getting no calls</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="mistakes" style="margin-top:28px">
+      <h3>What we never do</h3>
+      <ol>
+        <li>Add fake experience, skills or certificates</li>
+        <li>Apply to roles, cities or salaries you didn’t agree to</li>
+        <li>Share your details with anyone except the employers you apply to</li>
+        <li>Promise a job — hiring decisions are the employer’s</li>
+      </ol>
+    </div>
+  </div>
+</section>
+`,
 });
 
 const resume = servicePage({
@@ -185,6 +231,46 @@ const resume = servicePage({
     { q: "How much does it cost?", a: `<p>Resume writing is part of the ${MAKEOVER.name} (${inr(MAKEOVER.price)}), together with your Naukri profile — because recruiters check both.</p>` },
   ],
   cta: { title: "Get a resume that gets shortlisted", text: "Upload your current resume — we’ll make it recruiter-ready." },
+  guides: ["/blog/ats-friendly-resume-format/", "/blog/naukri-profile-summary-examples/", "/blog/naukri-resume-headline-examples/"],
+  extra: `
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><span class="kicker">Why resumes get rejected</span><h2>Software reads your resume first</h2></div>
+    <div class="two-col">
+      <div>
+        <p>Most companies use an Applicant Tracking System (ATS). It reads your resume, pulls out job titles, skills and dates, and ranks you against the job description — often before a recruiter opens it.</p>
+        <p>Fancy two-column templates, tables, icons and text inside images confuse that software. Missing keywords push you down the list. A strong candidate with a hard-to-read resume can be filtered out in seconds.</p>
+      </div>
+      <div class="mistakes">
+        <h3>What gets resumes skipped</h3>
+        <ol>
+          <li>Layouts software can’t read (tables, columns, graphics)</li>
+          <li>Job titles that don’t match the role you’re applying for</li>
+          <li>Duties instead of results — no numbers anywhere</li>
+          <li>Missing the skills listed in the job description</li>
+          <li>Different story from your Naukri profile</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:44px"><span class="kicker">The difference</span><h2>Duties vs results</h2></div>
+    <div class="ba">
+      <div class="ba-card ba-before"><span>Before</span><p>“Responsible for handling customer queries and preparing reports.”</p><small>Says what the job was, not what you achieved.</small></div>
+      <div class="ba-card ba-after"><span>After</span><p>“Resolved 80+ customer queries a day at 94% CSAT; built 6 weekly reports used by 3 teams.”</p><small>Specific, measurable and easy to scan.</small></div>
+    </div>
+    <p class="note-small">An illustrative example. Your resume is written from your real experience — nothing invented.</p>
+
+    <div class="section-head" style="margin-top:44px"><span class="kicker">What you get</span><h2>A resume you can send anywhere</h2></div>
+    <ul class="checklist">
+      <li><strong>ATS-friendly format</strong> — clean, single-column, standard headings</li>
+      <li><strong>PDF + editable Word file</strong> — so you can tailor it for specific jobs</li>
+      <li><strong>Role keywords</strong> — taken from real job descriptions for your target role</li>
+      <li><strong>Matches your Naukri profile</strong> — one consistent story recruiters trust</li>
+      <li><strong>Part of the ${MAKEOVER.name} (${inr(MAKEOVER.price)})</strong> — together with your Naukri profile, because recruiters check both</li>
+    </ul>
+  </div>
+</section>
+`,
 });
 
 /* ---------------- Pricing ---------------- */
@@ -220,6 +306,31 @@ const pricing = {
 <section class="section section-sand">
   <div class="wrap">${pricingCards({ formPath: "/contact/", from: "pricing-page" })}</div>
 </section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center"><span class="kicker">Compare your options</span><h2>What you’re really paying for</h2></div>
+    <div class="table-scroll"><table class="compare">
+      <thead><tr><th>Option</th><th>What changes</th><th>Who does the work</th><th>Best for</th></tr></thead>
+      <tbody>
+        <tr><td>Do it yourself</td><td>Whatever you fix</td><td>You</td><td>People with time and a clear target role</td></tr>
+        <tr><td>Short consultation / review</td><td>Advice and tips</td><td>You make the changes</td><td>A quick second opinion</td></tr>
+        <tr><td>Paid visibility boosts</td><td>How often you’re shown</td><td>—</td><td>Profiles that already get calls</td></tr>
+        <tr><td>${MAKEOVER.name} · ${inr(MAKEOVER.price)}</td><td>What recruiters see: headline, skills, summary, preferences + ATS resume</td><td>Us — updated in your account</td><td>Profiles getting few views or calls</td></tr>
+        <tr><td>${DFY.name} · ${inr(DFY.price)}</td><td>Everything above + applications to relevant jobs for 1 month</td><td>Us</td><td>Busy professionals, people on notice</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="section-head center" style="margin-top:48px"><span class="kicker">After you fill the form</span><h2>What happens next</h2></div>
+    <ol class="ref-steps">
+      <li><b>We message you on WhatsApp within 24 hours</b><span>We confirm your plan, target role and cities, and answer your questions.</span></li>
+      <li><b>You pay</b><span>We share the payment details on WhatsApp. Work starts once payment is received.</span></li>
+      <li><b>We do the work</b><span>We rewrite your Naukri profile and resume — and on Done-For-You, apply to relevant jobs for 1 month.</span></li>
+      <li><b>You get noticed</b><span>Many candidates see more profile views and recruiter calls within about a week.</span></li>
+    </ol>
+    ${guideLinks(["/blog/naukri-paid-services-worth-it/", "/blog/not-getting-calls-from-naukri/", "/blog/how-to-get-shortlisted-on-naukri/"], { heading: "Before you decide" })}
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
     <div class="section-head center"><span class="kicker">FAQ</span><h2>Pricing questions</h2></div>

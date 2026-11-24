@@ -1,5 +1,6 @@
 import { leadForm, faqList, faqSchema, serviceSchema, pricingCards, waButton } from "../layout.mjs";
 import { ICON } from "../icons.mjs";
+import { POPULAR, guideLinks } from "../guides.mjs";
 import { SITE, PLANS, inr, REFERRAL_PERCENT } from "../config.mjs";
 
 const [MAKEOVER, DFY] = PLANS;
@@ -176,6 +177,18 @@ const body = `
   </div>
 </section>
 
+<section class="section section-sand" id="guides">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="kicker">Free guides</span>
+      <h2>Fix the basics yourself</h2>
+      <p>Straight answers to what job seekers ask us most.</p>
+    </div>
+    ${guideLinks(POPULAR)}
+    <p class="center faq-more"><a href="/blog/">See all guides</a></p>
+  </div>
+</section>
+
 <section class="section" id="faq">
   <div class="wrap">
     <div class="section-head center">
@@ -190,7 +203,7 @@ const body = `
 
 export default {
   path: "/",
-  title: "Naukri Profile Optimization & Resume Writing Service India | GetShortlisted",
+  title: "Naukri Profile Optimization & Resume Service | GetShortlisted",
   description:
     `Not getting calls from Naukri? We optimize your Naukri profile & ATS resume (${inr(MAKEOVER.price)}) or run your job search and apply for you (${inr(DFY.price)}). Reply on WhatsApp in 24h.`,
   keywords:

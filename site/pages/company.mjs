@@ -1,6 +1,7 @@
 import { leadForm, faqList, faqSchema, ctaBand, breadcrumbSchema, breadcrumbs, esc, waButton } from "../layout.mjs";
 import { HOME_FAQS } from "./home.mjs";
 import { SITE, PLANS, inr, REFERRAL_PERCENT } from "../config.mjs";
+import { guideLinks } from "../guides.mjs";
 
 const hero = (crumbs, eyebrow, h1, lead) => `
 <section class="page-hero">
@@ -18,7 +19,7 @@ const aboutCrumbs = [{ name: "Home", path: "/" }, { name: "About", path: "/about
 const about = {
   path: "/about/",
   title: "About GetShortlisted — Naukri Profile & Resume Experts",
-  description: `GetShortlisted helps job seekers across India get more recruiter calls by optimizing their Naukri profiles and resumes.`,
+  description: `GetShortlisted is an independent Indian career service that rewrites Naukri profiles and resumes — and applies to jobs — so recruiters find you and call.`,
   priority: 0.6,
   schema: [
     breadcrumbSchema(aboutCrumbs),
@@ -29,18 +30,43 @@ ${hero(aboutCrumbs, "About us", "We help good candidates get found by recruiters
 <section class="section">
   <div class="wrap split">
     <div class="prose">
-      <h2 class="mt-0">Our story</h2>
-      <p>GetShortlisted was started after seeing the same pattern again and again: skilled professionals and freshers with strong backgrounds, sitting with zero recruiter calls for weeks. The fix was almost never “more experience”. It was a better resume headline, the right key skills, a sharper summary, realistic preferences and a resume that software could actually read.</p>
-      <p>After a few focused changes, those same profiles started showing up in recruiter searches — and the calls followed, often within a week. GetShortlisted turns that experience into a simple, personal service for every job seeker.</p>
-      <h2>What we believe</h2>
+      <h2 class="mt-0">Why we started</h2>
+      <p>We kept seeing the same pattern: skilled professionals and freshers with strong backgrounds, sitting with zero recruiter calls for weeks. The fix was almost never “more experience”. It was a better resume headline, the right key skills, a sharper summary, realistic preferences and a resume that hiring software could actually read.</p>
+      <p>After a few focused changes, those same profiles started showing up in recruiter searches — and the calls followed, often within a week. GetShortlisted turns that into a simple, personal service any job seeker in India can use.</p>
+
+      <h2>What we do</h2>
       <ul class="checklist">
-        <li><strong>Honesty first.</strong> We never add fake experience, fake skills or anything you can’t defend in an interview.</li>
-        <li><strong>Recruiter-search thinking.</strong> We write for how recruiters actually search, filter and shortlist.</li>
-        <li><strong>Simple language.</strong> We explain every change clearly — in English or Hindi.</li>
-        <li><strong>Your account, your control.</strong> We never ask for passwords on our website — only privately on WhatsApp, and only after you choose a plan.</li>
+        <li><strong>Naukri profile makeover</strong> — headline, key skills, summary, employment details and preferences, rewritten for how recruiters search your role and city, and updated in your account.</li>
+        <li><strong>ATS-friendly resume</strong> — a clean resume (PDF + Word) that software can read and that tells the same story as your profile.</li>
+        <li><strong>Done-For-You job search</strong> — on top of the makeover, we apply to relevant jobs for you for one month, within the roles, cities and salary you agree.</li>
       </ul>
+
+      <h2>How we work</h2>
+      <ul class="checklist">
+        <li><strong>A person, not a template.</strong> Every profile is written for your real experience and target role.</li>
+        <li><strong>Built around recruiter search.</strong> We focus on what recruiters type and filter by on Naukri — not on fancy wording.</li>
+        <li><strong>One consistent story.</strong> Your headline, skills, summary and resume all point to the same next role.</li>
+        <li><strong>Simple language.</strong> We explain every change on WhatsApp — in English or Hindi.</li>
+      </ul>
+
+      <h2>Our promises</h2>
+      <ul class="checklist">
+        <li><strong>Honesty first.</strong> We never add fake experience, skills or certificates — nothing you can’t defend in an interview.</li>
+        <li><strong>No false guarantees.</strong> Hiring decisions belong to employers. We make sure your profile isn’t what’s holding you back.</li>
+        <li><strong>Your data stays private.</strong> We never sell your details. Passwords are never typed on this website — only shared privately on WhatsApp after you choose a plan.</li>
+        <li><strong>Quick replies.</strong> We respond on WhatsApp within 24 hours.</li>
+      </ul>
+
+      <h2>Who we help</h2>
+      <ul class="chips">
+        <li>Freshers</li><li>1–15+ years’ experience</li><li>IT &amp; non-IT</li><li>Serving notice period</li><li>After a layoff</li><li>Career gap</li><li>Career switchers</li><li>Metros &amp; tier-2 cities</li>
+      </ul>
+
+      <h2>Why we focus on Naukri</h2>
+      <p>On Naukri, recruiters search the candidate database and call the profiles that match — so a strong profile brings calls even on days you don’t apply. That makes it the place where profile work turns into phone calls fastest. We still keep your headline and summary ready to reuse on LinkedIn.</p>
+      <p class="note-small">GetShortlisted is an independent service, not affiliated with Naukri.com or Info Edge (India) Ltd.</p>
     </div>
-    <div class="card">
+    <div class="card about-card">
       <h3>At a glance</h3>
       <ul class="checklist">
         <li><strong>What:</strong> Naukri profile optimization, ATS resume writing & job applications on your behalf</li>
@@ -50,9 +76,11 @@ ${hero(aboutCrumbs, "About us", "We help good candidates get found by recruiters
         <li><strong>Contact:</strong> <a href="mailto:${SITE.email}">${SITE.email}</a> or WhatsApp</li>
       </ul>
       <a class="btn btn-gold btn-block" href="/contact/">Get Shortlisted</a>
+      <p class="side-wa"><a href="/pricing/">See plans</a> &nbsp;·&nbsp; <a href="/faq/">Read the FAQ</a></p>
     </div>
   </div>
 </section>
+<section class="section section-sand"><div class="wrap">${guideLinks(["/blog/how-to-get-shortlisted-on-naukri/", "/blog/not-getting-calls-from-naukri/", "/blog/naukri-paid-services-worth-it/"], { heading: "Start with our guides" })}</div></section>
 ${ctaBand()}`,
 };
 

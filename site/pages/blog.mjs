@@ -1,5 +1,6 @@
 import { leadForm, faqList, faqSchema, ctaBand, articleSchema, breadcrumbSchema, breadcrumbs, esc } from "../layout.mjs";
 import { SITE } from "../config.mjs";
+import { RELATED, guideLinks } from "../guides.mjs";
 
 const PUBLISHED = "2026-11-19";
 
@@ -22,6 +23,7 @@ function article({ path, title, h1, description, keywords, tag, readMins, intro,
       <div class="tldr"><strong>Quick answer</strong>${tldr}</div>
       ${content}
       ${faqs.length ? `<h2>Frequently asked questions</h2>${faqList(faqs)}` : ""}
+      ${RELATED[path] ? guideLinks(RELATED[path], { heading: "Related guides", cls: "related" }) : ""}
     </article>
     <aside>
       ${leadForm({ heading: "Want us to do it for you?", sub: "Share your Naukri profile or resume. We’ll reply within 24 hours.", compact: true })}
@@ -274,7 +276,7 @@ ${H("Teacher / Trainer", "Corporate Trainer | 7 Yrs | Soft Skills, Sales Trainin
   <li><strong>Mention availability:</strong> “Immediate Joiner” or your notice period helps recruiters with urgent hiring.</li>
   <li><strong>Keep it consistent:</strong> the same role and keywords should appear in your summary and resume.</li>
 </ul>
-<p>Want a headline — and full profile — written for your exact role? <a href="/naukri-profile-optimization/">See Naukri profile optimization</a>.</p>
+<p>Want a headline — and full profile — written for your exact role? <a href="/naukri-profile-optimization/">See Naukri profile optimization</a>, which includes an <a href="/resume-optimization/">ATS-friendly resume</a> that matches it.</p>
 `,
   faqs: [
     { q: "What is the character limit for a Naukri resume headline?", a: "<p>Naukri shows the limit in the headline editor (it has been around 250 characters). Use it fully with keywords, but keep it readable.</p>" },
@@ -402,7 +404,7 @@ const getShortlisted = article({
 <p>Recruiters filter by these. An unrealistic expected salary, a single narrow city or a long notice period with no “negotiable” option quietly removes you from many searches.</p>
 
 <h2>7. Make your resume match your profile</h2>
-<p>When the resume says one title and the profile another, recruiters hesitate. Use one consistent story, and an <a href="/blog/ats-friendly-resume-format/">ATS-friendly resume format</a> that software can read.</p>
+<p>When the resume says one title and the profile another, recruiters hesitate. Use one consistent story, and an <a href="/blog/ats-friendly-resume-format/">ATS-friendly resume format</a> that software can read — or let us handle it with our <a href="/resume-optimization/">resume writing service</a>.</p>
 
 <h2>8. Show results, not duties</h2>
 <p>“Handled client accounts” is a duty. “Managed 40 client accounts and grew renewals by 18%” is a result. Numbers make recruiters stop scrolling.</p>
@@ -464,7 +466,7 @@ const aiPrompts = article({
 </table>
 
 <h2>When to let a person do it</h2>
-<p>If you’ve tried AI drafts and calls still aren’t coming, the issue is usually the parts AI can’t see — how your profile ranks against others for your role and city. Our <a href="/naukri-profile-optimization/">Naukri profile makeover</a> is written by a person, built for your real experience, and updated in your Naukri account for you. Want applications handled too? See <a href="/naukri-job-application-service/">Done-For-You Job Search</a>.</p>
+<p>If you’ve tried AI drafts and calls still aren’t coming, the issue is usually the parts AI can’t see — how your profile ranks against others for your role and city. Our <a href="/naukri-profile-optimization/">Naukri profile makeover</a> is written by a person, built for your real experience, and updated in your Naukri account for you — together with an <a href="/resume-optimization/">ATS-friendly resume</a>. Want applications handled too? See <a href="/naukri-job-application-service/">Done-For-You Job Search</a>.</p>
 `,
   faqs: [
     { q: "Is it okay to use ChatGPT for my Naukri profile?", a: "<p>Yes, as a first draft — as long as every line is true and you edit it into your own words. Never paste skills or results you don’t have.</p>" },
