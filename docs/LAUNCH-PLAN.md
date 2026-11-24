@@ -53,7 +53,7 @@ Re-run any time: `node tests/load.mjs --base http://127.0.0.1:8787 --visitors 30
 | 2.1 | ☑ **Google Search Console** (done 24 Nov — sitemap Success, 22 pages) — Domain property `getshortlisted.in`, verify via Cloudflare, submit `sitemap.xml`, request indexing for 5 main pages | Steps already shared; sitemap is live with 16 URLs |
 | 2.2 | ☑ **Bing Webmaster Tools** (done 24 Nov) — *Import from Google Search Console* | Bing also powers ChatGPT search and Copilot |
 | 2.3 | ☑ **IndexNow** — key file live; run `npm run indexnow` after each deploy (done 24 Nov) | Claude |
-| 2.4 | ◐ **Analytics** — GA4 G-KSH5F3G8KW live 24 Nov (lead events carry plan value in INR); Cloudflare Web Analytics live (24 Nov) —: code + privacy policy ready (24 Nov). Owner: enable Cloudflare Web Analytics (1 click) and create a GA4 property → send the `G-…` ID; Claude pastes it into `site/config.mjs → ga4Id` | Owner → Claude |
+| 2.4 | ☑ **Analytics** — GA4 G-KSH5F3G8KW live 24 Nov (lead events carry plan value in INR); Cloudflare Web Analytics live (24 Nov) —: code + privacy policy ready (24 Nov). Owner: enable Cloudflare Web Analytics (1 click) and create a GA4 property → send the `G-…` ID; Claude pastes it into `site/config.mjs → ga4Id` | Owner → Claude |
 | 2.5 | ☐ **Google Business Profile** (service-area business) | Owner |
 
 ---
@@ -124,19 +124,19 @@ Real suggestions Google shows — this is how our audience types:
 | **Formats** | best resume format for freshers / experienced, ats friendly resume template | ✅ ATS guide exists — add free template download |
 
 ### Fixes to existing pages (quick wins)
-1. ☐ Home H1 has no "Naukri": change to **"Get shortlisted on Naukri. Get recruiter calls — in about a week."**
-2. ☐ `/naukri-profile-optimization/` is only ~900 words for our #1 money keyword → expand to 1,500+ (process, before/after example, what changes, price, safety, FAQs incl. "service price", "is it safe to share Naukri login").
-3. ☐ `/resume-optimization/` (~770 words) → expand; add "resume writing service price in India".
-4. ☐ `/pricing/` H1 → "Naukri Profile Optimization Price & Plans".
+1. ☑ (24 Nov) Home H1 has no "Naukri": change to **"Get shortlisted on Naukri. Get recruiter calls — in about a week."**
+2. ◐ (24 Nov: expanded to ~1,200 words; more in SEO roadmap P1) `/naukri-profile-optimization/` is only ~900 words for our #1 money keyword → expand to 1,500+ (process, before/after example, what changes, price, safety, FAQs incl. "service price", "is it safe to share Naukri login").
+3. ☐ (→ SEO roadmap P1) `/resume-optimization/` (~770 words) → expand; add "resume writing service price in India".
+4. ☑ (24 Nov) `/pricing/` H1 → "Naukri Profile Optimization Price & Plans".
 5. ☐ Refresh `/blog/not-getting-calls-from-naukri/` with "for freshers" / "for experienced" / "not a single call" sections and a short Reddit-style real answer.
 6. ☐ Add HowTo schema to step-by-step guides; keep "Updated" dates current.
 
 ### New pages — priority order
 | P | Page | Main searches |
 |---|---|---|
-| 1 | How to get shortlisted on Naukri (2026) | how to get shortlisted in naukri com |
-| 1 | ChatGPT & Claude prompts for Naukri profile optimization | naukri profile optimization prompt |
-| 1 | Naukri paid services: FastForward vs Premium vs GetShortlisted — worth it? | naukri paid services cost, is fastforward worth it |
+| 1 | ☑ How to get shortlisted on Naukri (2026) — live 23 Nov | how to get shortlisted in naukri com |
+| 1 | ☑ ChatGPT & Claude prompts for Naukri profile optimization — live 23 Nov | naukri profile optimization prompt |
+| 1 | ☑ Naukri paid services: worth it? — live 23 Nov | naukri paid services cost, is fastforward worth it |
 | 2 | How to get interview calls from Naukri (freshers & experienced) | how to get calls from naukri for experienced/freshers |
 | 2 | ☑ Naukri profile summary examples (freshers, experienced, 10 roles) — live 24 Nov | naukri profile summary for … |
 | 2 | ☑ Naukri key skills: examples, limit, not matching, key vs IT skills — live 24 Nov | naukri key skills … |
@@ -163,13 +163,13 @@ Real suggestions Google shows — this is how our audience types:
 
 ## ⏸ PENDING — owner will do later (24 Nov 2026)
 - ⏸ **Uptime alert** — UptimeRobot (free): keyword monitor on https://getshortlisted.in/api/health for "ok":true + HTTP monitor on the home page, email + app alerts. (/api/health already checks the database.)
-- ⏸ **Cloudflare Workers Paid (/month)** — before the first influencer video.
+- ⏸ **Cloudflare Workers Paid (US$5/month)** — before the first influencer video.
 - ⏸ **WhatsApp Business** — separate business SIM + quick-reply templates.
 - ⏸ **Razorpay + customer emails (Phase 3)**.
 - ⏸ **Google Analytics key event** — after the first real lead: Admin → Events → mark generate_lead as key event.
 - ⏸ **Resume checker** — maybe later, no AI.
 
-**Current focus (owner, 24 Nov): SEO + GEO + AI search — page 1 on Google, Bing and AI answers.** See docs/SEO-GEO-STRATEGY.md.
+**Current focus (owner, 24 Nov): SEO + GEO + AI search — page 1 on Google, Bing and AI answers.** Working plan: **docs/SEO-GEO-ROADMAP.md** (P0 done 24 Nov: www→root and http→https redirects).
 
 ## Later / to-do (owner decisions, 23–24 Nov 2026)
 - ⏸ **Uptime alert (1.9)** — free UptimeRobot email/app alert; owner sets up when ready (no SMS, no cost).

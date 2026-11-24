@@ -50,7 +50,8 @@
 ## 5. The roadmap (priority order)
 
 ### P0 — Technical fixes (this week, ~1 hour total)
-- ☐ A1 www → root redirect · ☐ A2 Always Use HTTPS — **owner, 3 minutes in Cloudflare**
+- ☑ A1 www → root redirect (301, query kept) · ☑ A2 Always Use HTTPS — done & tested 24 Nov
+- ☐ Turn off the old workers.dev URL (Production + Preview toggles) — owner, removes the last duplicate copy
 - ☐ A4 home title
 - ☐ Submit new/changed URLs to IndexNow + "Request indexing" in Search Console after each batch
 
