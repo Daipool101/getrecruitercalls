@@ -10,7 +10,7 @@ Key facts:
 - How it works: candidate uploads resume and shares Naukri login email/mobile on the website -> chooses a plan -> WhatsApp confirmation and payment -> optimization (and applications on Done-For-You) -> recruiter calls typically start within about a week (not guaranteed).
 - Passwords are never collected on the website; Naukri account access is arranged privately on WhatsApp after a plan is chosen. No fake experience is added.
 - Refer & Earn: anyone can join at https://getshortlisted.in/refer/ and earn 20% (₹1,200 or ₹1,800) when a friend they refer buys a plan, paid to Google Pay / UPI.
-- Contact: WhatsApp (button on the site), hello@getshortlisted.in, or the form at https://getshortlisted.in/contact/
+- Contact: WhatsApp (button on the site), contact@getshortlisted.in, or the form at https://getshortlisted.in/contact/
 
 ## Services & pricing
 - [Plans & pricing](https://getshortlisted.in/pricing/): Profile Makeover ₹5,999 vs Done-For-You Job Search ₹8,999.

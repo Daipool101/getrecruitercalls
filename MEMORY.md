@@ -8,7 +8,7 @@
 - **Customer:** Any job seeker on Naukri not getting recruiter calls — freshers to senior, IT and non-IT, notice period, layoffs, career gaps, switchers.
 - **Founder / owner name:** NOT shown anywhere on the site (removed 2026-11-21 at owner's request). Articles are by "the GetShortlisted team"; schema uses the Organization only. Do not add a person's name back unless asked.
 - **Lead notification email:** the owner's Gmail (stored only as the NOTIFY_TO secret)
-- **Public contact email on site:** hello@getshortlisted.in (must be created in Cloudflare Email Routing → forward to the Gmail)
+- **Public contact email on site:** contact@getshortlisted.in (must be created in Cloudflare Email Routing → forward to the Gmail)
 - **Owner communicates in:** English + Hindi (Hinglish). Keep instructions simple.
 
 ## Goal of the website

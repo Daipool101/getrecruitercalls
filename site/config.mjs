@@ -7,7 +7,7 @@ export const SITE = {
   description:
     "Not getting calls from Naukri? GetShortlisted optimizes your Naukri profile and resume with the right keywords, headline and ATS-friendly format so recruiters find you and call you.",
   // Public contact address. Create it in Cloudflare Email Routing (forward to your Gmail).
-  email: "hello@getshortlisted.in",
+  email: "contact@getshortlisted.in",
   country: "India",
   // Shown on Contact, About and footer, and in the Organization schema (local SEO).
   city: "Mumbai",
