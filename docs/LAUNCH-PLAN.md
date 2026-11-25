@@ -165,7 +165,9 @@ Real suggestions Google shows — this is how our audience types:
 - ⏸ **Uptime alert** — UptimeRobot (free): keyword monitor on https://getshortlisted.in/api/health for "ok":true + HTTP monitor on the home page, email + app alerts. (/api/health already checks the database.)
 - ⏸ **Cloudflare Workers Paid (US$5/month)** — before the first influencer video.
 - ⏸ **WhatsApp Business** — separate business SIM + quick-reply templates.
-- ⏸ **Razorpay + customer emails (Phase 3)**.
+- ⏸ **Payments: switched to Zoho Payments (26 Nov)** instead of Razorpay. Owner steps: Udyam registration (in progress) → ask Zoho if a savings account is OK → sign up + video KYC → ask Zoho to enable sandbox. Customers pay on the site right after the form (no WhatsApp payment link). Then Claude builds hosted checkout + customer emails.
+- ⏸ **Refund & Cancellation Policy page** — owner deciding the rules; Claude writes the page (payment companies check for it).
+- ⏸ **Email routing for contact@getshortlisted.in** (site already shows contact@ since 26 Nov). Owner steps: (1) Cloudflare Email Routing: create contact@ → forward to the tech-support Gmail, delete old hello@ rule; (2) Gmail "Send mail as" contact@ via smtp.gmail.com:587 + Google app password; (3) DNS: SPF `v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all` + TXT `_dmarc` = `v=DMARC1; p=none;`.
 - ⏸ **Google Analytics key event** — after the first real lead: Admin → Events → mark generate_lead as key event.
 - ⏸ **Resume checker** — maybe later, no AI.
 
