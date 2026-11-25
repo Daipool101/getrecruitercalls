@@ -9,6 +9,11 @@ export const SITE = {
   // Public contact address. Create it in Cloudflare Email Routing (forward to your Gmail).
   email: "hello@getshortlisted.in",
   country: "India",
+  // Shown on Contact, About and footer, and in the Organization schema (local SEO).
+  city: "Mumbai",
+  region: "Maharashtra",
+  location: "Mumbai, Maharashtra, India",
+  founders: ["Akash Jaiswal", "Sahil"],
   locale: "en_IN",
   themeColor: "#1F48D1",
   ogImage: "/img/share-blue.jpg",

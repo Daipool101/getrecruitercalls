@@ -34,6 +34,9 @@ ${hero(aboutCrumbs, "About us", "We help good candidates get found by recruiters
       <p>We kept seeing the same pattern: skilled professionals and freshers with strong backgrounds, sitting with zero recruiter calls for weeks. The fix was almost never “more experience”. It was a better resume headline, the right key skills, a sharper summary, realistic preferences and a resume that hiring software could actually read.</p>
       <p>After a few focused changes, those same profiles started showing up in recruiter searches, and the calls followed, often within a week. GetShortlisted turns that into a simple, personal service any job seeker in India can use.</p>
 
+      <h2>Who we are</h2>
+      <p>GetShortlisted was started by <strong>${SITE.founders[0]}</strong> and <strong>${SITE.founders[1]}</strong> in ${SITE.city}. We built it after seeing too many capable people struggle to get calls on Naukri. When you message us, you talk to real people, not a bot.</p>
+
       <h2>What we do</h2>
       <ul class="checklist">
         <li><strong>Naukri profile makeover:</strong> headline, key skills, summary, employment details and preferences, rewritten for how recruiters search your role and city, and updated in your account.</li>
@@ -72,7 +75,9 @@ ${hero(aboutCrumbs, "About us", "We help good candidates get found by recruiters
         <li><strong>What:</strong> Naukri profile optimization, ATS resume writing & job applications on your behalf</li>
         <li><strong>Plans:</strong> ${PLANS.map((p) => `${esc(p.name)} ${inr(p.price)}`).join(" · ")}</li>
         <li><strong>Who:</strong> Freshers to senior professionals, IT and non-IT</li>
-        <li><strong>Where:</strong> Online, across India</li>
+        <li><strong>Founded by:</strong> ${SITE.founders.join(" & ")}</li>
+        <li><strong>Based in:</strong> ${SITE.location}</li>
+        <li><strong>Where we work:</strong> Online, across India</li>
         <li><strong>Contact:</strong> <a href="mailto:${SITE.email}">${SITE.email}</a> or WhatsApp</li>
       </ul>
       <a class="btn btn-gold btn-block" href="/contact/">Get Shortlisted</a>
@@ -119,6 +124,13 @@ ${hero(contactCrumbs, "Get started", "Get your Naukri profile & resume optimized
       <h2>Prefer WhatsApp or email?</h2>
       <p>${waButton({ from: "contact", label: "Chat with us on WhatsApp" })}</p>
       <p>Or write to <a href="mailto:${SITE.email}">${SITE.email}</a> with your resume attached.</p>
+      <h2>Where we are</h2>
+      <ul class="contact-details">
+        <li><strong>Location:</strong> ${SITE.location}</li>
+        <li><strong>Email:</strong> <a href="mailto:${SITE.email}">${SITE.email}</a></li>
+        <li><strong>WhatsApp:</strong> reply within 24 hours</li>
+        <li><strong>We serve:</strong> job seekers across India, fully online</li>
+      </ul>
       <h2>Your data is safe</h2>
       <p>We use your details only to provide our service. Your Naukri password is <b>never</b> typed on this website. We ask for it privately on WhatsApp after you choose a plan. We never sell your data. Read our <a href="/privacy-policy/">Privacy Policy</a>.</p>
     </div>

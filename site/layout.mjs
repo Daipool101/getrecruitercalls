@@ -26,6 +26,8 @@ export function orgSchema() {
     image: abs(SITE.ogImage),
     description: SITE.description,
     email: SITE.email,
+    address: { "@type": "PostalAddress", addressLocality: SITE.city, addressRegion: SITE.region, addressCountry: "IN" },
+    founder: SITE.founders.map((name) => ({ "@type": "Person", name })),
     areaServed: { "@type": "Country", name: "India" },
     knowsAbout: [
       "Naukri profile optimization", "Resume optimization", "ATS-friendly resume", "Naukri resume headline",
@@ -375,6 +377,7 @@ ${body}
         <li><a href="/terms/">Terms of Service</a></li>
       </ul>
       <p class="footer-mail"><a href="mailto:${SITE.email}">${SITE.email}</a></p>
+      <p class="footer-loc">${SITE.location}</p>
       ${social ? `<p class="footer-social">${social}</p>` : ""}
     </div>
   </div>

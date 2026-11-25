@@ -275,6 +275,7 @@ ul, ol { padding-left: 1.2em; }
 .site-footer a:not(.btn):hover { color: var(--gold); }
 .footer-brand p { margin: 14px 0 18px; max-width: 30em; }
 .footer-mail { margin-top: 14px; }
+.footer-loc { margin: 4px 0 0; opacity: .8; font-size: .92rem; }
 .footer-bottom { border-top: 1px solid rgba(242,230,214,.14); margin-top: 40px; padding-top: 20px; font-size: .82rem; display: grid; gap: 6px; }
 .footer-bottom p { margin: 0; }
 .disclaimer { opacity: .75; }
