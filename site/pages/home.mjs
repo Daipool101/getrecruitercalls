@@ -22,7 +22,7 @@ export const HOME_FAQS = [
   },
   {
     q: "Can’t I just use ChatGPT to write my Naukri profile?",
-    a: "<p>You can use it for a first draft. But AI only knows what you paste in, it can’t see what recruiters search for your role and city, and its writing often sounds generic or adds things you can’t back up in an interview. We write a true, specific profile around recruiter searches, update it in your Naukri account and give you a matching ATS resume. On Done-For-You, we also apply to jobs for you.</p>",
+    a: "<p>AI can give you words, not recruiter calls. It only knows what you paste in, it can’t see what recruiters search for your role and city, and its writing often sounds generic or adds things you can’t back up in an interview. We write a true, specific profile around recruiter searches, update it in your Naukri account and give you a matching ATS resume. On Done-For-You, we also apply to jobs for you.</p>",
   },
   {
     q: "Why do you need my Naukri login?",
@@ -178,7 +178,7 @@ ${[
   ["When you’re stuck", "Another prompt. Another generic answer.", "A real person on WhatsApp who knows your profile."],
 ].map(([t, ai, us]) => `      <div class="vs-row"><h3>${t}</h3><p class="vs-ai"><b>AI chatbot</b>${ai}</p><p class="vs-us"><b>GetShortlisted</b>${us}</p></div>`).join("\n")}
     </div>
-    <p class="vs-note">Want to try AI first? Go ahead, it’s free. Here are <a href="/blog/chatgpt-prompts-for-naukri-profile/">our best ChatGPT prompts for Naukri</a>. When you’d rather have recruiters calling than keep rewriting, we’re here.</p>
+    <p class="vs-note">AI gives you a draft. We give you a profile recruiters actually find, updated for you, with a real person on your side.</p>
   </div>
 </section>
 
