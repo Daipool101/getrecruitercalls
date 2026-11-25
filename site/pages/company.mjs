@@ -18,52 +18,52 @@ const hero = (crumbs, eyebrow, h1, lead) => `
 const aboutCrumbs = [{ name: "Home", path: "/" }, { name: "About", path: "/about/" }];
 const about = {
   path: "/about/",
-  title: "About GetShortlisted — Naukri Profile & Resume Experts",
-  description: `GetShortlisted is an independent Indian career service that rewrites Naukri profiles and resumes — and applies to jobs — so recruiters find you and call.`,
+  title: "About GetShortlisted | Naukri Profile & Resume Experts",
+  description: `GetShortlisted is an independent Indian career service that rewrites Naukri profiles and resumes, and applies to jobs, so recruiters find you and call.`,
   priority: 0.6,
   schema: [
     breadcrumbSchema(aboutCrumbs),
     { "@type": "AboutPage", name: "About GetShortlisted", url: `${SITE.url}/about/`, about: { "@id": `${SITE.url}/#organization` } },
   ],
   body: `
-${hero(aboutCrumbs, "About us", "We help good candidates get found by recruiters", "GetShortlisted exists for one simple reason: too many capable people in India apply to job after job on Naukri and never get a call — not because they aren’t good enough, but because recruiters can’t find them.")}
+${hero(aboutCrumbs, "About us", "We help good candidates get found by recruiters", "GetShortlisted exists for one simple reason: too many capable people in India apply to job after job on Naukri and never get a call. Not because they aren’t good enough, but because recruiters can’t find them.")}
 <section class="section">
   <div class="wrap split">
     <div class="prose">
       <h2 class="mt-0">Why we started</h2>
       <p>We kept seeing the same pattern: skilled professionals and freshers with strong backgrounds, sitting with zero recruiter calls for weeks. The fix was almost never “more experience”. It was a better resume headline, the right key skills, a sharper summary, realistic preferences and a resume that hiring software could actually read.</p>
-      <p>After a few focused changes, those same profiles started showing up in recruiter searches — and the calls followed, often within a week. GetShortlisted turns that into a simple, personal service any job seeker in India can use.</p>
+      <p>After a few focused changes, those same profiles started showing up in recruiter searches, and the calls followed, often within a week. GetShortlisted turns that into a simple, personal service any job seeker in India can use.</p>
 
       <h2>What we do</h2>
       <ul class="checklist">
-        <li><strong>Naukri profile makeover</strong> — headline, key skills, summary, employment details and preferences, rewritten for how recruiters search your role and city, and updated in your account.</li>
-        <li><strong>ATS-friendly resume</strong> — a clean resume (PDF + Word) that software can read and that tells the same story as your profile.</li>
-        <li><strong>Done-For-You job search</strong> — on top of the makeover, we apply to relevant jobs for you for one month, within the roles, cities and salary you agree.</li>
+        <li><strong>Naukri profile makeover:</strong> headline, key skills, summary, employment details and preferences, rewritten for how recruiters search your role and city, and updated in your account.</li>
+        <li><strong>ATS-friendly resume:</strong> a clean resume (PDF + Word) that software can read and that tells the same story as your profile.</li>
+        <li><strong>Done-For-You job search:</strong> on top of the makeover, we apply to relevant jobs for you for one month, within the roles, cities and salary you agree.</li>
       </ul>
 
       <h2>How we work</h2>
       <ul class="checklist">
         <li><strong>A person, not a template.</strong> Every profile is written for your real experience and target role.</li>
-        <li><strong>Built around recruiter search.</strong> We focus on what recruiters type and filter by on Naukri — not on fancy wording.</li>
+        <li><strong>Built around recruiter search.</strong> We focus on what recruiters type and filter by on Naukri, not on fancy wording.</li>
         <li><strong>One consistent story.</strong> Your headline, skills, summary and resume all point to the same next role.</li>
-        <li><strong>Simple language.</strong> We explain every change on WhatsApp — in English or Hindi.</li>
+        <li><strong>Simple language.</strong> We explain every change on WhatsApp, in English or Hindi.</li>
       </ul>
 
       <h2>Our promises</h2>
       <ul class="checklist">
-        <li><strong>Honesty first.</strong> We never add fake experience, skills or certificates — nothing you can’t defend in an interview.</li>
+        <li><strong>Honesty first.</strong> We never add fake experience, skills or certificates. Nothing you can’t defend in an interview.</li>
         <li><strong>No false guarantees.</strong> Hiring decisions belong to employers. We make sure your profile isn’t what’s holding you back.</li>
-        <li><strong>Your data stays private.</strong> We never sell your details. Passwords are never typed on this website — only shared privately on WhatsApp after you choose a plan.</li>
+        <li><strong>Your data stays private.</strong> We never sell your details. Passwords are never typed on this website. Only shared privately on WhatsApp after you choose a plan.</li>
         <li><strong>Quick replies.</strong> We respond on WhatsApp within 24 hours.</li>
       </ul>
 
       <h2>Who we help</h2>
       <ul class="chips">
-        <li>Freshers</li><li>1–15+ years’ experience</li><li>IT &amp; non-IT</li><li>Serving notice period</li><li>After a layoff</li><li>Career gap</li><li>Career switchers</li><li>Metros &amp; tier-2 cities</li>
+        <li>Freshers</li><li>1 to 15+ years’ experience</li><li>IT &amp; non-IT</li><li>Serving notice period</li><li>After a layoff</li><li>Career gap</li><li>Career switchers</li><li>Metros &amp; tier-2 cities</li>
       </ul>
 
       <h2>Why we focus on Naukri</h2>
-      <p>On Naukri, recruiters search the candidate database and call the profiles that match — so a strong profile brings calls even on days you don’t apply. That makes it the place where profile work turns into phone calls fastest. We still keep your headline and summary ready to reuse on LinkedIn.</p>
+      <p>On Naukri, recruiters search the candidate database and call the profiles that match. So a strong profile brings calls even on days you don’t apply. That makes it the place where profile work turns into phone calls fastest. We still keep your headline and summary ready to reuse on LinkedIn.</p>
       <p class="note-small">GetShortlisted is an independent service, not affiliated with Naukri.com or Info Edge (India) Ltd.</p>
     </div>
     <div class="card about-card">
@@ -88,7 +88,7 @@ ${ctaBand()}`,
 
 const contactCrumbs = [{ name: "Home", path: "/" }, { name: "Contact", path: "/contact/" }];
 const CONTACT_FAQS = [
-  { q: "How quickly will you reply?", a: "<p>Within 24 hours on WhatsApp — usually much sooner during working hours. Keep your phone handy after you submit the form.</p>" },
+  { q: "How quickly will you reply?", a: "<p>Within 24 hours on WhatsApp, usually much sooner during working hours. Keep your phone handy after you submit the form.</p>" },
   { q: "Do I pay now?", a: "<p>No. Filling the form doesn’t charge anything. We first confirm your plan, target role and cities on WhatsApp, then share the payment details. Work starts once payment is received.</p>" },
   { q: "What if I don’t have my resume handy?", a: "<p>You can send just your Naukri login email or mobile now, and share the resume later on WhatsApp.</p>" },
   { q: "Is my information safe?", a: "<p>Yes. We use your details only to provide the service, never sell them, and never ask for your password on this website. See our <a href=\"/privacy-policy/\">Privacy Policy</a>.</p>" },
@@ -96,7 +96,7 @@ const CONTACT_FAQS = [
 
 const contact = {
   path: "/contact/",
-  title: "Contact Us — Get Your Naukri Profile & Resume Optimized",
+  title: "Contact Us | Get Your Naukri Profile & Resume Optimized",
   description: "Upload your resume, pick a plan and get your Naukri profile optimized by GetShortlisted. We reply on WhatsApp within 24 hours.",
   priority: 0.8,
   schema: [
@@ -111,16 +111,16 @@ ${hero(contactCrumbs, "Get started", "Get your Naukri profile & resume optimized
     <div class="prose">
       <h2 class="mt-0">What happens next?</h2>
       <ol>
-        <li><strong>You share your details</strong> — resume, Naukri login email and the plan you want.</li>
+        <li><strong>You share your details:</strong> resume, Naukri login email and the plan you want.</li>
         <li><strong>We message you on WhatsApp</strong> within 24 hours to confirm your plan: ${PLANS.map((p) => `${esc(p.name)} (${inr(p.price)})`).join(" or ")}.</li>
-        <li><strong>We optimize</strong> your Naukri profile and resume — and on Done-For-You, apply to jobs for you.</li>
-        <li><strong>You start getting recruiter calls</strong> — and we help you stay visible.</li>
+        <li><strong>We optimize</strong> your Naukri profile and resume. On Done-For-You, we also apply to jobs for you.</li>
+        <li><strong>You start getting recruiter calls</strong>, and we help you stay visible.</li>
       </ol>
       <h2>Prefer WhatsApp or email?</h2>
       <p>${waButton({ from: "contact", label: "Chat with us on WhatsApp" })}</p>
       <p>Or write to <a href="mailto:${SITE.email}">${SITE.email}</a> with your resume attached.</p>
       <h2>Your data is safe</h2>
-      <p>We use your details only to provide our service. Your Naukri password is <b>never</b> typed on this website — we ask for it privately on WhatsApp after you choose a plan. We never sell your data. Read our <a href="/privacy-policy/">Privacy Policy</a>.</p>
+      <p>We use your details only to provide our service. Your Naukri password is <b>never</b> typed on this website. We ask for it privately on WhatsApp after you choose a plan. We never sell your data. Read our <a href="/privacy-policy/">Privacy Policy</a>.</p>
     </div>
     <div id="get-started">
       ${leadForm({ heading: "Get shortlisted on Naukri", sub: "Takes 60 seconds. We reply on WhatsApp within 24 hours." })}
@@ -140,11 +140,11 @@ ${hero(contactCrumbs, "Get started", "Get your Naukri profile & resume optimized
 const EXTRA_FAQS = [
   {
     q: "What details do I need to share?",
-    a: "<p>Your name, WhatsApp number, email, your resume (PDF or Word upload) and/or your Naukri login email or mobile, your experience and the role you are targeting. That’s it — no password on the website.</p>",
+    a: "<p>Your name, WhatsApp number, email, your resume (PDF or Word upload) and/or your Naukri login email or mobile, your experience and the role you are targeting. That’s it. No password on the website.</p>",
   },
   {
     q: "Why can’t I just send my Naukri profile link?",
-    a: "<p>Naukri doesn’t give job seekers a public, shareable profile link — recruiters see your profile inside their own Resdex tool. That’s why we work from your resume and, for the update itself, from inside your account.</p>",
+    a: "<p>Naukri doesn’t give job seekers a public, shareable profile link. Recruiters see your profile inside their own Resdex tool. That’s why we work from your resume and, for the update itself, from inside your account.</p>",
   },
   {
     q: "Is it safe to share my Naukri login?",
@@ -156,7 +156,7 @@ const EXTRA_FAQS = [
   },
   {
     q: "Can you help freshers with no experience?",
-    a: "<p>Yes. For freshers we build the profile around education, projects, internships, certifications and skills — the things recruiters hiring freshers actually search for.</p>",
+    a: "<p>Yes. For freshers we build the profile around education, projects, internships, certifications and skills: the things recruiters hiring freshers actually search for.</p>",
   },
   {
     q: "Can you help if I have a career gap?",
@@ -171,7 +171,7 @@ const ALL_FAQS = [...HOME_FAQS, ...EXTRA_FAQS];
 const faqCrumbs = [{ name: "Home", path: "/" }, { name: "FAQ", path: "/faq/" }];
 const faq = {
   path: "/faq/",
-  title: "FAQ — Naukri Profile Optimization & Resume Writing",
+  title: "FAQ | Naukri Profile Optimization & Resume Writing",
   description: "Answers to common questions about Naukri profile optimization, recruiter calls, ATS-friendly resumes, timelines and how GetShortlisted works.",
   priority: 0.7,
   schema: [breadcrumbSchema(faqCrumbs), faqSchema(ALL_FAQS)],
@@ -180,7 +180,7 @@ ${hero(faqCrumbs, "FAQ", "Frequently asked questions", "Everything you need to k
 <section class="section">
   <div class="wrap">${faqList(ALL_FAQS)}</div>
 </section>
-${ctaBand({ title: "Still have a question?", text: "Send us your details and ask anything — we’ll get back to you within 24 hours." })}`,
+${ctaBand({ title: "Still have a question?", text: "Send us your details and ask anything. We’ll get back to you within 24 hours." })}`,
 };
 
 /* ---------------- Privacy Policy ---------------- */
@@ -189,7 +189,7 @@ const privacyCrumbs = [{ name: "Home", path: "/" }, { name: "Privacy Policy", pa
 const privacy = {
   path: "/privacy-policy/",
   title: "Privacy Policy",
-  description: "How GetShortlisted collects, uses, stores and protects your personal information — form details, resumes, referral data — and your rights under Indian law.",
+  description: "How GetShortlisted collects, uses, stores and protects your personal information (form details, resumes, referral data) and your rights under Indian law.",
   priority: 0.3,
   changefreq: "yearly",
   schema: [breadcrumbSchema(privacyCrumbs)],
@@ -291,7 +291,7 @@ ${hero(termsCrumbs, "", "Terms of Service", "Last updated: 21 November 2026")}
 <p>We provide career services including Naukri profile optimization, resume writing and optimization, Naukri profile management and job applications on your behalf, and related guidance (“Services”). Current plans: ${PLANS.map((p) => `<strong>${esc(p.name)}</strong> (${inr(p.price)})`).join(" and ")}. The exact scope, deliverables and timeline for your order will be confirmed with you before work begins.</p>
 
 <h2>2. No guarantee of jobs or calls</h2>
-<p>We work to improve how your profile and resume are presented and found by recruiters. However, hiring decisions are made by employers and recruiters, and depend on factors outside our control — including the job market, your experience, skills, location, notice period, salary expectations and interview performance. <strong>We do not guarantee any specific number of recruiter calls, interviews, job offers or salary.</strong> Any timelines mentioned (such as “within a week”) describe typical experience, not a promise.</p>
+<p>We work to improve how your profile and resume are presented and found by recruiters. However, hiring decisions are made by employers and recruiters, and depend on factors outside our control, including the job market, your experience, skills, location, notice period, salary expectations and interview performance. <strong>We do not guarantee any specific number of recruiter calls, interviews, job offers or salary.</strong> Any timelines mentioned (such as “within a week”) describe typical experience, not a promise.</p>
 
 <h2>3. Independence from Naukri.com</h2>
 <p>${esc(SITE.name)} is an independent service. We are not affiliated with, endorsed by, or partnered with Naukri.com or Info Edge (India) Ltd. “Naukri” is a trademark of its respective owner and is used only to describe the platform our Services relate to. You remain the owner of your Naukri account and are responsible for following Naukri’s own terms of use.</p>
@@ -317,7 +317,7 @@ ${hero(termsCrumbs, "", "Terms of Service", "Last updated: 21 November 2026")}
 <ul>
   <li>Partners who sign up at <a href="/refer/">/refer/</a> get a referral code (their first name, with a number if needed).</li>
   <li>A partner earns ${REFERRAL_PERCENT}% of the plan fee actually paid by a new client who used their code, link or name. Payment is made to the partner’s Google Pay / UPI number after we receive the client’s payment.</li>
-  <li>Referrals of yourself (same mobile number), fake or duplicate sign-ups, and clients who don’t pay are not eligible. One partner per client — the code or name entered on the client’s form decides.</li>
+  <li>Referrals of yourself (same mobile number), fake or duplicate sign-ups, and clients who don’t pay are not eligible. One partner per client: the code or name entered on the client’s form decides.</li>
   <li>We may verify referrals with the client and may change or end the programme at any time; commissions already earned will still be paid.</li>
 </ul>
 
@@ -345,14 +345,14 @@ ${hero(termsCrumbs, "", "Terms of Service", "Last updated: 21 November 2026")}
 
 const thankYou = {
   path: "/thank-you/",
-  title: "Thank You — We Received Your Details",
+  title: "Thank You | We Received Your Details",
   description: "Thank you for contacting GetShortlisted. We will get back to you within 24 hours.",
   noindex: true,
   body: `
 <section class="page-hero"><div class="wrap">
   <span class="eyebrow">Request received</span>
   <h1>Thank you! We’ve got your details.</h1>
-  <p class="lead">We’ve received your details. We’ll message you on WhatsApp within 24 hours — keep your phone handy.</p>
+  <p class="lead">We’ve received your details. We’ll message you on WhatsApp within 24 hours, so keep your phone handy.</p>
   <p>${waButton({ from: "thank-you", label: "Chat on WhatsApp now" })}</p>
 </div></section>
 <section class="section"><div class="wrap">

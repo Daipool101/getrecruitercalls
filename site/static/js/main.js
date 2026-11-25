@@ -1,4 +1,4 @@
-// GetShortlisted — tiny progressive-enhancement script (no libraries): menu, scroll effects, plans, lead form.
+// GetShortlisted - tiny progressive-enhancement script (no libraries): menu, scroll effects, plans, lead form.
 (function () {
   "use strict";
 
@@ -24,7 +24,7 @@
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var smallScreen = window.matchMedia && window.matchMedia("(max-width: 760px)").matches;
 
-  // ---------------- Header shadow (class only — no size change, so nothing jumps while scrolling) ----------------
+  // ---------------- Header shadow (class only - no size change, so nothing jumps while scrolling) ----------------
   var header = document.querySelector(".site-header");
   var ticking = false;
   window.addEventListener("scroll", function () {
@@ -37,7 +37,7 @@
   }, { passive: true });
 
   // ---------------- Sticky mobile CTA ----------------
-  // Shown only when no hero, no lead form and no footer is on screen — so it never pops in and out
+  // Shown only when no hero, no lead form and no footer is on screen - so it never pops in and out
   // while the visitor moves between the hero and the form.
   var sticky = document.querySelector("[data-sticky-cta]");
   if (sticky && "IntersectionObserver" in window) {
@@ -222,11 +222,11 @@
     function check() {
       var v = input.value.trim();
       if (!v) return show(initial);
-      if (!CODE_RE.test(v)) return show("Thanks — we’ll match this name with our partners.", "warn");
+      if (!CODE_RE.test(v)) return show("Thanks, we’ll match this name with our partners.", "warn");
       lookup(v, function (j) {
         if (input.value.trim() !== v) return;
         if (j && j.ok) show("✓ Referred by " + j.first_name + " (code " + j.code + ")", "ok");
-        else show("We couldn’t find this code — we’ll match it by name.", "warn");
+        else show("We couldn’t find this code. We’ll match it by name.", "warn");
       });
     }
     if (stored && !input.value) { input.value = stored; check(); }

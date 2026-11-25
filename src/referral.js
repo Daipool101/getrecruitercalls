@@ -1,5 +1,5 @@
 /**
- * Referral programme — pure helpers (no Cloudflare imports, so they are unit-testable with plain Node).
+ * Referral programme - pure helpers (no Cloudflare imports, so they are unit-testable with plain Node).
  *
  * Rules
  *  - A partner's referral code is their first name in capitals (AKASH). If taken: AKASH2, AKASH3, …
@@ -22,7 +22,7 @@ export const SOURCE = {
 export const SOURCE_LABEL = {
   [SOURCE.ORGANIC]: "Organic",
   [SOURCE.REFERRAL]: "Referral",
-  [SOURCE.UNVERIFIED]: "Referral — not verified",
+  [SOURCE.UNVERIFIED]: "Referral (not verified)",
   [SOURCE.SELF]: "Self-referral (no commission)",
 };
 
@@ -33,7 +33,7 @@ export function localMobile(s) {
   return /^[6-9]\d{9}$/.test(local) ? local : "";
 }
 
-/** Letters-only first name in capitals, 2–12 chars. Falls back to "REF" (e.g. non-Latin names). */
+/** Letters-only first name in capitals, 2-12 chars. Falls back to "REF" (e.g. non-Latin names). */
 export function codeBase(name) {
   const first = String(name || "").trim().split(/\s+/)[0] || "";
   const letters = first.normalize("NFKD").replace(/[^A-Za-z]/g, "").toUpperCase().slice(0, 12);
@@ -83,19 +83,19 @@ export function classifyReferral({ input, byCode = null, byName = [], sameBaseCo
   if (byCode) {
     referrer = byCode;
     // "AKASH" typed while AKASH2 also exists → credit AKASH but ask the owner to double-check.
-    if (!/\d$/.test(normalizeCode(input)) && sameBaseCount > 1) note = `${sameBaseCount} partners share this first name — confirm with the client.`;
+    if (!/\d$/.test(normalizeCode(input)) && sameBaseCount > 1) note = `${sameBaseCount} partners share this first name. Confirm with the client.`;
   } else if (byName.length === 1) {
     referrer = byName[0];
     note = "Matched by full name.";
   } else if (byName.length > 1) {
-    return { source: SOURCE.UNVERIFIED, referrer: null, note: `${byName.length} partners have this name — ask the client for the code.`, commission: 0 };
+    return { source: SOURCE.UNVERIFIED, referrer: null, note: `${byName.length} partners have this name. Ask the client for the code.`, commission: 0 };
   } else {
-    return { source: SOURCE.UNVERIFIED, referrer: null, note: "No partner with this code or name — check with the client.", commission: 0 };
+    return { source: SOURCE.UNVERIFIED, referrer: null, note: "No partner with this code or name. Check with the client.", commission: 0 };
   }
 
   const leadLocal = localMobile(leadPhone);
   if (leadLocal && localMobile(referrer.phone) === leadLocal) {
-    return { source: SOURCE.SELF, referrer, note: "Partner referred themselves — no commission.", commission: 0 };
+    return { source: SOURCE.SELF, referrer, note: "Partner referred themselves, no commission.", commission: 0 };
   }
   return { source: SOURCE.REFERRAL, referrer, note, commission: commissionFor(plan) };
 }

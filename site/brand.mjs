@@ -1,4 +1,4 @@
-// GetShortlisted brand mark — a check-mark that turns into an upward arrow ("shortlisted" + "career going up"),
+// GetShortlisted brand mark - a check-mark that turns into an upward arrow ("shortlisted" + "career going up"),
 // on a golden-hour → terracotta tile with a sparkle. The same geometry is used for favicon.svg and the PNG icons
 // (see tools/make-icons.mjs). Animations live in styles.css (.logo-mark …) and respect prefers-reduced-motion.
 

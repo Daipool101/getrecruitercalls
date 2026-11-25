@@ -74,10 +74,10 @@ await writeFile(
   "utf8"
 );
 
-// robots.txt — open to search engines AND AI answer engines (GEO).
+// robots.txt - open to search engines AND AI answer engines (GEO).
 await writeFile(
   join(out, "robots.txt"),
-  `# ${SITE.name} — all crawlers welcome, including AI search / answer engines.
+  `# ${SITE.name} - all crawlers welcome, including AI search / answer engines.
 User-agent: *
 Allow: /
 Disallow: /api/

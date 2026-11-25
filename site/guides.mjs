@@ -1,4 +1,4 @@
-// One list of all guides — used for "Popular guides" (home), "Related guides" (each guide) and
+// One list of all guides - used for "Popular guides" (home), "Related guides" (each guide) and
 // "Helpful guides" (service pages). Add new guides here and they get linked everywhere automatically.
 export const GUIDES = {
   "/blog/how-to-get-shortlisted-on-naukri/": { title: "How to get shortlisted on Naukri", tag: "Naukri guide" },

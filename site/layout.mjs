@@ -19,7 +19,7 @@ export function orgSchema() {
     name: SITE.name,
     alternateName: ["Get Shortlisted", "getshortlisted.in"],
     slogan: "Get shortlisted. Get recruiter calls.",
-    priceRange: `${inr(PLANS[0].price)} – ${inr(PLANS[PLANS.length - 1].price)}`,
+    priceRange: `${inr(PLANS[0].price)} to ${inr(PLANS[PLANS.length - 1].price)}`,
     currenciesAccepted: "INR",
     url: SITE.url,
     logo: abs("/img/logo.png"),
@@ -175,7 +175,7 @@ export function leadForm({ heading = "Get shortlisted on Naukri", sub = "Takes 6
   <div class="field">
     <label for="${id("login")}">Naukri login email or mobile</label>
     <input id="${id("login")}" name="naukri_login" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="120" placeholder="The email / mobile you use on Naukri">
-    <p class="hint lock">Naukri profiles have no shareable link, so we update yours from inside your account. <b>Never type your password here</b> — we ask for it only on WhatsApp, after you choose a plan.</p>
+    <p class="hint lock">Naukri profiles have no shareable link, so we update yours from inside your account. <b>Never type your password here.</b> We ask for it only on WhatsApp, after you choose a plan.</p>
   </div>
   <div class="field-row">
     <div class="field">
@@ -240,7 +240,7 @@ export function pricingCards({ formPath = "", from = "pricing" } = {}) {
 <p class="plans-note">Fill the form and we’ll confirm your plan on WhatsApp within 24 hours, before you pay. Results depend on your experience, skills and the job market, so no honest service can guarantee a job.</p>`;
 }
 
-export function ctaBand({ title = "Ready to get shortlisted?", text = "Upload your resume and pick a plan. We fix your Naukri profile — or run your whole job search for you." } = {}) {
+export function ctaBand({ title = "Ready to get shortlisted?", text = "Upload your resume and pick a plan. We fix your Naukri profile, or run your whole job search for you." } = {}) {
   return `<section class="cta-band"><div class="wrap cta-inner">
   <div><h2>${esc(title)}</h2><p>${esc(text)}</p></div>
   <div class="cta-btns">
@@ -298,7 +298,7 @@ ${keywords ? `<meta name="keywords" content="${esc(keywords)}">` : ""}
 <meta property="og:image" content="${abs(SITE.ogImage)}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="GetShortlisted — Naukri profile and resume optimization">
+<meta property="og:image:alt" content="GetShortlisted: Naukri profile and resume optimization">
 ${published ? `<meta property="article:published_time" content="${published}">\n<meta property="article:modified_time" content="${modified || published}">` : ""}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(fullTitle)}">
@@ -341,7 +341,7 @@ ${body}
   <div class="wrap footer-grid">
     <div class="footer-brand">
       <a class="brand brand-light" href="/" aria-label="${esc(SITE.name)} home">${logoMark()}${WORDMARK}</a>
-      <p>Naukri profile optimization, ATS resume writing and done-for-you job applications for job seekers across India — so recruiters find you, and call you.</p>
+      <p>Naukri profile optimization, ATS resume writing and done-for-you job applications for job seekers across India. So recruiters find you, and call you.</p>
       <a class="btn btn-gold btn-sm" href="/contact/">Get my profile optimized</a>
     </div>
     <div>

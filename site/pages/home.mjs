@@ -10,7 +10,7 @@ const [MAKEOVER, DFY] = PLANS;
 export const HOME_FAQS = [
   {
     q: "Why am I not getting calls from Naukri?",
-    a: "<p>Usually it’s not your experience — recruiters simply can’t find you. Recruiters search Naukri’s database (Resdex) by keywords, job title, location, notice period and how recently the profile was updated. If your resume headline, key skills and summary don’t contain the words they type, your profile never shows up. We fix exactly that.</p>",
+    a: "<p>Usually it’s not your experience. Recruiters simply can’t find you. Recruiters search Naukri’s database (Resdex) by keywords, job title, location, notice period and how recently the profile was updated. If your resume headline, key skills and summary don’t contain the words they type, your profile never shows up. We fix exactly that.</p>",
   },
   {
     q: "How much does Naukri profile optimization cost?",
@@ -18,23 +18,27 @@ export const HOME_FAQS = [
   },
   {
     q: "Why do you only work on Naukri and not LinkedIn or other job sites?",
-    a: "<p>Because Naukri is where Indian recruiters come looking for you. They search Naukri’s candidate database by keywords and call the profiles that match — so a strong Naukri profile brings calls even on days you don’t apply. On most other sites you apply and wait, or build a network for months. We put our effort where the phone actually rings, and we still keep your headline and summary ready to reuse on LinkedIn.</p>",
+    a: "<p>Because Naukri is where Indian recruiters come looking for you. They search Naukri’s candidate database by keywords and call the profiles that match. So a strong Naukri profile brings calls even on days you don’t apply. On most other sites you apply and wait, or build a network for months. We put our effort where the phone actually rings, and we still keep your headline and summary ready to reuse on LinkedIn.</p>",
+  },
+  {
+    q: "Can’t I just use ChatGPT to write my Naukri profile?",
+    a: "<p>You can use it for a first draft. But AI only knows what you paste in, it can’t see what recruiters search for your role and city, and its writing often sounds generic or adds things you can’t back up in an interview. We write a true, specific profile around recruiter searches, update it in your Naukri account and give you a matching ATS resume. On Done-For-You, we also apply to jobs for you.</p>",
   },
   {
     q: "Why do you need my Naukri login?",
-    a: "<p>Naukri profiles don’t have a shareable public link. On the form we ask only for your Naukri login email or mobile. <b>We never ask for your password on this website</b> — we ask for it privately on WhatsApp after you choose a plan, and we recommend you change it once we’re done.</p>",
+    a: "<p>Naukri profiles don’t have a shareable public link. On the form we ask only for your Naukri login email or mobile. <b>We never ask for your password on this website.</b> We ask for it privately on WhatsApp after you choose a plan, and we recommend you change it once we’re done.</p>",
   },
   {
     q: "Can you apply to jobs on my behalf?",
-    a: `<p>Yes — that’s our <a href="${DFY.url}">${DFY.name}</a>. We optimize your profile and resume, keep your Naukri profile active and, for 1 month, apply to relevant jobs that match your role, experience and city. You just attend the recruiter calls and interviews.</p>`,
+    a: `<p>Yes, that’s our <a href="${DFY.url}">${DFY.name}</a>. We optimize your profile and resume, keep your Naukri profile active and, for 1 month, apply to relevant jobs that match your role, experience and city. You just attend the recruiter calls and interviews.</p>`,
   },
   {
     q: "How soon will I start getting calls?",
-    a: "<p>Many candidates see more profile views and recruiter calls within about a week. It depends on your role, experience, city and the job market, so no one can honestly guarantee a job — but we make sure your profile isn’t what’s holding you back.</p>",
+    a: "<p>Many candidates see more profile views and recruiter calls within about a week. It depends on your role, experience, city and the job market, so no one can honestly guarantee a job. But we make sure your profile isn’t what’s holding you back.</p>",
   },
   {
     q: "Is this for freshers too?",
-    a: "<p>Yes — freshers, experienced professionals, people serving notice period, after a layoff or a career gap, and career switchers, in IT and non-IT roles across India.</p>",
+    a: "<p>Yes. Freshers, experienced professionals, people serving notice period, after a layoff or a career gap, and career switchers, in IT and non-IT roles across India.</p>",
   },
   {
     q: "What is Naukri profile optimization?",
@@ -46,7 +50,7 @@ export const HOME_FAQS = [
   },
   {
     q: "Is GetShortlisted connected to Naukri.com?",
-    a: "<p>No. We are an independent career service, not affiliated with Naukri.com or Info Edge (India) Ltd. No fake experience, no tricks — just your real profile presented the way recruiters search.</p>",
+    a: "<p>No. We are an independent career service, not affiliated with Naukri.com or Info Edge (India) Ltd. No fake experience, no tricks. Just your real profile presented the way recruiters search.</p>",
   },
 ];
 const SHOWN = HOME_FAQS.slice(0, 6);
@@ -56,8 +60,8 @@ const body = `
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="eyebrow">Naukri profile & resume experts · All India</span>
-      <h1>Get shortlisted on Naukri. Get recruiter calls — <span class="hl">in about a week.</span></h1>
-      <p class="lead">Recruiters search Naukri by keywords. If your profile doesn’t match, they never see you. We rewrite your Naukri profile and resume around what recruiters search — or run your whole job search for you.</p>
+      <h1>Get shortlisted on Naukri. Get recruiter calls <span class="hl">in about a week.</span></h1>
+      <p class="lead">Recruiters search Naukri by keywords. If your profile doesn’t match, they never see you. We rewrite your Naukri profile and resume around what recruiters search, or run your whole job search for you.</p>
       <div class="hero-ctas">
         <a class="btn btn-gold btn-lg btn-shine btn-pulse" href="#get-started">Get Shortlisted</a>
         <a class="btn btn-outline btn-lg" href="#plans">See plans · from ${inr(MAKEOVER.price)}</a>
@@ -91,7 +95,7 @@ const body = `
 <section class="section section-forest" id="get-started">
   <div class="wrap split split-center">
     <div class="form-intro">
-      <span class="kicker kicker-gold">Start here — takes 60 seconds</span>
+      <span class="kicker kicker-gold">Start here · takes 60 seconds</span>
       <h2>Upload your resume. We’ll get recruiters calling.</h2>
       <p>A real person messages you on WhatsApp within 24 hours to confirm your plan and get started.</p>
       <ul class="ticks">
@@ -113,8 +117,8 @@ const body = `
     </div>
     <ol class="steps steps-3">
       <li><span class="step-icon">${ICON.doc}</span><h3>Share your profile</h3><p>Upload your resume, add your Naukri login email and pick a plan.</p></li>
-      <li><span class="step-icon">${ICON.key}</span><h3>We fix — or we run it</h3><p>New headline, keywords, summary and ATS resume. On ${DFY.name}, we apply to relevant jobs for you for 1 month.</p></li>
-      <li><span class="step-icon">${ICON.phone}</span><h3>Recruiters call you</h3><p>Your profile shows up in recruiter searches — you just pick up the phone.</p></li>
+      <li><span class="step-icon">${ICON.key}</span><h3>We fix it, or we run it</h3><p>New headline, keywords, summary and ATS resume. On ${DFY.name}, we apply to relevant jobs for you for 1 month.</p></li>
+      <li><span class="step-icon">${ICON.phone}</span><h3>Recruiters call you</h3><p>Your profile shows up in recruiter searches. You just pick up the phone.</p></li>
     </ol>
   </div>
 </section>
@@ -124,25 +128,25 @@ const body = `
     <div class="section-head center">
       <span class="kicker">Why only Naukri?</span>
       <h2>Other sites can wait. Your Naukri profile can’t.</h2>
-      <p>On Naukri, recruiters don’t wait for you to apply — they search the candidate database and call the profiles that match. That’s why we put 100% of our effort where Indian recruiters actually pick up the phone.</p>
+      <p>On Naukri, recruiters don’t wait for you to apply. They search the candidate database and call the profiles that match. That’s why we put 100% of our effort where Indian recruiters actually pick up the phone.</p>
     </div>
     <div class="why-grid">
-      <div class="why-card"><span class="why-num">1</span><h3>Recruiters call you</h3><p>Recruiters search Naukri by keywords, title, city and notice period — then call. A sharp profile works for you 24×7, even when you’re not applying.</p></div>
+      <div class="why-card"><span class="why-num">1</span><h3>Recruiters call you</h3><p>Recruiters search Naukri by keywords, title, city and notice period, then call. A sharp profile works for you 24×7, even when you’re not applying.</p></div>
       <div class="why-card"><span class="why-num">2</span><h3>Made for every Indian job seeker</h3><p>Freshers to 15+ years, IT and non-IT, metros and tier-2 cities. Most other platforms work best for a narrow slice of roles.</p></div>
-      <div class="why-card"><span class="why-num">3</span><h3>Small fixes, fast calls</h3><p>Naukri ranks you on keywords, headline and how fresh your profile is — all fixable in days. Networking-led sites take months of posting.</p></div>
+      <div class="why-card"><span class="why-num">3</span><h3>Small fixes, fast calls</h3><p>Naukri ranks you on keywords, headline and how fresh your profile is. All fixable in days. Networking-led sites take months of posting.</p></div>
     </div>
     <div class="compare-cards" aria-label="Where recruiter calls come from">
       <div class="cc cc-win">
         <h3><span>Naukri</span></h3>
         <p><b>How recruiters reach you</b><span>They search and call you directly</span></p>
         <p><b>Who it works for</b><span>All roles, freshers to senior, IT & non-IT</span></p>
-        <p><b>What decides visibility</b><span>Keywords & profile freshness — fixable in days</span></p>
+        <p><b>What decides visibility</b><span>Keywords & profile freshness, fixable in days</span></p>
       </div>
       <div class="cc">
         <h3><span>LinkedIn</span></h3>
         <p><b>How recruiters reach you</b><span>Mostly messages, after networking</span></p>
         <p><b>Who it works for</b><span>Strongest for corporate & senior roles</span></p>
-        <p><b>What decides visibility</b><span>Connections, activity & posting — slow</span></p>
+        <p><b>What decides visibility</b><span>Connections, activity & posting. Slow</span></p>
       </div>
       <div class="cc">
         <h3><span>Other job sites</span></h3>
@@ -151,7 +155,30 @@ const body = `
         <p><b>What decides visibility</b><span>How many applications you send</span></p>
       </div>
     </div>
-    <p class="why-note">We still make your headline and summary ready to reuse on LinkedIn — but our work goes where the calls come from.</p>
+    <p class="why-note">We still make your headline and summary ready to reuse on LinkedIn, but our work goes where the calls come from.</p>
+  </div>
+</section>
+
+<section class="section ai-vs" id="vs-ai">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="kicker">Why not just ask ChatGPT?</span>
+      <h2>AI can write your profile. It can’t get you shortlisted.</h2>
+      <p>ChatGPT, Claude and Gemini are great at writing words. But recruiters don’t hire nice words. They search for the right keywords, filter by details and call the profiles that look real. That’s the gap we close.</p>
+    </div>
+    <div class="vs">
+      <div class="vs-head"><span></span><span>AI chatbot</span><span>GetShortlisted</span></div>
+${[
+  ["What it knows about you", "Only what you paste in. Forget an achievement and it’s gone.", "We ask the right questions on WhatsApp and pull out the results you forgot to mention."],
+  ["Recruiter searches", "Can’t see what recruiters type for your role and city.", "Everything is written around what recruiters search for your exact role, experience and city."],
+  ["How it sounds", "“Results-driven, dynamic professional…” Recruiters spot AI text in seconds.", "Plain, specific and human. Your real numbers, your real projects."],
+  ["Is it true?", "Can add skills or numbers you don’t have. That falls apart in the interview.", "Every line is true and something you can confidently explain in an interview."],
+  ["Who does the work", "Gives you text. You still fix every Naukri section and the resume format yourself.", "We update your Naukri profile in your account and hand you a ready ATS resume (PDF + Word)."],
+  ["Applying to jobs", "Can’t apply for you.", `On ${DFY.name}, we apply to relevant jobs for you for 1 month.`],
+  ["When you’re stuck", "Another prompt. Another generic answer.", "A real person on WhatsApp who knows your profile."],
+].map(([t, ai, us]) => `      <div class="vs-row"><h3>${t}</h3><p class="vs-ai"><b>AI chatbot</b>${ai}</p><p class="vs-us"><b>GetShortlisted</b>${us}</p></div>`).join("\n")}
+    </div>
+    <p class="vs-note">Want to try AI first? Go ahead, it’s free. Here are <a href="/blog/chatgpt-prompts-for-naukri-profile/">our best ChatGPT prompts for Naukri</a>. When you’d rather have recruiters calling than keep rewriting, we’re here.</p>
   </div>
 </section>
 
@@ -160,7 +187,7 @@ const body = `
     <div class="section-head center">
       <span class="kicker">Plans & pricing</span>
       <h2>Two ways to get shortlisted</h2>
-      <p>Fix your profile once — or hand over your whole Naukri job search.</p>
+      <p>Fix your profile once, or hand over your whole Naukri job search.</p>
     </div>
     ${pricingCards({ from: "home-plans" })}
   </div>
@@ -170,7 +197,7 @@ const body = `
   <div class="wrap ref-band-inner">
     <div>
       <span class="ref-tag ref-tag-lg">Refer &amp; Earn ${REFERRAL_PERCENT}%</span>
-      <h2>Know someone not getting calls? Earn ${PLANS.map((p) => inr(Math.round((p.price * REFERRAL_PERCENT) / 100))).join(" – ")} per referral.</h2>
+      <h2>Know someone not getting calls? Earn ${PLANS.map((p) => inr(Math.round((p.price * REFERRAL_PERCENT) / 100))).join(" or ")} per referral.</h2>
       <p>Get your code in 30 seconds. When your friend buys a plan, you get ${REFERRAL_PERCENT}% on Google Pay.</p>
     </div>
     <a class="btn btn-gold btn-lg btn-shine" href="/refer/">Get my referral code</a>

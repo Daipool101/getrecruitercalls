@@ -6,9 +6,9 @@ const earn = (p) => Math.round((p.price * REFERRAL_PERCENT) / 100);
 const FAQS = [
   { q: "How much do I earn?", a: `<p>${REFERRAL_PERCENT}% of the plan your friend buys: ${PLANS.map((p) => `<b>${inr(earn(p))}</b> on ${esc(p.name)} (${inr(p.price)})`).join(" and ")}. No limit on how many people you refer.</p>` },
   { q: "When and how do I get paid?", a: "<p>After your friend pays for their plan, we send your share to the Google Pay / UPI number you give us. We’ll message you on WhatsApp when it’s sent.</p>" },
-  { q: "What is my referral code?", a: "<p>Your first name in capitals — for example <b>JOHN</b>. If that name is already taken, we add a number (JOHN2). Your friend types it in the “Referred by” box, or simply opens your share link and it’s filled in automatically.</p>" },
-  { q: "I forgot my code. What do I do?", a: "<p>Fill this form again with the same mobile number — we’ll show your existing code.</p>" },
-  { q: "Can I use my own code?", a: "<p>No — referrals only count for other people. If you want our service yourself, just sign up normally.</p>" },
+  { q: "What is my referral code?", a: "<p>Your first name in capitals, for example <b>JOHN</b>. If that name is already taken, we add a number (JOHN2). Your friend types it in the “Referred by” box, or simply opens your share link and it’s filled in automatically.</p>" },
+  { q: "I forgot my code. What do I do?", a: "<p>Fill this form again with the same mobile number and we’ll show your existing code.</p>" },
+  { q: "Can I use my own code?", a: "<p>No. Referrals only count for other people. If you want our service yourself, just sign up normally.</p>" },
   { q: "Who should I refer?", a: "<p>Anyone on Naukri who isn’t getting recruiter calls: friends, colleagues, juniors from college, people on notice period or after a layoff.</p>" },
 ];
 
@@ -16,8 +16,8 @@ const crumbs = [{ name: "Home", path: "/" }, { name: "Refer & Earn", path: "/ref
 
 export default {
   path: "/refer/",
-  title: `Refer & Earn ${REFERRAL_PERCENT}% — GetShortlisted Referral Programme`,
-  description: `Refer friends who aren’t getting calls on Naukri and earn ${REFERRAL_PERCENT}% — ${PLANS.map((p) => inr(earn(p))).join(" or ")} per referral, paid to your Google Pay / UPI.`,
+  title: `Refer & Earn ${REFERRAL_PERCENT}%: GetShortlisted Referral Programme`,
+  description: `Refer friends who aren’t getting calls on Naukri and earn ${REFERRAL_PERCENT}%: ${PLANS.map((p) => inr(earn(p))).join(" or ")} per referral, paid to your Google Pay / UPI.`,
   keywords: "refer and earn, referral programme india, earn money referring friends, naukri profile referral, getshortlisted referral",
   priority: 0.7,
   schema: [
@@ -31,7 +31,7 @@ export default {
     ${breadcrumbs(crumbs)}
     <span class="eyebrow">Refer & Earn</span>
     <h1>Refer a friend. Earn ${REFERRAL_PERCENT}%.</h1>
-    <p class="lead">Know someone who isn’t getting calls on Naukri? Send them to us. When they buy a plan, you get ${REFERRAL_PERCENT}% on Google Pay — ${PLANS.map((p) => `<b>${inr(earn(p))}</b>`).join(" or ")} per referral.</p>
+    <p class="lead">Know someone who isn’t getting calls on Naukri? Send them to us. When they buy a plan, you get ${REFERRAL_PERCENT}% on Google Pay. That’s ${PLANS.map((p) => `<b>${inr(earn(p))}</b>`).join(" or ")} per referral.</p>
   </div>
 </section>
 
@@ -41,7 +41,7 @@ export default {
       <span class="kicker">How it works</span>
       <h2 class="mt-0">3 steps. No limit.</h2>
       <ol class="ref-steps">
-        <li><b>Get your code</b><span>Fill the form — your code is your first name, like <code>JOHN</code>.</span></li>
+        <li><b>Get your code</b><span>Fill the form. Your code is your first name, like <code>JOHN</code>.</span></li>
         <li><b>Share it</b><span>Send your link on WhatsApp. Friends who open it are tagged to you automatically.</span></li>
         <li><b>Get paid</b><span>When your friend pays for a plan, you get ${REFERRAL_PERCENT}% on Google Pay / UPI.</span></li>
       </ol>
@@ -103,7 +103,7 @@ export default {
         <div class="ref-code" data-ref-code>CODE</div>
         <div class="ref-link"><input type="text" readonly data-ref-link aria-label="Your share link"><button class="btn btn-dark btn-sm" type="button" data-ref-copy>Copy</button></div>
         <a class="btn btn-wa btn-block" href="#" target="_blank" rel="noopener" data-ref-share>Share on WhatsApp</a>
-        <p class="form-sub" data-ref-existing hidden>This mobile number already has a code — here it is.</p>
+        <p class="form-sub" data-ref-existing hidden>This mobile number already has a code. Here it is.</p>
         <div class="ref-dash" data-ref-dash hidden>
           <h3>Your referrals</h3>
           <div class="ref-stats">
@@ -119,7 +119,7 @@ export default {
               <tbody data-ref-rows></tbody>
             </table>
           </div>
-          <p class="form-sub" data-ref-empty>No referrals yet — share your link to get started.</p>
+          <p class="form-sub" data-ref-empty>No referrals yet. Share your link to get started.</p>
           <p class="hint">You earn when your friend pays for a plan. Updated as we confirm payments.</p>
         </div>
       </div>

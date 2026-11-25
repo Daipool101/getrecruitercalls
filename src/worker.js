@@ -1,5 +1,5 @@
 /**
- * GetShortlisted.in — Cloudflare Worker
+ * GetShortlisted.in - Cloudflare Worker
  *
  * Static pages are served by Workers Static Assets (./public).
  * This Worker only handles /api/* (see run_worker_first in wrangler.jsonc):
@@ -11,7 +11,7 @@
  *   GET  /api/health    -> simple health check
  *
  * Secrets / variables (Cloudflare dashboard → Worker → Settings → Variables and Secrets):
- *   NOTIFY_TO          (secret)  inbox that receives leads — must be a verified Email Routing destination
+ *   NOTIFY_TO          (secret)  inbox that receives leads - must be a verified Email Routing destination
  *   WHATSAPP_NUMBER    (secret)  e.g. 91XXXXXXXXXX (country code + number, digits only)
  *   TURNSTILE_SECRET   (secret, optional) enables the bot check (site key goes in site/config.mjs)
  *   NOTIFY_FROM, SITE_URL (plain vars in wrangler.jsonc)
@@ -81,7 +81,7 @@ function handleWhatsApp(url, env) {
   const plan = url.searchParams.get("plan") || "";
   const opener = "Hi team! My Naukri profile has been around forever, but recruiter calls are still a rare sight. 😭";
   const text = plan === "done-for-you"
-    ? `${opener} I want the Done-For-You Job Search (₹8,999) — please take over my Naukri job search and help me turn things around!`
+    ? `${opener} I want the Done-For-You Job Search (₹8,999). Please take over my Naukri job search and help me turn things around!`
     : `${opener} I desperately need a profile makeover. Help me turn things around!`;
   return new Response(null, {
     status: 302,
@@ -358,7 +358,7 @@ async function handleReferrer(request, env, ctx) {
 //   earned    = friend paid us → we owe the partner
 //   paid      = we sent the partner their money
 //   cancelled = friend didn't buy
-const FRIEND_STATUS = { pending: "Form filled", earned: "Paid — you’ve earned", paid: "Paid to you", cancelled: "Didn’t join" };
+const FRIEND_STATUS = { pending: "Form filled", earned: "Paid, you’ve earned", paid: "Paid to you", cancelled: "Didn’t join" };
 
 async function partnerStats(env, referrerId) {
   const [tot, recent] = await env.DB.batch([
@@ -428,7 +428,7 @@ async function notifyNewPartner(env, p) {
       title: `${p.name} joined Refer & Earn`,
       rows,
       buttons: [[`https://wa.me/91${p.phone}`, "#1DA851", `WhatsApp ${p.name.split(" ")[0]}`]],
-      footer: `Code <b>${esc(p.code)}</b>. They earn ${Math.round(REFERRAL_RATE * 100)}% of every plan bought by people they refer — pay to the Google Pay / UPI number above after the client pays.`,
+      footer: `Code <b>${esc(p.code)}</b>. They earn ${Math.round(REFERRAL_RATE * 100)}% of every plan bought by people they refer. Pay to the Google Pay / UPI number above after the client pays.`,
     });
     const raw = buildMime({
       from: `GetShortlisted Referrals <${env.NOTIFY_FROM}>`, fromAddr: env.NOTIFY_FROM, to: env.NOTIFY_TO, replyTo: p.email,
@@ -602,7 +602,7 @@ async function notifyOwner(env, lead, leadId, resume) {
         fromAddr: env.NOTIFY_FROM,
         to: env.NOTIFY_TO,
         replyTo: lead.email,
-        subject: `[${lead.lead_source === SOURCE.REFERRAL ? `Referral: ${lead.referral_code}` : SOURCE_LABEL[lead.lead_source] || "Organic"}] New lead: ${lead.name} — ${planLabel}`,
+        subject: `[${lead.lead_source === SOURCE.REFERRAL ? `Referral: ${lead.referral_code}` : SOURCE_LABEL[lead.lead_source] || "Organic"}] New lead: ${lead.name} | ${planLabel}`,
         text: leadText(lead, leadId),
         html: leadHtml(lead, leadId),
         attachment: resume,
@@ -610,7 +610,7 @@ async function notifyOwner(env, lead, leadId, resume) {
       await env.SEND_EMAIL.send(new EmailMessage(env.NOTIFY_FROM, env.NOTIFY_TO, raw));
       status = "sent";
     } else {
-      console.warn("SEND_EMAIL binding or NOTIFY_* missing — email skipped");
+      console.warn("SEND_EMAIL binding or NOTIFY_* missing - email skipped");
     }
   } catch (err) {
     status = "failed";
@@ -642,7 +642,7 @@ const withLabels = (lead) => {
     source_label: SOURCE_LABEL[lead.lead_source] || "Organic",
     referrer_label: r ? `${r.name} · code ${r.code} · ${r.phone}` : "",
     referrer_upi: r && lead.lead_source === SOURCE.REFERRAL ? r.upi_phone : "",
-    commission_label: lead.commission_inr ? `${inr(lead.commission_inr)} — pay after this client pays` : "",
+    commission_label: lead.commission_inr ? `${inr(lead.commission_inr)}, pay after this client pays` : "",
     referral_typed: lead.lead_source === SOURCE.UNVERIFIED ? lead.referral_input : "",
   };
 };
@@ -719,7 +719,7 @@ ${body}${btns}
 </table></td></tr></table></body></html>`;
 }
 
-// Base64 with 76-char lines (RFC 2045). Encodes 57-byte multiples per chunk so lines never straddle chunks —
+// Base64 with 76-char lines (RFC 2045). Encodes 57-byte multiples per chunk so lines never straddle chunks -
 // ~6x faster than one big btoa + regex (a 300 KB resume: ~3 ms instead of ~17 ms CPU), identical output.
 function b64bytes(bytes) {
   const CHUNK = 57 * 512;
