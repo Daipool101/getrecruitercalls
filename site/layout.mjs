@@ -375,6 +375,7 @@ ${body}
         <li><a href="/blog/">All guides</a></li>
         <li><a href="/privacy-policy/">Privacy Policy</a></li>
         <li><a href="/terms/">Terms of Service</a></li>
+        <li><a href="/refund-policy/">Refund &amp; Cancellation</a></li>
       </ul>
       <p class="footer-mail"><a href="mailto:${SITE.email}">${SITE.email}</a></p>
       <p class="footer-loc">${SITE.location}</p>

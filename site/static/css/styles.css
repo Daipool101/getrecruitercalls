@@ -1007,3 +1007,5 @@ a, button, summary { -webkit-tap-highlight-color: transparent; touch-action: man
   .vs-row p b { display: none; }
   .vs-ai { background: #fff; }
 }
+
+.price-note { text-align: center; max-width: 40em; margin: 22px auto 0; }

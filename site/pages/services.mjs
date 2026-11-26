@@ -304,7 +304,7 @@ const pricing = {
   </div>
 </section>
 <section class="section section-sand">
-  <div class="wrap"><div class="section-head center"><span class="kicker">Two plans</span><h2>Choose how much you want us to do</h2></div>${pricingCards({ formPath: "/contact/", from: "pricing-page" })}</div>
+  <div class="wrap"><div class="section-head center"><span class="kicker">Two plans</span><h2>Choose how much you want us to do</h2></div>${pricingCards({ formPath: "/contact/", from: "pricing-page" })}<p class="note-small price-note">Prices include everything listed. All plans are non-refundable once paid. See our <a href="/refund-policy/">Refund &amp; Cancellation Policy</a>.</p></div>
 </section>
 <section class="section">
   <div class="wrap">

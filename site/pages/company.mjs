@@ -323,7 +323,7 @@ ${hero(termsCrumbs, "", "Terms of Service", "Last updated: 21 November 2026")}
 <p>We do not create fake experience, fake certificates or misleading claims. We may decline or stop work on any request that requires misrepresentation.</p>
 
 <h2>6. Fees and payments</h2>
-<p>Fees are as listed on our <a href="/pricing/">pricing page</a> and confirmed before work starts. Unless otherwise agreed in writing, work begins after payment is received. Any refund or revision terms will be shared with you at the time of order and form part of these Terms.</p>
+<p>Fees are as listed on our <a href="/pricing/">pricing page</a> and confirmed before work starts. Unless otherwise agreed in writing, work begins after payment is received. <strong>All payments are final and non-refundable</strong>, except in the cases listed in our <a href="/refund-policy/">Refund &amp; Cancellation Policy</a>, which forms part of these Terms.</p>
 
 <h2 id="referral">6A. Refer &amp; Earn programme</h2>
 <ul>
@@ -393,4 +393,65 @@ const notFound = {
 </div></section>`,
 };
 
-export default [about, contact, faq, privacy, terms, thankYou, notFound];
+/* ---------------- Refund & Cancellation Policy ---------------- */
+
+const refundCrumbs = [{ name: "Home", path: "/" }, { name: "Refund & Cancellation Policy", path: "/refund-policy/" }];
+const refund = {
+  path: "/refund-policy/",
+  title: "Refund & Cancellation Policy",
+  description: "GetShortlisted plans are non-refundable once paid. Read when a payment can be refunded (duplicate or failed payments), cancellations and how to reach us.",
+  priority: 0.3,
+  changefreq: "yearly",
+  schema: [breadcrumbSchema(refundCrumbs)],
+  body: `
+${hero(refundCrumbs, "", "Refund & Cancellation Policy", "Last updated: 27 November 2026")}
+<section class="section"><div class="wrap prose">
+<div class="tldr"><strong>In short</strong>
+<p><strong>All payments are final.</strong> Once you pay for a plan, it can’t be cancelled and the amount is not refunded. The only exceptions are technical ones, like a double payment, explained below. Please read your plan details and ask us anything <em>before</em> you pay.</p>
+</div>
+
+<p>This policy applies to all plans bought on <a href="${SITE.url}">${SITE.domain}</a>: ${PLANS.map((p) => `<strong>${esc(p.name)}</strong> (${inr(p.price)})`).join(" and ")}. It forms part of our <a href="/terms/">Terms of Service</a>.</p>
+
+<h2>1. No refunds after payment</h2>
+<p>We do not offer full or partial refunds once a payment is made. This includes, for example:</p>
+<ul>
+  <li>Changing your mind after paying</li>
+  <li>Not getting the number of recruiter calls, interviews or offers you hoped for</li>
+  <li>Finding a job before or during the service</li>
+  <li>Not sharing the details or account access we need to do the work</li>
+  <li>Unused days of the 1-month ${esc(PLANS[1].name)}</li>
+</ul>
+
+<h2>2. Why we work this way</h2>
+<p>Ours is a personal service, not a product that can be returned. As soon as you pay, real people start working on your profile: studying your target role, researching what recruiters search for and rewriting your profile and resume. That time and work can’t be taken back. Hiring decisions also belong to employers, so, as our <a href="/terms/">Terms</a> explain, we never promise a job or a fixed number of calls.</p>
+
+<h2>3. Cancellations</h2>
+<ul>
+  <li>An order can’t be cancelled for a refund once it is paid.</li>
+  <li>On the ${esc(PLANS[1].name)}, you can ask us at any time to <strong>stop applying to jobs</strong> (for example, if you’ve got an offer). We’ll stop straight away, but the remaining days are not refunded.</li>
+</ul>
+
+<h2>4. When we do refund</h2>
+<p>We will refund your money in full in these cases only:</p>
+<ul>
+  <li><strong>Double payment:</strong> you were charged twice for the same order.</li>
+  <li><strong>Failed payment:</strong> money left your account but the payment did not reach us. This is usually reversed automatically by your bank or the payment provider.</li>
+  <li><strong>We can’t take up your order:</strong> if we decide not to start your order (for example, because it needs false information, see section 5 of our <a href="/terms/">Terms</a>) before any work begins.</li>
+</ul>
+<p>Approved refunds go back to the <strong>original payment method</strong> (UPI, card or bank account) within <strong>5 to 7 working days</strong>. Your bank may take a little longer to show it.</p>
+
+<h2>5. If something isn’t right</h2>
+<p>If anything we delivered has a factual mistake, or something included in your plan is missing, tell us within <strong>7 days</strong> of delivery and we’ll correct it at no extra cost. We want you to be happy with your profile.</p>
+
+<h2>6. Payment problems and disputes</h2>
+<p>If you see a wrong or double charge, please contact us first with your payment details. We’ll check and fix it quickly. Raising a dispute with your bank first can take much longer to resolve.</p>
+
+<h2>7. Contact us</h2>
+<p>Email: <a href="mailto:${SITE.email}">${SITE.email}</a><br>
+WhatsApp: ${waButton({ from: "refund-policy", label: "Message us on WhatsApp", cls: "wa-link" })}<br>
+Location: ${SITE.location}</p>
+<p>We reply within 24 hours.</p>
+</div></section>`,
+};
+
+export default [about, contact, faq, privacy, terms, refund, thankYou, notFound];
