@@ -168,6 +168,7 @@ Real suggestions Google shows — this is how our audience types:
 - ⏸ **Payments: switched to Zoho Payments (26 Nov)** instead of Razorpay. Owner steps: Udyam registration (in progress) → ask Zoho if a savings account is OK → sign up + video KYC → ask Zoho to enable sandbox. Customers pay on the site right after the form (no WhatsApp payment link). Then Claude builds hosted checkout + customer emails.
 - ☑ **Refund & Cancellation Policy** live at /refund-policy/ (27 Nov): no refunds after payment; refunds only for double/failed payments or if we decline before starting. Linked from footer, Terms §6, pricing page.
 - ☑ **Email (28 Nov):** contact@ and support@getshortlisted.in forward to the owner's Gmail (Cloudflare Email Routing; old hello@ not used). Gmail "Send mail as" both via smtp.gmail.com:587 + app password, replies from the same address. DNS: SPF includes _spf.google.com, DMARC p=none. Site shows contact@; support@ reserved for payment emails.
+- ⏸ **Google Business Profile (created 28 Nov, verification pending up to 5 days):** "GetShortlisted", Career guidance service, service area India (home address hidden), new business phone (active in 1-2 days), WhatsApp link /api/whatsapp?from=google-business. After verification: Claude adds the profile URL to schema sameAs + gives a "Review us on Google" link.
 - ⏸ **Google Analytics key event** — after the first real lead: Admin → Events → mark generate_lead as key event.
 - ⏸ **Resume checker** — maybe later, no AI.
 
