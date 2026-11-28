@@ -167,7 +167,7 @@ Real suggestions Google shows — this is how our audience types:
 - ⏸ **WhatsApp Business** — separate business SIM + quick-reply templates.
 - ⏸ **Payments: switched to Zoho Payments (26 Nov)** instead of Razorpay. Owner steps: Udyam registration (in progress) → ask Zoho if a savings account is OK → sign up + video KYC → ask Zoho to enable sandbox. Customers pay on the site right after the form (no WhatsApp payment link). Then Claude builds hosted checkout + customer emails.
 - ☑ **Refund & Cancellation Policy** live at /refund-policy/ (27 Nov): no refunds after payment; refunds only for double/failed payments or if we decline before starting. Linked from footer, Terms §6, pricing page.
-- ⏸ **Email routing for contact@getshortlisted.in** (site already shows contact@ since 26 Nov). Owner steps: (1) Cloudflare Email Routing: create contact@ → forward to the tech-support Gmail, delete old hello@ rule; (2) Gmail "Send mail as" contact@ via smtp.gmail.com:587 + Google app password; (3) DNS: SPF `v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all` + TXT `_dmarc` = `v=DMARC1; p=none;`.
+- ☑ **Email (28 Nov):** contact@ and support@getshortlisted.in forward to the owner's Gmail (Cloudflare Email Routing; old hello@ not used). Gmail "Send mail as" both via smtp.gmail.com:587 + app password, replies from the same address. DNS: SPF includes _spf.google.com, DMARC p=none. Site shows contact@; support@ reserved for payment emails.
 - ⏸ **Google Analytics key event** — after the first real lead: Admin → Events → mark generate_lead as key event.
 - ⏸ **Resume checker** — maybe later, no AI.
 
